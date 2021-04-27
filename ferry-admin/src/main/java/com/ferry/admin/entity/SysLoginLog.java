@@ -62,6 +62,12 @@ public class SysLoginLog {
     @TableField(value = "last_update_time")
     private Date lastUpdateTime;
 
+    public static final String STATUS_LOGIN = "login";
+
+    public static final String STATUS_LOGOUT = "logout";
+
+    public static final String STATUS_ONLINE = "online";
+
     public static final String COL_ID = "id";
 
     public static final String COL_USER_NAME = "user_name";

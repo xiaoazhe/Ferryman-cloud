@@ -2,7 +2,9 @@ package com.ferry.admin.controller;
 
 import com.ferry.admin.entity.SysUser;
 import com.ferry.admin.security.JwtAuthenticatioToken;
+import com.ferry.admin.service.SysLoginLogService;
 import com.ferry.admin.service.SysUserService;
+import com.ferry.admin.util.IPUtils;
 import com.ferry.admin.util.PasswordUtils;
 import com.ferry.admin.util.SecurityUtils;
 import com.ferry.admin.vo.LoginBean;
@@ -43,6 +45,9 @@ public class LoginController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private SysLoginLogService sysLoginLogService;
+
     @ApiOperation(value = "登录获取token")
     @PostMapping(value = "/login")
     public Result login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
@@ -72,6 +77,7 @@ public class LoginController {
         }
         // 系统登录认证
         JwtAuthenticatioToken token = SecurityUtils.login(request, username, password, authenticationManager);
+        sysLoginLogService.writeLoginLog(username, IPUtils.getIpAddr(request));
         return Result.ok(token);
     }
 
