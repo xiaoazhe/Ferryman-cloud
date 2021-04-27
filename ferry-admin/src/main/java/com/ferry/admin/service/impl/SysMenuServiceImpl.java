@@ -1,5 +1,6 @@
 package com.ferry.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.mapper.SysMenuMapper;
 import com.ferry.admin.constant.SysConstants;
@@ -47,11 +48,6 @@ public class SysMenuServiceImpl extends ServiceImpl <SysMenuMapper, SysMenu> imp
 	}
 
 	@Override
-	public SysMenu findById(Long id) {
-		return sysMenuMapper.selectById(id);
-	}
-
-	@Override
 	public PageResult findPage(PageRequest pageRequest) {
 		return MybatisPageHelper.findPage(pageRequest, sysMenuMapper);
 	}
@@ -76,7 +72,9 @@ public class SysMenuServiceImpl extends ServiceImpl <SysMenuMapper, SysMenu> imp
 	@Override
 	public List<SysMenu> findByUser(String userName) {
 		if(userName == null || "".equals(userName) || SysConstants.ADMIN.equalsIgnoreCase(userName)) {
-			return sysMenuMapper.selectList(null);
+			QueryWrapper queryWrapper = new QueryWrapper();
+			queryWrapper.ne("id", 0);
+			return sysMenuMapper.selectList(queryWrapper);
 		}
 		return sysMenuMapper.findByUserName(userName);
 	}

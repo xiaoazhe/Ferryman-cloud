@@ -1,6 +1,10 @@
 package com.ferry.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.exception.ServeException;
 import com.ferry.admin.mapper.SysRoleMapper;
@@ -97,18 +101,14 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
-		PageResult pageResult = null;
-		Object name = pageRequest.getParam("name");
-		Object email = pageRequest.getParam("email");
-		if(name != null) {
-			if(email != null) {
-				pageResult = MybatisPageHelper.findPage(pageRequest, sysUserMapper, "findPageByNameAndEmail", name, email);
-			} else {
-				pageResult = MybatisPageHelper.findPage(pageRequest, sysUserMapper, "findPageByName", name);
-			}
-		} else {
-			pageResult = MybatisPageHelper.findPage(pageRequest, sysUserMapper);
-		}
+		Page<SysUser> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+		String name = pageRequest.getParamValue("name");
+		String email = pageRequest.getParamValue("email");
+		QueryWrapper queryWrapper = new QueryWrapper();
+		queryWrapper.like(!Objects.isNull(name),"name",name);
+		queryWrapper.like(!Objects.isNull(email),"email",email);
+		Page<SysUser> userIPage = sysUserMapper.selectPage(page, queryWrapper);
+		PageResult pageResult = new PageResult(userIPage);
 		// 加载用户角色信息
 		findUserRoles(pageResult);
 		return pageResult;
@@ -159,7 +159,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	@Override
 	public List<SysUserRole> findUserRoles(Long userId) {
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq("userId", userId);
+		queryWrapper.eq("user_id", userId);
 		return sysUserRoleMapper.selectList(queryWrapper);
 	}
 	

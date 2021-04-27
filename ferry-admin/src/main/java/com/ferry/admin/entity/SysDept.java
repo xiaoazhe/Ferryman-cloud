@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -67,6 +69,16 @@ public class SysDept {
      */
     @TableField(value = "del_flag")
     private Byte delFlag;
+
+    // 非数据库字段
+    @TableField(exist = false)
+    private List <SysDept> children;
+    // 非数据库字段
+    @TableField(exist = false)
+    private String parentName;
+    // 非数据库字段
+    @TableField(exist = false)
+    private Integer level;
 
     public static final String COL_ID = "id";
 

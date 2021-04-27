@@ -18,8 +18,6 @@ public interface SysMenuService extends IService <SysMenu> {
 
 	int delete(List<SysMenu> records);
 
-	SysMenu findById(Long id);
-
 	PageResult findPage(PageRequest pageRequest);
 
 

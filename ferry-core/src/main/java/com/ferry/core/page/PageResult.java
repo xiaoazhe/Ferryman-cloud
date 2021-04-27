@@ -1,7 +1,7 @@
 package com.ferry.core.page;
 
 import java.util.List;
-
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 /**
  * @Author: 摆渡人
  * @Date: 2021/4/26
@@ -27,6 +27,17 @@ public class PageResult {
 	 * 分页数据
 	 */
 	private List<?> content;
+
+	public PageResult() {
+	}
+
+	public PageResult(Page page) {
+		this.content = page.getRecords();
+		this.totalPages = (int) page.getTotal();
+		this.pageSize = (int) page.getSize();
+		this.pageNum = (int) page.getCurrent();
+	}
+
 	public int getPageNum() {
 		return pageNum;
 	}

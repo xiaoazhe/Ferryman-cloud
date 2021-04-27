@@ -11,4 +11,5 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     List<SysMenu> findByUserName(@Param(value="userName") String userName);
 
+    List<SysMenu> findRoleMenus(@Param(value="roleId") Long roleId);
 }
