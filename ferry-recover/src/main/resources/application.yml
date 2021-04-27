@@ -1,0 +1,32 @@
+# tomcat
+server:
+  port: 8002
+spring:
+  application:
+    name: Ferry-recover
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8000"
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: Ferry-recover	# 注册到consul的服务名称
+# 开放健康检查接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+ferry:
+  recover:
+    datasource:
+      host: localhost
+      userName: root
+      password: root
+      database: ferryman

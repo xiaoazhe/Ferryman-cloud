@@ -1,13 +1,13 @@
-package com.ferry.admin.config;
+package com.ferry.recover.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 跨越配置
+ * 跨域配置
  * @Author: 摆渡人
- * @Date: 2021/4/26
+ * @Date: 2021/4/27
  */
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
