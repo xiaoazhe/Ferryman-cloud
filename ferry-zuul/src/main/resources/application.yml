@@ -1,0 +1,19 @@
+server:
+  port: 8010
+spring:
+  application:
+    name: Ferry-zuul
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: Ferry-zuul    # 注册到consul的服务名称
+zuul:
+  routes:
+    ribbon:
+      path: /ribbon/**
+      serviceId: Ferry-webConsumer  # 转发到消费者 /ribbon/
+    feign:
+      path: /feign/**
+      serviceId: Ferry-webConsumer  # 转发到消费者 /feign/

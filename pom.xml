@@ -9,6 +9,11 @@
         <module>ferry-core</module>
         <module>ferry-recover</module>
         <module>ferry-consul</module>
+        <module>ferry-web</module>
+        <module>ferry-webBalanced</module>
+        <module>ferry-webConsumer</module>
+        <module>ferry-hystrix</module>
+        <module>ferry-zuul</module>
     </modules>
 	<parent>
         <groupId>org.springframework.boot</groupId>

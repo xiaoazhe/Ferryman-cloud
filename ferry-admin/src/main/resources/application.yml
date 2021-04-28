@@ -29,9 +29,24 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: Ferry-admin    # 注册到consul的服务名称
 #配置MybatisPlus
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+# 开放健康检查接口
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
