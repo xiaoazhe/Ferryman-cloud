@@ -1,4 +1,4 @@
-package com.ferry.consumer.controller;
+package com.ferry.consumer.testcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -19,7 +19,7 @@ public class CallHelloController {
         System.out.println("服务地址：" + serviceInstance.getUri());
         System.out.println("服务名称：" + serviceInstance.getServiceId());
 
-        String callServiceResult = new RestTemplate().getForObject(serviceInstance.getUri().toString() + "/hello", String.class);
+        String callServiceResult = new RestTemplate().getForObject(serviceInstance.getUri().toString() + "/getBlogById", String.class);
         System.out.println(callServiceResult);
         return callServiceResult;
     }

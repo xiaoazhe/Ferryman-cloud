@@ -8,7 +8,7 @@ spring:
       host: localhost
       port: 8500
       discovery:
-        serviceName: ferry-consul
+        serviceName: Ferry-consul
 # 开放健康检查接口
 management:
   endpoints:

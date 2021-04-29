@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.web.mapper.FBlogMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.web.domain.FBlog">
+    <!--@mbg.generated-->
+    <!--@Table f_blog-->
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <id column="oid" jdbcType="INTEGER" property="oid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="tag_uid" jdbcType="VARCHAR" property="tagUid" />
+    <result column="click_count" jdbcType="INTEGER" property="clickCount" />
+    <result column="collect_count" jdbcType="INTEGER" property="collectCount" />
+    <result column="file_uid" jdbcType="VARCHAR" property="fileUid" />
+    <result column="status" jdbcType="BOOLEAN" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="admin_uid" jdbcType="VARCHAR" property="adminUid" />
+    <result column="is_original" jdbcType="VARCHAR" property="isOriginal" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="articles_part" jdbcType="VARCHAR" property="articlesPart" />
+    <result column="blog_sort_uid" jdbcType="VARCHAR" property="blogSortUid" />
+    <result column="level" jdbcType="BOOLEAN" property="level" />
+    <result column="is_publish" jdbcType="VARCHAR" property="isPublish" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="open_comment" jdbcType="BOOLEAN" property="openComment" />
+    <result column="type" jdbcType="BOOLEAN" property="type" />
+    <result column="outside_link" jdbcType="VARCHAR" property="outsideLink" />
+    <result column="user_uid" jdbcType="VARCHAR" property="userUid" />
+    <result column="article_source" jdbcType="BOOLEAN" property="articleSource" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `uid`, oid, title, summary, content, tag_uid, click_count, collect_count, file_uid, 
+    `status`, create_time, update_time, admin_uid, is_original, author, articles_part, 
+    blog_sort_uid, `level`, is_publish, sort, open_comment, `type`, outside_link, user_uid, 
+    article_source
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update f_blog
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="title = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.title,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="summary = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.summary,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="content = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.content,jdbcType=LONGVARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="tag_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.tagUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="click_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.clickCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="collect_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.collectCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="file_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.fileUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.status,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="admin_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.adminUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="is_original = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.isOriginal,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="author = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.author,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="articles_part = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.articlesPart,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="blog_sort_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.blogSortUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`level` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.level,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="is_publish = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.isPublish,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sort = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.sort,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="open_comment = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.openComment,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="`type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.type,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="outside_link = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.outsideLink,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="user_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.userUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="article_source = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.articleSource,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+    </trim>
+    where `uid` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.uid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="oid" keyProperty="oid" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into f_blog
+    (`uid`, title, summary, content, tag_uid, click_count, collect_count, file_uid, `status`, 
+      create_time, update_time, admin_uid, is_original, author, articles_part, blog_sort_uid, 
+      `level`, is_publish, sort, open_comment, `type`, outside_link, user_uid, article_source
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.uid,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.summary,jdbcType=VARCHAR}, 
+        #{item.content,jdbcType=LONGVARCHAR}, #{item.tagUid,jdbcType=VARCHAR}, #{item.clickCount,jdbcType=INTEGER}, 
+        #{item.collectCount,jdbcType=INTEGER}, #{item.fileUid,jdbcType=VARCHAR}, #{item.status,jdbcType=BOOLEAN}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.adminUid,jdbcType=VARCHAR}, 
+        #{item.isOriginal,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.articlesPart,jdbcType=VARCHAR}, 
+        #{item.blogSortUid,jdbcType=VARCHAR}, #{item.level,jdbcType=BOOLEAN}, #{item.isPublish,jdbcType=VARCHAR}, 
+        #{item.sort,jdbcType=INTEGER}, #{item.openComment,jdbcType=BOOLEAN}, #{item.type,jdbcType=BOOLEAN}, 
+        #{item.outsideLink,jdbcType=VARCHAR}, #{item.userUid,jdbcType=VARCHAR}, #{item.articleSource,jdbcType=BOOLEAN}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.web.domain.FBlog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into f_blog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      `uid`,
+      <if test="oid != null">
+        oid,
+      </if>
+      title,
+      summary,
+      content,
+      tag_uid,
+      click_count,
+      collect_count,
+      file_uid,
+      `status`,
+      create_time,
+      update_time,
+      admin_uid,
+      is_original,
+      author,
+      articles_part,
+      blog_sort_uid,
+      `level`,
+      is_publish,
+      sort,
+      open_comment,
+      `type`,
+      outside_link,
+      user_uid,
+      article_source,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      #{uid,jdbcType=VARCHAR},
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      #{title,jdbcType=VARCHAR},
+      #{summary,jdbcType=VARCHAR},
+      #{content,jdbcType=LONGVARCHAR},
+      #{tagUid,jdbcType=VARCHAR},
+      #{clickCount,jdbcType=INTEGER},
+      #{collectCount,jdbcType=INTEGER},
+      #{fileUid,jdbcType=VARCHAR},
+      #{status,jdbcType=BOOLEAN},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+      #{adminUid,jdbcType=VARCHAR},
+      #{isOriginal,jdbcType=VARCHAR},
+      #{author,jdbcType=VARCHAR},
+      #{articlesPart,jdbcType=VARCHAR},
+      #{blogSortUid,jdbcType=VARCHAR},
+      #{level,jdbcType=BOOLEAN},
+      #{isPublish,jdbcType=VARCHAR},
+      #{sort,jdbcType=INTEGER},
+      #{openComment,jdbcType=BOOLEAN},
+      #{type,jdbcType=BOOLEAN},
+      #{outsideLink,jdbcType=VARCHAR},
+      #{userUid,jdbcType=VARCHAR},
+      #{articleSource,jdbcType=BOOLEAN},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      `uid` = #{uid,jdbcType=VARCHAR},
+      <if test="oid != null">
+        oid = #{oid,jdbcType=INTEGER},
+      </if>
+      title = #{title,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      tag_uid = #{tagUid,jdbcType=VARCHAR},
+      click_count = #{clickCount,jdbcType=INTEGER},
+      collect_count = #{collectCount,jdbcType=INTEGER},
+      file_uid = #{fileUid,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      admin_uid = #{adminUid,jdbcType=VARCHAR},
+      is_original = #{isOriginal,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      articles_part = #{articlesPart,jdbcType=VARCHAR},
+      blog_sort_uid = #{blogSortUid,jdbcType=VARCHAR},
+      `level` = #{level,jdbcType=BOOLEAN},
+      is_publish = #{isPublish,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      open_comment = #{openComment,jdbcType=BOOLEAN},
+      `type` = #{type,jdbcType=BOOLEAN},
+      outside_link = #{outsideLink,jdbcType=VARCHAR},
+      user_uid = #{userUid,jdbcType=VARCHAR},
+      article_source = #{articleSource,jdbcType=BOOLEAN},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.web.domain.FBlog" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into f_blog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="oid != null">
+        oid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="tagUid != null">
+        tag_uid,
+      </if>
+      <if test="clickCount != null">
+        click_count,
+      </if>
+      <if test="collectCount != null">
+        collect_count,
+      </if>
+      <if test="fileUid != null">
+        file_uid,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="adminUid != null">
+        admin_uid,
+      </if>
+      <if test="isOriginal != null">
+        is_original,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="articlesPart != null">
+        articles_part,
+      </if>
+      <if test="blogSortUid != null">
+        blog_sort_uid,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="isPublish != null">
+        is_publish,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="openComment != null">
+        open_comment,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="outsideLink != null">
+        outside_link,
+      </if>
+      <if test="userUid != null">
+        user_uid,
+      </if>
+      <if test="articleSource != null">
+        article_source,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null">
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tagUid != null">
+        #{tagUid,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null">
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileUid != null">
+        #{fileUid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminUid != null">
+        #{adminUid,jdbcType=VARCHAR},
+      </if>
+      <if test="isOriginal != null">
+        #{isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="articlesPart != null">
+        #{articlesPart,jdbcType=VARCHAR},
+      </if>
+      <if test="blogSortUid != null">
+        #{blogSortUid,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=BOOLEAN},
+      </if>
+      <if test="isPublish != null">
+        #{isPublish,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="openComment != null">
+        #{openComment,jdbcType=BOOLEAN},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=BOOLEAN},
+      </if>
+      <if test="outsideLink != null">
+        #{outsideLink,jdbcType=VARCHAR},
+      </if>
+      <if test="userUid != null">
+        #{userUid,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSource != null">
+        #{articleSource,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="oid != null">
+        oid = #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="tagUid != null">
+        tag_uid = #{tagUid,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null">
+        click_count = #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="collectCount != null">
+        collect_count = #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileUid != null">
+        file_uid = #{fileUid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminUid != null">
+        admin_uid = #{adminUid,jdbcType=VARCHAR},
+      </if>
+      <if test="isOriginal != null">
+        is_original = #{isOriginal,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="articlesPart != null">
+        articles_part = #{articlesPart,jdbcType=VARCHAR},
+      </if>
+      <if test="blogSortUid != null">
+        blog_sort_uid = #{blogSortUid,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=BOOLEAN},
+      </if>
+      <if test="isPublish != null">
+        is_publish = #{isPublish,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="openComment != null">
+        open_comment = #{openComment,jdbcType=BOOLEAN},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=BOOLEAN},
+      </if>
+      <if test="outsideLink != null">
+        outside_link = #{outsideLink,jdbcType=VARCHAR},
+      </if>
+      <if test="userUid != null">
+        user_uid = #{userUid,jdbcType=VARCHAR},
+      </if>
+      <if test="articleSource != null">
+        article_source = #{articleSource,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+</mapper>

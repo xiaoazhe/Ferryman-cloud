@@ -17,3 +17,6 @@ zuul:
     feign:
       path: /feign/**
       serviceId: Ferry-webConsumer  # 转发到消费者 /feign/
+    blog:
+      path: /**
+      serviceId: Ferry-webConsumer  # 转发到消费者 /feign/

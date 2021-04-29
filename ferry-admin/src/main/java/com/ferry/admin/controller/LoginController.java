@@ -34,7 +34,7 @@ import java.util.Objects;
  * @Author: 摆渡人
  * @Date: 2021/4/26
  */
-@Api(tags = "登录接口")
+@Api(value = "登录接口")
 @RestController
 public class LoginController {
 

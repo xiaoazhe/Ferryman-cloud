@@ -1,4 +1,4 @@
-package com.ferry.consumer.controller;
+package com.ferry.consumer.testcontroller;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;

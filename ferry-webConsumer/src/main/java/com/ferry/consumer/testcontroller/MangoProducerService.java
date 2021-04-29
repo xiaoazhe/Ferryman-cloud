@@ -1,12 +1,12 @@
-package com.ferry.consumer.controller;
+package com.ferry.consumer.testcontroller;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@FeignClient(name = "ferry-web", fallback = MangoProducerHystrix.class)
+@FeignClient(name = "Ferry-web", fallback = MangoProducerHystrix.class)
 public interface MangoProducerService {
 
-    @RequestMapping("/hello")
+    @RequestMapping("/getBlogById")
     public String hello();
     
 }
