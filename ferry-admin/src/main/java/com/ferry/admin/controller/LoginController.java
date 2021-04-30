@@ -48,7 +48,6 @@ public class LoginController {
     @Autowired
     private SysLoginLogService sysLoginLogService;
 
-    @ApiOperation(value = "登录获取token")
     @PostMapping(value = "/login")
     public Result login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
         String username = loginBean.getAccount();
@@ -56,16 +55,16 @@ public class LoginController {
         String captcha = loginBean.getCaptcha();
         // 从session中获取之前保存的验证码跟前台传来的验证码进行匹配
         Object kaptcha = request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if(Objects.isNull(kaptcha)){
-            return Result.error("验证码已失效");
-        }
-        if(!Objects.equals(captcha, kaptcha)){
-            return Result.error("验证码不正确");
-        }
+//		if(kaptcha == null){
+//			return HttpResult.error("验证码已失效");
+//		}
+//		if(!captcha.equals(kaptcha)){
+//			return HttpResult.error("验证码不正确");
+//		}
         // 用户信息
         SysUser user = sysUserService.findByName(username);
         // 账号不存在、密码错误
-        if (Objects.isNull(user)) {
+        if (user == null) {
             return Result.error("账号不存在");
         }
         if (!PasswordUtils.matches(user.getSalt(), password, user.getPassword())) {
@@ -77,6 +76,7 @@ public class LoginController {
         }
         // 系统登录认证
         JwtAuthenticatioToken token = SecurityUtils.login(request, username, password, authenticationManager);
+        // 记录登录日志
         sysLoginLogService.writeLoginLog(username, IPUtils.getIpAddr(request));
         return Result.ok(token);
     }

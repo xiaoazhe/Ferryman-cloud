@@ -28,7 +28,7 @@ import javax.annotation.Resource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)	// 开启权限注解，如：@PreAuthorize注解
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
+    @Autowired
     private UserDetailsService userDetailsService;
     
     @Override
@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // 其他所有请求需要身份认证
             .anyRequest().authenticated();
         // 不禁用 swagger和数据源监考不展示
+//        http.authorizeRequests()
+//                .and().headers().frameOptions().sameOrigin();//更改X-Frame-Options为SAMEORIGIN，会导致iframe框架不能显示内容
         http.headers().frameOptions().disable();
         // 退出登录处理器
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
