@@ -2,23 +2,29 @@
 
 #### 介绍
 摆渡人
-
+#####Spring Boot + Spring Cloud + Vue
 #### 软件架构
-软件架构说明
 
-
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. Spring Cloud Consul 注册中心
+2. Spring Cloud Hystrix 熔断
+3. Spring Cloud Feign and Ribbon 轮询方式负载均衡
+4. Spring Cloud Zuul 网关转发请求
+5. Druid 数据监控
+6. Swagger 接口
+7. Spring Cloud Admin 服务监控
+8. Spring Security + Token 权限控制
+9. Mybatis-plus ORM框架
+10. MyBatisCodeHelperPro 插件代码生成
+11. .......
 
 #### 使用说明
 
-1.  启动 ferry-consul模块的注册中心 
+1.  启动 ferry-consul 模块的注册中心 
   windows安装consul，启动命令  consul agent -dev
-2.  xxxx
-3.  xxxx
+2.  启动 ferry-admin 后台管理模块
+3.  启动 ferry-recover 数据备份模块（非必须）
+4.  依次启动 ferry-web（服务提供者1）、ferry-webBalanced（服务提供者）、ferry-webConsumer（服务消费者）、ferry-hystrix（熔断器）、ferry-zuul（网关转发）
+
 
 #### 参与贡献
 
