@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ferry.admin.mapper.FBlogMapper">
-  <resultMap id="BaseResultMap" type="com.ferry.admin.entity.FBlog">
+<mapper namespace="com.ferry.admin.mapper.BlBlogMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.admin.entity.BlBlog">
     <!--@mbg.generated-->
-    <!--@Table f_blog-->
+    <!--@Table bl_blog-->
     <id column="uid" jdbcType="VARCHAR" property="uid" />
     <id column="oid" jdbcType="INTEGER" property="oid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
@@ -39,7 +39,7 @@
   </sql>
   <update id="updateBatch" parameterType="java.util.List">
     <!--@mbg.generated-->
-    update f_blog
+    update bl_blog
     <trim prefix="set" suffixOverrides=",">
       <trim prefix="title = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
@@ -164,7 +164,7 @@
   </update>
   <insert id="batchInsert" keyColumn="oid" keyProperty="oid" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into f_blog
+    insert into bl_blog
     (`uid`, title, summary, content, tag_uid, click_count, collect_count, file_uid, `status`, 
       create_time, update_time, admin_uid, is_original, author, articles_part, blog_sort_uid, 
       `level`, is_publish, sort, open_comment, `type`, outside_link, user_uid, article_source
@@ -182,9 +182,9 @@
         )
     </foreach>
   </insert>
-  <insert id="insertOrUpdate" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.admin.entity.FBlog" useGeneratedKeys="true">
+  <insert id="insertOrUpdate" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.admin.entity.BlBlog" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into f_blog
+    insert into bl_blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       `uid`,
       <if test="oid != null">
@@ -275,9 +275,9 @@
       article_source = #{articleSource,jdbcType=BOOLEAN},
     </trim>
   </insert>
-  <insert id="insertOrUpdateSelective" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.admin.entity.FBlog" useGeneratedKeys="true">
+  <insert id="insertOrUpdateSelective" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.admin.entity.BlBlog" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into f_blog
+    insert into bl_blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uid != null">
         `uid`,

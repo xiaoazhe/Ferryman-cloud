@@ -19,6 +19,5 @@ public class FerryAdminApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FerryAdminApplication.class, args);
 	}
-
 }
 
