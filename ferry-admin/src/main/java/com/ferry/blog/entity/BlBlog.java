@@ -1,4 +1,4 @@
-package com.ferry.admin.entity;
+package com.ferry.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,16 +11,16 @@ import lombok.Data;
 /**
  * 
  * @Author: 摆渡人
- * @Date: 2021/5/6
+ * @Date: 2021/5/7
  */
 @Data
-@TableName(value = "f_blog")
-public class FBlog implements Serializable {
+@TableName(value = "bl_blog")
+public class BlBlog implements Serializable {
     /**
      * 唯一uid
      */
-    @TableId(value = "uid", type = IdType.INPUT)
-    private String uid;
+    @TableId(value = "id", type = IdType.INPUT)
+    private String id;
 
     /**
      * 唯一oid
@@ -165,6 +165,18 @@ public class FBlog implements Serializable {
      */
     @TableField(value = "article_source")
     private Boolean articleSource;
+
+    /**
+     * 创建人
+     */
+    @TableField(value = "create_by")
+    private String createBy;
+
+    /**
+     * 更新人
+     */
+    @TableField(value = "last_update_by")
+    private String lastUpdateBy;
 
     private static final long serialVersionUID = 1L;
 

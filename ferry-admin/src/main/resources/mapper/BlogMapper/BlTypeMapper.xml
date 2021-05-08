@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ferry.admin.mapper.BlTypeMapper">
-  <resultMap id="BaseResultMap" type="com.ferry.admin.entity.BlType">
+<mapper namespace="com.ferry.blog.mapper.BlTypeMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.blog.entity.BlType">
     <!--@mbg.generated-->
     <!--@Table bl_type-->
     <id column="id" jdbcType="BIGINT" property="id" />
@@ -79,7 +79,7 @@
         #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
     </foreach>
   </insert>
-  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.ferry.admin.entity.BlType" useGeneratedKeys="true">
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.ferry.blog.entity.BlType" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into bl_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -124,7 +124,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
     </trim>
   </insert>
-  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.ferry.admin.entity.BlType" useGeneratedKeys="true">
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.ferry.blog.entity.BlType" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into bl_type
     <trim prefix="(" suffix=")" suffixOverrides=",">

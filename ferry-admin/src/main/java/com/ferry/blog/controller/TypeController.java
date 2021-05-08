@@ -1,7 +1,7 @@
-package com.ferry.admin.controller;
+package com.ferry.blog.controller;
 
-import com.ferry.admin.entity.BlType;
-import com.ferry.admin.service.TypeService;
+import com.ferry.blog.entity.BlType;
+import com.ferry.blog.service.TypeService;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import io.swagger.annotations.Api;

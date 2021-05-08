@@ -33,9 +33,10 @@ public class PageResult {
 
 	public PageResult(Page page) {
 		this.content = page.getRecords();
-		this.totalPages = (int) page.getTotal();
+		this.totalPages = (int) page.getTotal() / (int) page.getSize();
 		this.pageSize = (int) page.getSize();
 		this.pageNum = (int) page.getCurrent();
+		this.totalSize = page.getTotal();
 	}
 
 	public int getPageNum() {

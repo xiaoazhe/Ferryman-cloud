@@ -1,4 +1,4 @@
-package com.ferry.admin.entity;
+package com.ferry.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

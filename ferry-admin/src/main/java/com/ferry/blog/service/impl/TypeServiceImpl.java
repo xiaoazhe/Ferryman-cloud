@@ -1,13 +1,11 @@
-package com.ferry.admin.service.impl;
+package com.ferry.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ferry.admin.entity.BlType;
-import com.ferry.admin.entity.SysDict;
-import com.ferry.admin.entity.SysUserRole;
-import com.ferry.admin.mapper.BlTypeMapper;
-import com.ferry.admin.service.TypeService;
+import com.ferry.blog.entity.BlType;
+import com.ferry.blog.mapper.BlTypeMapper;
+import com.ferry.blog.service.TypeService;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
@@ -41,8 +39,11 @@ public class TypeServiceImpl extends ServiceImpl <BlTypeMapper, BlType> implemen
 
 
     @Override
-    public int removeTypes(List <BlType> types) {
-        return blTypeMapper.deleteBatchIds(types);
+    public boolean removeTypes(List <BlType> types) {
+        for (BlType type : types) {
+            blTypeMapper.deleteById(type.getId());
+        }
+        return true;
     }
 
     @Override

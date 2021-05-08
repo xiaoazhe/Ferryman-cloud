@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ferry.admin.mapper.BlBlogMapper">
-  <resultMap id="BaseResultMap" type="com.ferry.admin.entity.BlBlog">
+<mapper namespace="com.ferry.blog.mapper.BlBlogMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.blog.entity.BlBlog">
     <!--@mbg.generated-->
     <!--@Table bl_blog-->
     <id column="uid" jdbcType="VARCHAR" property="uid" />
@@ -182,7 +182,7 @@
         )
     </foreach>
   </insert>
-  <insert id="insertOrUpdate" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.admin.entity.BlBlog" useGeneratedKeys="true">
+  <insert id="insertOrUpdate" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.blog.entity.BlBlog" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into bl_blog
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -275,7 +275,7 @@
       article_source = #{articleSource,jdbcType=BOOLEAN},
     </trim>
   </insert>
-  <insert id="insertOrUpdateSelective" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.admin.entity.BlBlog" useGeneratedKeys="true">
+  <insert id="insertOrUpdateSelective" keyColumn="oid" keyProperty="oid" parameterType="com.ferry.blog.entity.BlBlog" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into bl_blog
     <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -1,7 +1,7 @@
-package com.ferry.admin.mapper;
+package com.ferry.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ferry.admin.entity.BlBlog;
+import com.ferry.blog.entity.BlBlog;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

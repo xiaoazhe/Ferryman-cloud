@@ -1,9 +1,11 @@
-package com.ferry.admin;
+package com.ferry;
 
+import com.ferry.common.utils.IdWorker;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 
 
 /**
@@ -12,12 +14,18 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * @Date: 2021/4/26
  */
 @EnableDiscoveryClient
-@MapperScan("com.ferry.admin.mapper")
+@MapperScan("com.ferry.*.mapper")
 @SpringBootApplication()
 public class FerryAdminApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FerryAdminApplication.class, args);
 	}
+
+	@Bean
+	public IdWorker idWorkker(){
+		return new IdWorker(1, 1);
+	}
+
 }
 
