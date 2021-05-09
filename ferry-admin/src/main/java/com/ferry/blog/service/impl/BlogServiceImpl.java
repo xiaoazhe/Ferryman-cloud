@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.blog.entity.BlBlog;
 import com.ferry.blog.entity.BlType;
 import com.ferry.blog.mapper.BlBlogMapper;
+import com.ferry.blog.mapper.BlTypeMapper;
 import com.ferry.blog.service.BlogService;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.StringUtils;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author: 摆渡人
@@ -28,7 +31,11 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     private BlBlogMapper blogMapper;
 
     @Autowired
+    private BlTypeMapper typeMapper;
+
+    @Autowired
     private IdWorker idWorker;
+
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
@@ -49,7 +56,16 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     }
 
     @Override
-    public boolean saveType(BlBlog blBlog) {
+    public boolean saveBlog(BlBlog blBlog) {
+        BlType type = null;
+        if (blBlog.getTypeId() == null && blBlog.getTypeName() == null) {
+            blBlog.setTypeId("1");
+        }
+        if (isNumeric(blBlog.getTypeName())) {
+            type = typeMapper.selectById(blBlog.getTypeName());
+        } else {
+            type = typeMapper.selectById(blBlog.getTypeId());
+        }
         if(blBlog.getId() != null) {
             BlBlog oldBlog = blogMapper.selectById(blBlog.getId());
             if (oldBlog != null) {
@@ -58,12 +74,31 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
                 oldBlog.setTitle(blBlog.getTitle());
                 oldBlog.setSummary(blBlog.getSummary());
                 oldBlog.setContent(blBlog.getContent());
+                oldBlog.setTypeName(type.getName());
+                oldBlog.setFileUid(blBlog.getFileUid());
+                oldBlog.setTypeId(String.valueOf(type.getId()));
                 blogMapper.updateById(oldBlog);
             }
         } else {
+            blBlog.setTypeName(type.getName());
+            blBlog.setTypeId(String.valueOf(type.getId()));
             blBlog.setId(idWorker.nextId()+"");
             blBlog.setCreateTime(new Date());
             blogMapper.insert(blBlog);
+        }
+        return true;
+    }
+
+    /**
+     * 利用正则表达式判断字符串是否是数字
+     * @param str
+     * @return
+     */
+    public boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]*");
+        Matcher isNum = pattern.matcher(str);
+        if( !isNum.matches() ){
+            return false;
         }
         return true;
     }

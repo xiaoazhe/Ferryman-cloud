@@ -18,4 +18,8 @@ public interface TypeService extends IService <BlType> {
     boolean removeTypes(List<BlType> types);
 
     boolean saveType(BlType type);
+
+    List<BlType> findAll();
+
+    BlType findById(Integer id);
 }

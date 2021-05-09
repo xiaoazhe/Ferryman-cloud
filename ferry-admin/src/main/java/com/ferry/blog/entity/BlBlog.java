@@ -115,8 +115,14 @@ public class BlBlog implements Serializable {
     /**
      * 博客分类UID
      */
-    @TableField(value = "blog_sort_uid")
-    private String blogSortUid;
+    @TableField(value = "type_id")
+    private String typeId;
+
+    /**
+     * 博客分类UID
+     */
+    @TableField(value = "type_name")
+    private String typeName;
 
     /**
      * 推荐等级(0:正常)

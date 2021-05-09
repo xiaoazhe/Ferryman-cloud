@@ -37,7 +37,7 @@ public class BlogController {
     @PreAuthorize("hasAuthority('sys:blog:add') AND hasAuthority('sys:blog:edit')")
     @PostMapping(value="/save")
     public Result save(@RequestBody BlBlog blog) {
-        return Result.ok(blogService.saveType(blog));
+        return Result.ok(blogService.saveBlog(blog));
     }
 
     @ApiOperation(value = "删除")

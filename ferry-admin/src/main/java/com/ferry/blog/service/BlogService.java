@@ -17,5 +17,5 @@ public interface BlogService extends IService <BlBlog> {
 
     boolean removeTypes(List <BlBlog> blBlogs);
 
-    boolean saveType(BlBlog blog);
+    boolean saveBlog(BlBlog blog);
 }

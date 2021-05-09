@@ -64,4 +64,18 @@ public class TypeServiceImpl extends ServiceImpl <BlTypeMapper, BlType> implemen
         }
         return true;
     }
+
+    @Override
+    public List <BlType> findAll() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.ne("id", 0);
+        List <BlType> typeList= blTypeMapper.selectList(queryWrapper);
+        return typeList;
+    }
+
+    @Override
+    public BlType findById(Integer id) {
+        BlType typeName = blTypeMapper.selectById(id);
+        return typeName;
+    }
 }

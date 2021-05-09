@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
  * @Date: 2021/4/26
  */
 @EnableDiscoveryClient
-@MapperScan("com.ferry.*.mapper")
+@MapperScan({"com.ferry.*.mapper", "com.ferry.core.*.mapper"})
 @SpringBootApplication()
 public class FerryAdminApplication {
 

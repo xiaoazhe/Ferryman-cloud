@@ -1,5 +1,6 @@
 package com.ferry.blog.controller;
 
+import com.ferry.blog.entity.BlBlog;
 import com.ferry.blog.entity.BlType;
 import com.ferry.blog.service.TypeService;
 import com.ferry.core.http.Result;
@@ -8,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,4 +46,17 @@ public class TypeController {
         return Result.ok(typeService.removeTypes(types));
     }
 
+    @ApiOperation(value = "查询全部")
+    @PreAuthorize("hasAuthority('sys:type:view')")
+    @GetMapping(value="/findAll")
+    public Result findAll() {
+        return Result.ok(typeService.findAll());
+    }
+
+    @ApiOperation(value = "根据id查询")
+    @PreAuthorize("hasAuthority('sys:type:view')")
+    @PostMapping(value="/findById")
+    public Result findById(@RequestBody BlBlog blog) {
+        return Result.ok(typeService.findById(Integer.valueOf(blog.getTypeId())));
+    }
 }

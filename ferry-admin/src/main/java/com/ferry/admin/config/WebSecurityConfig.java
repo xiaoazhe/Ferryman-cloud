@@ -48,6 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/webjars/**").permitAll()
             // 查看SQL监控（druid）
             .antMatchers("/druid/**").permitAll()
+            // 文件上传
+            .antMatchers("/file/**").permitAll()
             // 首页和登录页面
             .antMatchers("/").permitAll()
             .antMatchers("/login").permitAll()
