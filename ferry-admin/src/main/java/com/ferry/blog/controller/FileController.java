@@ -1,6 +1,7 @@
 package com.ferry.blog.controller;
 
 import com.ferry.blog.service.FileService;
+import com.ferry.blog.service.impl.UploadService;
 import com.ferry.core.http.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,20 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
-
+    @Autowired
+    private UploadService uploadService;
     @PostMapping(value = "/images")
     public Result addFile(MultipartFile file) throws Exception {
         return fileService.uploadFile(file);
     }
+
+
+    @RequestMapping("/fdfsUploadImage")
+    public Result fdfsUploadImage(MultipartFile file) {
+        String url = uploadService.uploadImage(file);
+        Result result = new Result();
+        result.setData(url);
+        return result;
+    }
+
 }

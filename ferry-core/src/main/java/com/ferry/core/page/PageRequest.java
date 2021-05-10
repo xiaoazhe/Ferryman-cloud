@@ -23,6 +23,10 @@ public class PageRequest {
 	 */
 	private List<Param> params = new ArrayList <>();
 
+	private String name = null;
+
+	private String enabled = null;
+
 	public void setParams(List<Param> params) {
 		this.params = params;
 	}
@@ -68,4 +72,19 @@ public class PageRequest {
 		return params;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
 }

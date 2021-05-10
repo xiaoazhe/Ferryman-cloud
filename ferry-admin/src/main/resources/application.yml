@@ -35,6 +35,10 @@ spring:
       port: 8500
       discovery:
         serviceName: Ferry-admin    # 注册到consul的服务名称
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
 #配置MybatisPlus
 mybatis-plus:
   mapper-locations: classpath:mapper/*/*.xml
@@ -50,3 +54,19 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+fdfs:
+  so-timeout: 2500
+  connect-timeout: 600
+  thumb-image:
+    width: 100
+    height: 100
+  tracker-list:
+    - 1.116.227.4:22122
+upload:
+  base-url: http://1.116.227.4/
+  allow-types:
+    - image/jpeg
+    - image/png
+    - image/bmp
+    - image/gif
+    - audio/mpeg

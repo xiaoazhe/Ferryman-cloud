@@ -9,7 +9,6 @@ import com.ferry.core.file.GlobalFileUploader;
 import com.ferry.core.file.emums.FileUploadType;
 import com.ferry.core.file.entity.VirtualFile;
 import com.ferry.core.http.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,6 +28,7 @@ public class FileServiceImpl extends ServiceImpl <BlFileMapper, BlFile> implemen
             e.printStackTrace();
         }
         Result result = new Result();
+//        result.setData("http://azhe.oss-cn-beijing.aliyuncs.com/oneblog/20210509124220353.jpg");
         result.setData(imgUrl);
         return result;
     }
