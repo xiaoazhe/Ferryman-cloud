@@ -9,9 +9,14 @@ import com.ferry.core.page.PageRequest;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +33,39 @@ public class MusicController {
     @Autowired
     private MusicService musicService;
 
+    @Autowired
+    private JavaMailSender mailSender;
+    @Value("${spring.mail.username}")
+    private String from;
+    @PostMapping(value="/mail1")
+    public void testSendSimple() {
+        try {
+            System.out.println("tt");
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(from);
+            message.setTo("1540035958@qq.com");
+            message.setSubject("标题：测试标题");
+            message.setText("测试内容部份");
+            mailSender.send(message);
+        } catch (Exception e) {
+            return;
+        }
+    }
+    @PostMapping(value="/mail")
+    public void futestSendSimple() {
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            System.out.println("tt");
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage,true);
+            message.setFrom(from);
+            message.setTo("1540035958@qq.com");
+            message.setSubject("标题：测试标题");
+            message.setText("<h1>富文本</h1>", true);
+            mailSender.send(mimeMessage);
+        } catch (Exception e) {
+            return;
+        }
+    }
     /**
      * 分页查询
      *
