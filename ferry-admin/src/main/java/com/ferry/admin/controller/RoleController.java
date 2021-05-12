@@ -19,7 +19,7 @@ import java.util.List;
  * @Author: 摆渡人
  * @Date: 2021/4/26
  */
-@Api(value = "角色管理")
+@Api(tags = "角色管理")
 @RestController
 @RequestMapping("role")
 public class RoleController {

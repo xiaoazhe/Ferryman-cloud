@@ -20,7 +20,7 @@ import java.util.List;
  * @Author: 摆渡人
  * @Date: 2021/4/27
  */
-@Api(value = "日志管理")
+@Api(tags = "日志管理")
 @RestController
 @RequestMapping("log")
 public class LogController {

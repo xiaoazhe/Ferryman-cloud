@@ -25,7 +25,7 @@ public class PageRequest {
 
 	private String name = null;
 
-	private String enabled = null;
+	private int enabled = -1;
 
 	public void setParams(List<Param> params) {
 		this.params = params;
@@ -80,11 +80,11 @@ public class PageRequest {
 		this.name = name;
 	}
 
-	public String getEnabled() {
+	public int getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(String enabled) {
+	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
 }

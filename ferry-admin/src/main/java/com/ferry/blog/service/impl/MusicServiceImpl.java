@@ -76,7 +76,7 @@ public class MusicServiceImpl extends ServiceImpl <BlMusicMapper, BlMusic> imple
         QueryWrapper<BlMusic> queryWrapper = new QueryWrapper();
         queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()),"name", pageRequest.getName());
         queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()),"artist", pageRequest.getName());
-        queryWrapper.eq(isNumeric(pageRequest.getEnabled()),"enable", pageRequest.getEnabled());
+        queryWrapper.eq(pageRequest.getEnabled() > -1,"enable", pageRequest.getEnabled());
         Page<BlMusic> typePage = musicMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
         return pageResult;

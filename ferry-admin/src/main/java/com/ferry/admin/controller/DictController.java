@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RequestMapping("dict")
 @RestController
-@Api(value = "字典管理")
+@Api(tags = "字典管理")
 public class DictController {
 
     @Autowired

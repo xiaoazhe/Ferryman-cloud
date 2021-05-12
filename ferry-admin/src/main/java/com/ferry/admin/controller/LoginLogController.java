@@ -19,7 +19,7 @@ import java.util.List;
  * @Author: 摆渡人
  * @Date: 2021/4/27
  */
-@Api(value = "登录日志")
+@Api(tags = "登录日志")
 @RequestMapping("loginlog")
 @RestController
 public class LoginLogController {

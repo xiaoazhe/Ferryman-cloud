@@ -6,6 +6,7 @@ import com.ferry.blog.service.MusicService;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.List;
  * @Date: 2020/2/9 20:45
  * @Version 1.0
  */
+@Api(tags = "音乐模块")
 @RestController
 @RequestMapping("/music")
 public class MusicController {
@@ -66,6 +68,7 @@ public class MusicController {
             return;
         }
     }
+
     /**
      * 分页查询
      *
@@ -86,7 +89,7 @@ public class MusicController {
      * @param music
      * @return
      */
-    @ApiOperation(value = "分页查询")
+    @ApiOperation(value = "保存音乐")
     @PreAuthorize("hasAuthority('sys:music:add')")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Result save(@RequestBody BlMusic music) {
@@ -103,7 +106,7 @@ public class MusicController {
      * @param music
      * @return
      */
-    @ApiOperation(value = "分页查询")
+    @ApiOperation(value = "更新音乐")
     @PreAuthorize("hasAuthority('sys:music:edit')")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Result update(@RequestBody BlMusic music) {
@@ -117,7 +120,7 @@ public class MusicController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "分页查询")
+    @ApiOperation(value = "根据id查询音乐")
     @PreAuthorize("hasAuthority('sys:music:view')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public Result get(@PathVariable String id) {
@@ -131,7 +134,7 @@ public class MusicController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "分页查询")
+    @ApiOperation(value = "删除音乐")
     @PreAuthorize("hasAuthority('sys:music:delete')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable Integer id) {
@@ -145,7 +148,7 @@ public class MusicController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "分页查询")
+    @ApiOperation(value = "状态启用")
     @PreAuthorize("hasAuthority('sys:music:view')")
     @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
     public Result enable(@PathVariable Integer id) {
@@ -159,7 +162,7 @@ public class MusicController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "分页查询")
+    @ApiOperation(value = "状态弃用")
     @PreAuthorize("hasAuthority('sys:music:view')")
     @RequestMapping(value = "/disable/{id}", method = RequestMethod.PUT)
     public Result disable(@PathVariable Integer id) {

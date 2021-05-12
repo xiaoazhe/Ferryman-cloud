@@ -11,6 +11,14 @@ import lombok.Getter;
  */
 @Getter
 public enum StateEnums {
+
+    /**
+     * 审核状态
+     */
+    NOT_CHECK(2, "审核驳回"),
+    CHECK(0, "审核中"),
+    SUC_CHECK(1, "审核成功"),
+
     /**
      * 逻辑删除状态
      */

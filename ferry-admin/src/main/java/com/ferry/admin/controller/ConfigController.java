@@ -17,7 +17,7 @@ import java.util.List;
  * @Author: 摆渡人
  * @Date: 2021/4/27
  */
-@Api(value = "系统配置")
+@Api(tags = "系统配置")
 @RestController
 @RequestMapping("config")
 public class ConfigController {

@@ -14,7 +14,7 @@ import java.util.List;
  * @Author: 摆渡人
  * @Date: 2021/4/27
  */
-@Api(value = "部门管理")
+@Api(tags = "部门管理")
 @RestController
 @RequestMapping("dept")
 public class DeptController {
