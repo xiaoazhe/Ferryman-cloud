@@ -55,8 +55,8 @@ public class TypeController {
 
     @ApiOperation(value = "根据id查询")
     @PreAuthorize("hasAuthority('sys:type:view')")
-    @PostMapping(value="/findById")
-    public Result findById(@RequestBody BlBlog blog) {
-        return Result.ok(typeService.findById(Integer.valueOf(blog.getTypeId())));
+    @GetMapping(value="/findById/{blogId}")
+    public Result findById(@PathVariable String blogId) {
+        return Result.ok(typeService.findById(blogId));
     }
 }

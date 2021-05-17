@@ -8,6 +8,7 @@ import com.ferry.blog.entity.BlType;
 import com.ferry.blog.mapper.BlBlogMapper;
 import com.ferry.blog.mapper.BlTypeMapper;
 import com.ferry.blog.service.BlogService;
+import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.page.PageRequest;
@@ -39,7 +40,8 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        String label = pageRequest.getParamValue("name");
+//        String label = pageRequest.getParamValue("name");
+        String label = pageRequest.getName();
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like(!StringUtils.isBlank(label),"title", label);
         Page<BlBlog> typePage = blogMapper.selectPage(page, queryWrapper);
@@ -87,6 +89,17 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
             blogMapper.insert(blBlog);
         }
         return true;
+    }
+
+    @Override
+    public String deleteById(String id) {
+        blogMapper.deleteById(id);
+        return StateEnums.DELETED.getMsg();
+    }
+
+    @Override
+    public BlBlog selectById(String id) {
+        return blogMapper.selectById(id);
     }
 
     /**

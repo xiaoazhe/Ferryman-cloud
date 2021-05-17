@@ -21,5 +21,5 @@ public interface TypeService extends IService <BlType> {
 
     List<BlType> findAll();
 
-    BlType findById(Integer id);
+    BlType findById(String id);
 }

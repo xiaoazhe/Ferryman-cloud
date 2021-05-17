@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +37,12 @@ public class BlogController {
         return Result.ok(blogService.saveBlog(blog));
     }
 
+    /**
+     * 批量删除
+     *
+     * @param blogs
+     * @return
+     */
     @ApiOperation(value = "删除")
     @PreAuthorize("hasAuthority('sys:blog:delete')")
     @PostMapping(value="/delete")
@@ -47,4 +50,29 @@ public class BlogController {
         return Result.ok(blogService.removeTypes(blogs));
     }
 
+    /**
+     * 根据id删除
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "根据id删除")
+    @PreAuthorize("hasAuthority('sys:blog:delete')")
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public Result delete(@PathVariable String id) {
+        return Result.ok(blogService.deleteById(id));
+    }
+
+    /**
+     * 根据id查询
+     *
+     * @param id
+     * @return
+     */
+    @ApiOperation(value = "根据id查询")
+    @PreAuthorize("hasAuthority('sys:blog:view')")
+    @RequestMapping(value = "/select/{id}", method = RequestMethod.GET)
+    public Result selectById(@PathVariable String id) {
+        return Result.ok(blogService.selectById(id));
+    }
 }

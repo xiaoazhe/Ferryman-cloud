@@ -18,4 +18,8 @@ public interface BlogService extends IService <BlBlog> {
     boolean removeTypes(List <BlBlog> blBlogs);
 
     boolean saveBlog(BlBlog blog);
+
+    String deleteById(String id);
+
+    BlBlog selectById(String id);
 }

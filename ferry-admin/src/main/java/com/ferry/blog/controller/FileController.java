@@ -26,13 +26,11 @@ public class FileController {
         return fileService.uploadFile(file);
     }
 
-
-    @RequestMapping("/fdfsUploadImage")
+    @RequestMapping("/fdfsUpload")
     public Result fdfsUploadImage(MultipartFile file) {
         String url = uploadService.uploadImage(file);
         Result result = new Result();
         result.setData(url);
         return result;
     }
-
 }

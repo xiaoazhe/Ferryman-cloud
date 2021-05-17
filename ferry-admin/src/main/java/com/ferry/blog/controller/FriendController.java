@@ -53,10 +53,11 @@ public class FriendController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Result save(@RequestBody BlFriendLink friendLink) {
         if (friendLink.getUid() != null) {
-            friendLink.setUid(idWorker.nextId()+"");
             friendLink.setUpdateTime(new Date());
             return Result.ok(friendService.updateById(friendLink));
         }
+        friendLink.setUid(idWorker.nextId()+"");
+        friendLink.setCreateTime(new Date());
         return Result.ok(friendService.save(friendLink));
     }
 
