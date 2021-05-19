@@ -15,7 +15,7 @@
 8. Spring Security + Token 权限控制
 9. Mybatis-plus ORM框架
 10. MyBatisCodeHelperPro 插件代码生成
-11. FastDFS文件系统,OSS,七牛云,本地文件
+11. FastDFS文件系统,OSS。。
 12. .......
 
 #### 使用说明
