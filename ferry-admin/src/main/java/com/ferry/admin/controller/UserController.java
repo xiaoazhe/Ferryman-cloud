@@ -1,7 +1,7 @@
 package com.ferry.admin.controller;
 
 import com.ferry.admin.constant.SysConstants;
-import com.ferry.admin.entity.SysUser;
+import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.service.SysUserService;
 import com.ferry.admin.util.PasswordUtils;
 import com.ferry.admin.util.SecurityUtils;

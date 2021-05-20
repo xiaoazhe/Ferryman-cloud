@@ -1,7 +1,7 @@
 package com.ferry.admin.aspect;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ferry.admin.entity.SysLog;
+import com.ferry.server.admin.entity.SysLog;
 import com.ferry.admin.service.SysLogService;
 import com.ferry.admin.util.HttpUtils;
 import com.ferry.admin.util.IPUtils;

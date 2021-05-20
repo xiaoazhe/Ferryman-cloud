@@ -1,7 +1,7 @@
 package com.ferry.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ferry.blog.entity.BlFile;
+import com.ferry.server.blog.entity.BlFile;
 import com.ferry.core.http.Result;
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,8 +1,8 @@
 package com.ferry.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ferry.blog.entity.BlFile;
-import com.ferry.blog.mapper.BlFileMapper;
+import com.ferry.server.blog.entity.BlFile;
+import com.ferry.server.blog.mapper.BlFileMapper;
 import com.ferry.blog.service.FileService;
 import com.ferry.core.file.FileUploader;
 import com.ferry.core.file.GlobalFileUploader;

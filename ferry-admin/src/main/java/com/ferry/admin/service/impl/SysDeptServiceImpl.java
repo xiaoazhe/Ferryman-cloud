@@ -2,8 +2,8 @@ package com.ferry.admin.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ferry.admin.entity.SysDept;
-import com.ferry.admin.mapper.SysDeptMapper;
+import com.ferry.server.admin.entity.SysDept;
+import com.ferry.server.admin.mapper.SysDeptMapper;
 import com.ferry.admin.service.SysDeptService;
 import com.ferry.core.page.MybatisPageHelper;
 import com.ferry.core.page.PageRequest;

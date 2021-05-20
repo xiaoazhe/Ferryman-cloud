@@ -1,7 +1,7 @@
 package com.ferry.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ferry.blog.entity.BlFriendLink;
+import com.ferry.server.blog.entity.BlFriendLink;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 

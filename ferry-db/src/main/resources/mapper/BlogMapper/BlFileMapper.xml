@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlFileMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlFile">
+    <!--@mbg.generated-->
+    <!--@Table bl_file-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="storage_type" jdbcType="VARCHAR" property="storageType" />
+    <result column="original_file_name" jdbcType="VARCHAR" property="originalFileName" />
+    <result column="size" jdbcType="BIGINT" property="size" />
+    <result column="suffix" jdbcType="VARCHAR" property="suffix" />
+    <result column="width" jdbcType="INTEGER" property="width" />
+    <result column="height" jdbcType="INTEGER" property="height" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="full_file_path" jdbcType="VARCHAR" property="fullFilePath" />
+    <result column="file_hash" jdbcType="VARCHAR" property="fileHash" />
+    <result column="upload_type" jdbcType="VARCHAR" property="uploadType" />
+    <result column="upload_start_time" jdbcType="TIMESTAMP" property="uploadStartTime" />
+    <result column="upload_end_time" jdbcType="TIMESTAMP" property="uploadEndTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, storage_type, original_file_name, `size`, suffix, width, height, file_path, 
+    full_file_path, file_hash, upload_type, upload_start_time, upload_end_time, create_time, 
+    update_time, create_by, last_update_by
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_file
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="user_id = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.userId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="storage_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.storageType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="original_file_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.originalFileName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`size` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.size,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="suffix = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.suffix,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="width = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.width,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="height = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.height,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="file_path = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.filePath,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="full_file_path = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.fullFilePath,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="file_hash = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.fileHash,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="upload_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.uploadType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="upload_start_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.uploadStartTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="upload_end_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.uploadEndTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="last_update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.lastUpdateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_file
+    (user_id, storage_type, original_file_name, `size`, suffix, width, height, file_path, 
+      full_file_path, file_hash, upload_type, upload_start_time, upload_end_time, create_time, 
+      update_time, create_by, last_update_by)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.userId,jdbcType=INTEGER}, #{item.storageType,jdbcType=VARCHAR}, #{item.originalFileName,jdbcType=VARCHAR}, 
+        #{item.size,jdbcType=BIGINT}, #{item.suffix,jdbcType=VARCHAR}, #{item.width,jdbcType=INTEGER}, 
+        #{item.height,jdbcType=INTEGER}, #{item.filePath,jdbcType=VARCHAR}, #{item.fullFilePath,jdbcType=VARCHAR}, 
+        #{item.fileHash,jdbcType=VARCHAR}, #{item.uploadType,jdbcType=VARCHAR}, #{item.uploadStartTime,jdbcType=TIMESTAMP}, 
+        #{item.uploadEndTime,jdbcType=TIMESTAMP}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.createBy,jdbcType=VARCHAR}, #{item.lastUpdateBy,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlFile" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      user_id,
+      storage_type,
+      original_file_name,
+      `size`,
+      suffix,
+      width,
+      height,
+      file_path,
+      full_file_path,
+      file_hash,
+      upload_type,
+      upload_start_time,
+      upload_end_time,
+      create_time,
+      update_time,
+      create_by,
+      last_update_by,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{userId,jdbcType=INTEGER},
+      #{storageType,jdbcType=VARCHAR},
+      #{originalFileName,jdbcType=VARCHAR},
+      #{size,jdbcType=BIGINT},
+      #{suffix,jdbcType=VARCHAR},
+      #{width,jdbcType=INTEGER},
+      #{height,jdbcType=INTEGER},
+      #{filePath,jdbcType=VARCHAR},
+      #{fullFilePath,jdbcType=VARCHAR},
+      #{fileHash,jdbcType=VARCHAR},
+      #{uploadType,jdbcType=VARCHAR},
+      #{uploadStartTime,jdbcType=TIMESTAMP},
+      #{uploadEndTime,jdbcType=TIMESTAMP},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+      #{createBy,jdbcType=VARCHAR},
+      #{lastUpdateBy,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      user_id = #{userId,jdbcType=INTEGER},
+      storage_type = #{storageType,jdbcType=VARCHAR},
+      original_file_name = #{originalFileName,jdbcType=VARCHAR},
+      `size` = #{size,jdbcType=BIGINT},
+      suffix = #{suffix,jdbcType=VARCHAR},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      full_file_path = #{fullFilePath,jdbcType=VARCHAR},
+      file_hash = #{fileHash,jdbcType=VARCHAR},
+      upload_type = #{uploadType,jdbcType=VARCHAR},
+      upload_start_time = #{uploadStartTime,jdbcType=TIMESTAMP},
+      upload_end_time = #{uploadEndTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlFile" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="storageType != null">
+        storage_type,
+      </if>
+      <if test="originalFileName != null">
+        original_file_name,
+      </if>
+      <if test="size != null">
+        `size`,
+      </if>
+      <if test="suffix != null">
+        suffix,
+      </if>
+      <if test="width != null">
+        width,
+      </if>
+      <if test="height != null">
+        height,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="fullFilePath != null">
+        full_file_path,
+      </if>
+      <if test="fileHash != null">
+        file_hash,
+      </if>
+      <if test="uploadType != null">
+        upload_type,
+      </if>
+      <if test="uploadStartTime != null">
+        upload_start_time,
+      </if>
+      <if test="uploadEndTime != null">
+        upload_end_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="storageType != null">
+        #{storageType,jdbcType=VARCHAR},
+      </if>
+      <if test="originalFileName != null">
+        #{originalFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=BIGINT},
+      </if>
+      <if test="suffix != null">
+        #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fullFilePath != null">
+        #{fullFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileHash != null">
+        #{fileHash,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadType != null">
+        #{uploadType,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStartTime != null">
+        #{uploadStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadEndTime != null">
+        #{uploadEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="storageType != null">
+        storage_type = #{storageType,jdbcType=VARCHAR},
+      </if>
+      <if test="originalFileName != null">
+        original_file_name = #{originalFileName,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        `size` = #{size,jdbcType=BIGINT},
+      </if>
+      <if test="suffix != null">
+        suffix = #{suffix,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fullFilePath != null">
+        full_file_path = #{fullFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileHash != null">
+        file_hash = #{fileHash,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadType != null">
+        upload_type = #{uploadType,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStartTime != null">
+        upload_start_time = #{uploadStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadEndTime != null">
+        upload_end_time = #{uploadEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

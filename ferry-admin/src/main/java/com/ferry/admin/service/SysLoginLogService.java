@@ -1,7 +1,7 @@
 package com.ferry.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ferry.admin.entity.SysLoginLog;
+import com.ferry.server.admin.entity.SysLoginLog;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 

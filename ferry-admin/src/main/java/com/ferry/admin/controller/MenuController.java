@@ -1,6 +1,6 @@
 package com.ferry.admin.controller;
 
-import com.ferry.admin.entity.SysMenu;
+import com.ferry.server.admin.entity.SysMenu;
 import com.ferry.admin.service.SysMenuService;
 import com.ferry.core.http.Result;
 import io.swagger.annotations.Api;

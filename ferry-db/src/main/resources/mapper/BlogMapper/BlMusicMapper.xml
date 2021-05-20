@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlMusicMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlMusic">
+    <!--@mbg.generated-->
+    <!--@Table bl_music-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="artist" jdbcType="VARCHAR" property="artist" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="lrc" jdbcType="LONGVARCHAR" property="lrc" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="enable" jdbcType="INTEGER" property="enable" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, artist, url, cover, lrc, created_time, `enable`, deleted, create_by, 
+    last_update_by, update_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_music
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.name,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="artist = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.artist,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="url = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.url,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="cover = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.cover,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="lrc = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.lrc,jdbcType=LONGVARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="created_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`enable` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.enable,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="deleted = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.deleted,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="last_update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.lastUpdateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_music
+    (`name`, artist, url, cover, lrc, created_time, `enable`, deleted, create_by, last_update_by, 
+      update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.name,jdbcType=VARCHAR}, #{item.artist,jdbcType=VARCHAR}, #{item.url,jdbcType=VARCHAR}, 
+        #{item.cover,jdbcType=VARCHAR}, #{item.lrc,jdbcType=LONGVARCHAR}, #{item.createTime,jdbcType=TIMESTAMP},
+        #{item.enable,jdbcType=INTEGER}, #{item.deleted,jdbcType=INTEGER}, #{item.createBy,jdbcType=VARCHAR}, 
+        #{item.lastUpdateBy,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlMusic" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_music
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      `name`,
+      artist,
+      url,
+      cover,
+      lrc,
+      created_time,
+      `enable`,
+      deleted,
+      create_by,
+      last_update_by,
+      update_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{name,jdbcType=VARCHAR},
+      #{artist,jdbcType=VARCHAR},
+      #{url,jdbcType=VARCHAR},
+      #{cover,jdbcType=VARCHAR},
+      #{lrc,jdbcType=LONGVARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{enable,jdbcType=INTEGER},
+      #{deleted,jdbcType=INTEGER},
+      #{createBy,jdbcType=VARCHAR},
+      #{lastUpdateBy,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      `name` = #{name,jdbcType=VARCHAR},
+      artist = #{artist,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      lrc = #{lrc,jdbcType=LONGVARCHAR},
+      created_time = #{createTime,jdbcType=TIMESTAMP},
+      `enable` = #{enable,jdbcType=INTEGER},
+      deleted = #{deleted,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlMusic" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_music
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="artist != null">
+        artist,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="lrc != null">
+        lrc,
+      </if>
+      <if test="createTime != null">
+        created_time,
+      </if>
+      <if test="enable != null">
+        `enable`,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="artist != null">
+        #{artist,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="lrc != null">
+        #{lrc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null">
+        #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="artist != null">
+        artist = #{artist,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="lrc != null">
+        lrc = #{lrc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="createTime != null">
+        created_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enable != null">
+        `enable` = #{enable,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

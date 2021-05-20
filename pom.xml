@@ -14,6 +14,7 @@
         <module>ferry-webConsumer</module>
         <module>ferry-hystrix</module>
         <module>ferry-zuul</module>
+        <module>ferry-server</module>
     </modules>
 	<parent>
         <groupId>org.springframework.boot</groupId>

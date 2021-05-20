@@ -1,9 +1,9 @@
 package com.ferry.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ferry.admin.entity.SysMenu;
-import com.ferry.admin.entity.SysRole;
-import com.ferry.admin.entity.SysRoleMenu;
+import com.ferry.server.admin.entity.SysMenu;
+import com.ferry.server.admin.entity.SysRole;
+import com.ferry.server.admin.entity.SysRoleMenu;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 

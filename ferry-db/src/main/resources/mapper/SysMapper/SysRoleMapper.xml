@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.admin.mapper.SysRoleMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.admin.entity.SysRole">
+    <!--@mbg.generated-->
+    <!--@Table sys_role-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, remark, create_by, create_time, last_update_by, last_update_time, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="findPageByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <bind name="pattern" value="'%' + _parameter.name + '%'" />
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    where name like #{pattern}
+  </select>
+  <select id="findByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+</mapper>

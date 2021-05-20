@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlTypeMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlType">
+    <!--@mbg.generated-->
+    <!--@Table bl_type-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="available" jdbcType="BOOLEAN" property="available" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, pid, `name`, description, sort, icon, available, create_time, update_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_type
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="pid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.pid,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="`name` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.name,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="description = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.description,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sort = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.sort,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="icon = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.icon,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="available = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.available,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=BIGINT} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_type
+    (pid, `name`, description, sort, icon, available, create_time, update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.pid,jdbcType=BIGINT}, #{item.name,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+        #{item.sort,jdbcType=INTEGER}, #{item.icon,jdbcType=VARCHAR}, #{item.available,jdbcType=BOOLEAN}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlType" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      pid,
+      `name`,
+      description,
+      sort,
+      icon,
+      available,
+      create_time,
+      update_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      #{pid,jdbcType=BIGINT},
+      #{name,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR},
+      #{sort,jdbcType=INTEGER},
+      #{icon,jdbcType=VARCHAR},
+      #{available,jdbcType=BOOLEAN},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT},
+      </if>
+      pid = #{pid,jdbcType=BIGINT},
+      `name` = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      available = #{available,jdbcType=BOOLEAN},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlType" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="available != null">
+        available,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null">
+        #{available,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null">
+        available = #{available,jdbcType=BOOLEAN},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

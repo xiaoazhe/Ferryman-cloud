@@ -1,8 +1,8 @@
 package com.ferry.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ferry.admin.entity.SysDept;
-import com.ferry.admin.entity.SysDict;
+import com.ferry.server.admin.entity.SysDept;
+import com.ferry.server.admin.entity.SysDict;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 

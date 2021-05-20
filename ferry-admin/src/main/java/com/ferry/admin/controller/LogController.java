@@ -1,6 +1,6 @@
 package com.ferry.admin.controller;
 
-import com.ferry.admin.entity.SysLog;
+import com.ferry.server.admin.entity.SysLog;
 import com.ferry.admin.service.SysLogService;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;

@@ -1,9 +1,9 @@
 package com.ferry.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ferry.admin.entity.SysConfig;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
+import com.ferry.server.admin.entity.SysConfig;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.ferry.blog.controller;
 
-import com.ferry.blog.entity.BlBlog;
-import com.ferry.blog.entity.BlType;
+import com.ferry.server.blog.entity.BlType;
 import com.ferry.blog.service.TypeService;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;

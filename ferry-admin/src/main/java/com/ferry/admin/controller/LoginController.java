@@ -1,6 +1,6 @@
 package com.ferry.admin.controller;
 
-import com.ferry.admin.entity.SysUser;
+import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.security.JwtAuthenticatioToken;
 import com.ferry.admin.service.SysLoginLogService;
 import com.ferry.admin.service.SysUserService;
@@ -27,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * 登录接口

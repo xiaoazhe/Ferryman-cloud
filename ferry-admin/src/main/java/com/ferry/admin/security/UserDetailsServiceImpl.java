@@ -1,6 +1,6 @@
 package com.ferry.admin.security;
 
-import com.ferry.admin.entity.SysUser;
+import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

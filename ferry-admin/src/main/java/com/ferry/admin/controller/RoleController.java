@@ -1,8 +1,8 @@
 package com.ferry.admin.controller;
 
 import com.ferry.admin.constant.SysConstants;
-import com.ferry.admin.entity.SysRole;
-import com.ferry.admin.entity.SysRoleMenu;
+import com.ferry.server.admin.entity.SysRole;
+import com.ferry.server.admin.entity.SysRoleMenu;
 import com.ferry.admin.service.SysRoleService;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;

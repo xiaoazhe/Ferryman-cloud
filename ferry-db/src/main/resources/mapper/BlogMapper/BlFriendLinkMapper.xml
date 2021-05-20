@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlFriendLinkMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlFriendLink">
+    <!--@mbg.generated-->
+    <!--@Table bl_friend_link-->
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="click_count" jdbcType="INTEGER" property="clickCount" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="link_status" jdbcType="BOOLEAN" property="linkStatus" />
+    <result column="user_uid" jdbcType="VARCHAR" property="userUid" />
+    <result column="admin_uid" jdbcType="VARCHAR" property="adminUid" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="file_uid" jdbcType="VARCHAR" property="fileUid" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `uid`, title, summary, url, click_count, create_time, update_time, `status`, sort, 
+    link_status, user_uid, admin_uid, email, file_uid, create_by, last_update_by
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_friend_link
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="title = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.title,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="summary = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.summary,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="url = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.url,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="click_count = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.clickCount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.status,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="sort = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.sort,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="link_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.linkStatus,jdbcType=BOOLEAN}
+        </foreach>
+      </trim>
+      <trim prefix="user_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.userUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="admin_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.adminUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="email = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.email,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="file_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.fileUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="last_update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.lastUpdateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where `uid` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.uid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into bl_friend_link
+    (`uid`, title, summary, url, click_count, create_time, update_time, `status`, sort, 
+      link_status, user_uid, admin_uid, email, file_uid, create_by, last_update_by)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.uid,jdbcType=VARCHAR}, #{item.title,jdbcType=VARCHAR}, #{item.summary,jdbcType=VARCHAR}, 
+        #{item.url,jdbcType=VARCHAR}, #{item.clickCount,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=TINYINT}, #{item.sort,jdbcType=INTEGER}, 
+        #{item.linkStatus,jdbcType=BOOLEAN}, #{item.userUid,jdbcType=VARCHAR}, #{item.adminUid,jdbcType=VARCHAR}, 
+        #{item.email,jdbcType=VARCHAR}, #{item.fileUid,jdbcType=VARCHAR}, #{item.createBy,jdbcType=VARCHAR}, 
+        #{item.lastUpdateBy,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ferry.server.blog.entity.BlFriendLink">
+    <!--@mbg.generated-->
+    insert into bl_friend_link
+    (`uid`, title, summary, url, click_count, create_time, update_time, `status`, sort, 
+      link_status, user_uid, admin_uid, email, file_uid, create_by, last_update_by)
+    values
+    (#{uid,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{clickCount,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{sort,jdbcType=INTEGER}, 
+      #{linkStatus,jdbcType=BOOLEAN}, #{userUid,jdbcType=VARCHAR}, #{adminUid,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{fileUid,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{lastUpdateBy,jdbcType=VARCHAR})
+    on duplicate key update 
+    `uid` = #{uid,jdbcType=VARCHAR}, 
+    title = #{title,jdbcType=VARCHAR}, 
+    summary = #{summary,jdbcType=VARCHAR}, 
+    url = #{url,jdbcType=VARCHAR}, 
+    click_count = #{clickCount,jdbcType=INTEGER}, 
+    create_time = #{createTime,jdbcType=TIMESTAMP}, 
+    update_time = #{updateTime,jdbcType=TIMESTAMP}, 
+    `status` = #{status,jdbcType=TINYINT}, 
+    sort = #{sort,jdbcType=INTEGER}, 
+    link_status = #{linkStatus,jdbcType=BOOLEAN}, 
+    user_uid = #{userUid,jdbcType=VARCHAR}, 
+    admin_uid = #{adminUid,jdbcType=VARCHAR}, 
+    email = #{email,jdbcType=VARCHAR}, 
+    file_uid = #{fileUid,jdbcType=VARCHAR}, 
+    create_by = #{createBy,jdbcType=VARCHAR}, 
+    last_update_by = #{lastUpdateBy,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ferry.server.blog.entity.BlFriendLink">
+    <!--@mbg.generated-->
+    insert into bl_friend_link
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="clickCount != null">
+        click_count,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="linkStatus != null">
+        link_status,
+      </if>
+      <if test="userUid != null">
+        user_uid,
+      </if>
+      <if test="adminUid != null">
+        admin_uid,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="fileUid != null">
+        file_uid,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null">
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="linkStatus != null">
+        #{linkStatus,jdbcType=BOOLEAN},
+      </if>
+      <if test="userUid != null">
+        #{userUid,jdbcType=VARCHAR},
+      </if>
+      <if test="adminUid != null">
+        #{adminUid,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUid != null">
+        #{fileUid,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null">
+        click_count = #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="linkStatus != null">
+        link_status = #{linkStatus,jdbcType=BOOLEAN},
+      </if>
+      <if test="userUid != null">
+        user_uid = #{userUid,jdbcType=VARCHAR},
+      </if>
+      <if test="adminUid != null">
+        admin_uid = #{adminUid,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUid != null">
+        file_uid = #{fileUid,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

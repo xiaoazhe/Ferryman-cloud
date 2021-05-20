@@ -1,14 +1,12 @@
 package com.ferry.blog.controller;
 
 
-import com.ferry.blog.entity.BlMusic;
+import com.ferry.server.blog.entity.BlMusic;
 import com.ferry.blog.service.MusicService;
-import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,9 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.internet.MimeMessage;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -179,7 +175,7 @@ public class MusicController {
     @ApiOperation(value = "前台查询")
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
     public Result getList() {
-        List<BlMusic> musicList = musicService.getList();
+        List <BlMusic> musicList = musicService.getList();
         return Result.ok(musicList);
     }
 
