@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlPictureMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlPicture">
+    <!--@mbg.generated-->
+    <!--@Table bl_picture-->
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="file_uid" jdbcType="VARCHAR" property="fileUid" />
+    <result column="pic_name" jdbcType="VARCHAR" property="picName" />
+    <result column="picture_sort_uid" jdbcType="VARCHAR" property="pictureSortUid" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `uid`, file_uid, pic_name, picture_sort_uid, `status`, create_time, update_time, 
+    create_by, last_update_by
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_picture
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="file_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.fileUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="pic_name = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.picName,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="picture_sort_uid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.pictureSortUid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.status,jdbcType=TINYINT}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="last_update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `uid` = #{item.uid,jdbcType=VARCHAR} then #{item.lastUpdateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where `uid` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.uid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into bl_picture
+    (`uid`, file_uid, pic_name, picture_sort_uid, `status`, create_time, update_time, 
+      create_by, last_update_by)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.uid,jdbcType=VARCHAR}, #{item.fileUid,jdbcType=VARCHAR}, #{item.picName,jdbcType=VARCHAR}, 
+        #{item.pictureSortUid,jdbcType=VARCHAR}, #{item.status,jdbcType=TINYINT}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP}, #{item.createBy,jdbcType=VARCHAR}, #{item.lastUpdateBy,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ferry.server.blog.entity.BlPicture">
+    <!--@mbg.generated-->
+    insert into bl_picture
+    (`uid`, file_uid, pic_name, picture_sort_uid, `status`, create_time, update_time, 
+      create_by, last_update_by)
+    values
+    (#{uid,jdbcType=VARCHAR}, #{fileUid,jdbcType=VARCHAR}, #{picName,jdbcType=VARCHAR}, 
+      #{pictureSortUid,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{lastUpdateBy,jdbcType=VARCHAR}
+      )
+    on duplicate key update 
+    `uid` = #{uid,jdbcType=VARCHAR}, 
+    file_uid = #{fileUid,jdbcType=VARCHAR}, 
+    pic_name = #{picName,jdbcType=VARCHAR}, 
+    picture_sort_uid = #{pictureSortUid,jdbcType=VARCHAR}, 
+    `status` = #{status,jdbcType=TINYINT}, 
+    create_time = #{createTime,jdbcType=TIMESTAMP}, 
+    update_time = #{updateTime,jdbcType=TIMESTAMP}, 
+    create_by = #{createBy,jdbcType=VARCHAR}, 
+    last_update_by = #{lastUpdateBy,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ferry.server.blog.entity.BlPicture">
+    <!--@mbg.generated-->
+    insert into bl_picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="fileUid != null">
+        file_uid,
+      </if>
+      <if test="picName != null">
+        pic_name,
+      </if>
+      <if test="pictureSortUid != null">
+        picture_sort_uid,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUid != null">
+        #{fileUid,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null">
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureSortUid != null">
+        #{pictureSortUid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUid != null">
+        file_uid = #{fileUid,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null">
+        pic_name = #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureSortUid != null">
+        picture_sort_uid = #{pictureSortUid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
