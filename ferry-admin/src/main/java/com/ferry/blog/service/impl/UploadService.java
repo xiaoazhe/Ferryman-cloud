@@ -1,6 +1,8 @@
 package com.ferry.blog.service.impl;
 
 import com.ferry.admin.config.UploadConfig;
+import com.ferry.common.enums.StateEnums;
+import com.ferry.core.http.Result;
 import com.github.tobato.fastdfs.domain.fdfs.StorePath;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import org.apache.commons.lang3.StringUtils;
@@ -48,5 +50,14 @@ public class UploadService {
             log.error("【文件上传】上传文件失败！....{}", e);
             throw new RuntimeException("【文件上传】上传文件失败！" + e.getMessage());
         }
+    }
+
+    public Result deletefdfsImage(String url) {
+        Result result = new Result();
+        String storePath = url.substring(19);
+        storageClient.deleteFile(storePath);
+        result.setCode(StateEnums.DELETED.getCode());
+        result.setData(StateEnums.DELETED.getMsg());
+        return result;
     }
 }
