@@ -16,7 +16,8 @@
 9. Mybatis-plus ORM框架
 10. MyBatisCodeHelperPro 插件代码生成
 11. FastDFS文件系统,OSS。。
-12. .......
+12. RabbitMQ
+13. .......
 
 #### 使用说明
 
