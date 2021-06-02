@@ -13,6 +13,4 @@ public interface BlogService {
 
     @RequestMapping("/getBlogById")
     public String hello();
-
-
 }

@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
-@MapperScan("com.ferry.web.mapper")
+@MapperScan("com.ferry.server.*.mapper")
 public class WebBalancedApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebBalancedApplication.class, args);

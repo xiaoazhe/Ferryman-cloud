@@ -70,11 +70,11 @@
             <artifactId>kaptcha</artifactId>
             <version>0.0.9</version>
         </dependency>
-        <!-- spring security -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+<!--        &lt;!&ndash; spring security &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-security</artifactId>-->
+<!--        </dependency>-->
         <!-- spring mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
