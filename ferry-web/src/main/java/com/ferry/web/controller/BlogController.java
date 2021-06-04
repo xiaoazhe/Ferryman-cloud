@@ -1,5 +1,6 @@
 package com.ferry.web.controller;
 
+import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import com.ferry.server.blog.entity.BlBlog;
@@ -7,10 +8,7 @@ import com.ferry.web.service.BlogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(tags = "博客模块")
@@ -26,9 +24,17 @@ public class BlogController {
         return Result.ok(blogService.findPage(pageRequest));
     }
 
-    @RequestMapping("/getBlogById")
-    public BlBlog blBlog() {
-        return blogService.selectById("11e0cace2148383e201439a682432d91");
+    @ApiOperation(value = "id查询")
+    @PostMapping("/getBlogById")
+    public Result blBlog(@RequestBody String id) {
+        if (StringUtils.isBlank(id)) {
+            throw new RuntimeException("id不能为空");
+        }
+        BlBlog blog = blogService.selectById(id);
+        if (blog == null) {
+            return Result.error();
+        }
+        return Result.ok(blog);
     }
 
     @RequestMapping("/hello")

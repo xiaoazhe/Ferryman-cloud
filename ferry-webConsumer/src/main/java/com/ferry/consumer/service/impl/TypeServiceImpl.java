@@ -19,4 +19,9 @@ public class TypeServiceImpl implements TypeService {
         return Result.error("抱歉,没有获取到");
     }
 
+    @RequestMapping("/type/findBlogByTypeId")
+    public Result findBlogByTypeId(PageRequest pageRequest) {
+        return Result.error();
+    }
+
 }

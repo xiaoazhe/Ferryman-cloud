@@ -84,4 +84,17 @@ public class TypeServiceImpl extends ServiceImpl <BlTypeMapper, BlType> implemen
         BlType typeName = blTypeMapper.selectById(blog.getTypeId());
         return typeName;
     }
+
+    @Override
+    public PageResult findBlogPage(PageRequest pageRequest, String typeId) {
+        Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+//        String label = pageRequest.getParamValue("name");
+        String label = pageRequest.getName();
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like(!StringUtils.isBlank(label),"title", label);
+        queryWrapper.eq("type_id", typeId);
+        Page<BlBlog> typePage = blBlogMapper.selectPage(page, queryWrapper);
+        PageResult pageResult = new PageResult(typePage);
+        return pageResult;
+    }
 }

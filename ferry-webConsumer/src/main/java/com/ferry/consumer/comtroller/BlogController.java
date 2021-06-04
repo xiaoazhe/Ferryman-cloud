@@ -3,7 +3,6 @@ package com.ferry.consumer.comtroller;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.service.BlogService;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +20,12 @@ public class BlogController {
     @PostMapping(value="/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest, @RequestParam String token) {
         Result result = blogService.findPage(pageRequest);
+        return result;
+    }
+
+    @PostMapping(value="/getBlogById")
+    public Result getBlogById(@RequestParam(value = "id") String id, @RequestParam(value = "token")  String token) {
+        Result result = blogService.getBlogById(id);
         return result;
     }
 

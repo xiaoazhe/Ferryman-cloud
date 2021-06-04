@@ -17,4 +17,6 @@ public interface TypeService {
     @RequestMapping("/type/findAll")
     public Result findAll();
 
+    @RequestMapping("/type/findBlogByTypeId")
+    public Result findBlogByTypeId(PageRequest pageRequest);
 }

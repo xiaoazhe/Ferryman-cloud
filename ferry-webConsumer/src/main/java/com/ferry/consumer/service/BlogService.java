@@ -4,6 +4,8 @@ import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.service.impl.BlogServiceImpl;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -15,6 +17,9 @@ public interface BlogService {
 
     @RequestMapping("/blog/findPage")
     public Result findPage(PageRequest pageRequest);
+
+    @RequestMapping("/blog/getBlogById")
+    public Result getBlogById(String id);
 
     @RequestMapping("/getBlogById")
     public String hello();

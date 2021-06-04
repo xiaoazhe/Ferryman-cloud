@@ -22,4 +22,6 @@ public interface TypeService extends IService <BlType> {
     List<BlType> findAll();
 
     BlType findById(String id);
+
+    PageResult findBlogPage(PageRequest pageRequest, String typeId);
 }

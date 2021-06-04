@@ -22,4 +22,9 @@ public class TypeController {
         return typeService.findAll();
     }
 
+    @PostMapping(value="/findBlogByTypeId")
+    public Result findPage(@RequestBody PageRequest pageRequest, @RequestParam String token, @RequestParam Integer id) {
+        pageRequest.setEnabled(id);
+        return typeService.findBlogByTypeId(pageRequest);
+    }
 }
