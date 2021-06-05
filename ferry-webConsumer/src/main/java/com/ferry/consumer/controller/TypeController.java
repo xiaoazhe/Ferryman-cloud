@@ -1,4 +1,4 @@
-package com.ferry.consumer.comtroller;
+package com.ferry.consumer.controller;
 
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * @Author: 摆渡人
  * @Date: 2021/6/3
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/type")
 public class TypeController {
@@ -18,12 +19,12 @@ public class TypeController {
     private TypeService typeService;
 
     @PostMapping(value="/findAll")
-    public Result findPage(@RequestParam String token) {
+    public Result findPage() {
         return typeService.findAll();
     }
 
     @PostMapping(value="/findBlogByTypeId")
-    public Result findPage(@RequestBody PageRequest pageRequest, @RequestParam String token, @RequestParam Integer id) {
+    public Result findPage(@RequestBody PageRequest pageRequest, @RequestParam Integer id) {
         pageRequest.setEnabled(id);
         return typeService.findBlogByTypeId(pageRequest);
     }

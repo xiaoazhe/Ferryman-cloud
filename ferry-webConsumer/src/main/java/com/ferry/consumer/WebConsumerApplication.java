@@ -1,6 +1,9 @@
 package com.ferry.consumer;
 
+import com.ferry.common.utils.IdWorker;
+import com.ferry.consumer.interceptor.JwtUtil;
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -8,6 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -17,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableFeignClients
 @EnableDiscoveryClient
 @SpringBootApplication
+@MapperScan("com.ferry.server.*.mapper")
 public class WebConsumerApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebConsumerApplication.class, args);
@@ -26,6 +31,16 @@ public class WebConsumerApplication {
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public IdWorker idWorkker(){
+        return new IdWorker(1, 1);
+    }
+
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil();
     }
 
     // 此配置是为了服务监控而配置，与服务容错本身无关，
@@ -39,5 +54,10 @@ public class WebConsumerApplication {
         registrationBean.addUrlMappings("/hystrix.stream");
         registrationBean.setName("HystrixMetricsStreamServlet");
         return registrationBean;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 }

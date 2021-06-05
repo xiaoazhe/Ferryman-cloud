@@ -1,6 +1,7 @@
 package com.ferry.web;
 
 import com.ferry.common.utils.IdWorker;
+import com.ferry.web.util.JwtUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,4 +26,13 @@ public class WebApplication {
         return new IdWorker(1, 1);
     }
 
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
 }

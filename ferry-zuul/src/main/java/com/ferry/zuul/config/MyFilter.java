@@ -33,22 +33,33 @@ public class MyFilter extends ZuulFilter {
     @Override
     public Object run() throws ZuulException {
         // filter需要执行的具体操作
-        RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
-        String token = request.getParameter("token");
-        System.out.println(token);
-        if(token==null){
-            log.warn("there is no request token");
-            ctx.setSendZuulResponse(false);
-            ctx.setResponseStatusCode(401);
-            try {
-                ctx.getResponse().getWriter().write("there is no request token");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
+//        RequestContext ctx = RequestContext.getCurrentContext();
+//        HttpServletRequest request = ctx.getRequest();
+//        String token = request.getParameter("token");
+//        System.out.println(token);
+//        if(token==null){
+//            log.warn("there is no request token");
+//            ctx.setSendZuulResponse(false);
+//            ctx.setResponseStatusCode(401);
+//            try {
+//                ctx.getResponse().getWriter().write("there is no request token");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//        log.info("ok");
+        //得到request上下文
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        //得到request域
+        HttpServletRequest request = currentContext.getRequest();
+        //得到头信息
+        String header = request.getHeader("Authorization");
+        //判断是否有头信息
+        if(header!=null && !"".equals(header)){
+            //把头信息继续向下传
+            currentContext.addZuulRequestHeader("Authorization", header);
         }
-        log.info("ok");
         return null;
     }
 }

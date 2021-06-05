@@ -1,10 +1,10 @@
-package com.ferry.web.controller;
+package com.ferry.consumer.controller;
 
 import com.ferry.common.enums.StateEnums;
-import com.ferry.core.http.Result;
+import com.ferry.consumer.http.Result;
+import com.ferry.consumer.interceptor.JwtUtil;
+import com.ferry.consumer.service.SysUserService;
 import com.ferry.server.blog.entity.BlUser;
-import com.ferry.web.service.SysUserService;
-import com.ferry.web.util.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,8 @@ import java.util.Map;
 
 /**
  * @Author: 摆渡人
- * @Date: 2021/6/2
+ * @Date: 2021/6/5
  */
-
 @Api(tags = "前台系统")
 @RestController
 @CrossOrigin
@@ -40,6 +39,8 @@ public class UserController {
         String token = jwtUtil.createJWT(String.valueOf(user.getId()), user.getMobile(), "user");
         Map <String, Object> map = new HashMap <>();
         map.put("token", token);
+        map.put("name", user.getNickname());
+        map.put("avatar", user.getAvatar());
         map.put("roles", "user");
         return new Result().ok(map);
     }
@@ -48,8 +49,8 @@ public class UserController {
      * 注册
      * @return
      */
-    @PostMapping(value = "/register/{code}")
-    public Result regist(@PathVariable String code, @RequestBody BlUser user){
+    @PostMapping(value = "/register")
+    public Result regist(@RequestParam String code, @RequestBody BlUser user){
         //得到缓存中的验证码
 //        String checkcodeRedis = (String) redisTemplate.opsForValue().get("checkcode_" + user.getMobile());
 //        if(checkcodeRedis.isEmpty()){
@@ -59,6 +60,6 @@ public class UserController {
 //            return new Result(false, StatusCode.ERROR, "请输入正确的验证码");
 //        }
         userService.add(user);
-        return new Result().ok();
+        return new Result().ok(StateEnums.REGISTER_SUC);
     }
 }

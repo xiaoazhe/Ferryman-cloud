@@ -1,4 +1,4 @@
-package com.ferry.web.service.impl;
+package com.ferry.consumer.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -6,10 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.common.utils.DateTimeUtils;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.PoiUtils;
-import com.ferry.core.http.Result;
+import com.ferry.consumer.service.SysUserService;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
-import com.ferry.server.admin.entity.SysMenu;
 import com.ferry.server.admin.entity.SysRole;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.entity.SysUserRole;
@@ -18,8 +17,6 @@ import com.ferry.server.admin.mapper.SysUserMapper;
 import com.ferry.server.admin.mapper.SysUserRoleMapper;
 import com.ferry.server.blog.entity.BlUser;
 import com.ferry.server.blog.mapper.BlUserMapper;
-import com.ferry.web.service.SysUserService;
-import com.ferry.web.util.PasswordUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -29,19 +26,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.*;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> implements SysUserService {
 
-	@Autowired
+	@Resource
 	private SysUserMapper sysUserMapper;
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
 	@Autowired
 	private SysRoleMapper sysRoleMapper;
-	@Autowired
+	@Resource
 	private BlUserMapper userMapper;
 	@Autowired
 	private IdWorker idWorker;
@@ -200,8 +198,10 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	}
 
 	public BlUser login(String mobile, String password) {
-		BlUser user = userMapper.selectById(mobile);
-		if(user != null){
+		QueryWrapper<BlUser> queryWrapper = new QueryWrapper <>();
+		queryWrapper.eq("mobile", mobile);
+		BlUser user = userMapper.selectOne(queryWrapper);
+		if(user != null && encoder.matches(password, user.getPassword())){
 			return user;
 		}
 		return null;

@@ -1,4 +1,4 @@
-package com.ferry.web.service;
+package com.ferry.consumer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ferry.core.page.PageRequest;
@@ -9,7 +9,6 @@ import com.ferry.server.blog.entity.BlUser;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 用户管理

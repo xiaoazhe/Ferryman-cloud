@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlUserMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlUser">
+    <!--@mbg.generated-->
+    <!--@Table bl_user-->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="TIMESTAMP" property="birthday" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="regdate" jdbcType="TIMESTAMP" property="regdate" />
+    <result column="updatedate" jdbcType="TIMESTAMP" property="updatedate" />
+    <result column="lastdate" jdbcType="TIMESTAMP" property="lastdate" />
+    <result column="online" jdbcType="BIGINT" property="online" />
+    <result column="interest" jdbcType="VARCHAR" property="interest" />
+    <result column="personality" jdbcType="VARCHAR" property="personality" />
+    <result column="fanscount" jdbcType="INTEGER" property="fanscount" />
+    <result column="followcount" jdbcType="INTEGER" property="followcount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, mobile, `password`, nickname, sex, birthday, avatar, email, regdate, updatedate, 
+    lastdate, `online`, interest, personality, fanscount, followcount
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_user
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="mobile = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.mobile,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`password` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.password,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="nickname = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.nickname,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="sex = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.sex,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="birthday = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.birthday,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="avatar = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.avatar,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="email = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.email,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="regdate = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.regdate,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="updatedate = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.updatedate,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="lastdate = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.lastdate,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`online` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.online,jdbcType=BIGINT}
+        </foreach>
+      </trim>
+      <trim prefix="interest = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.interest,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="personality = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.personality,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="fanscount = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.fanscount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="followcount = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=VARCHAR} then #{item.followcount,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into bl_user
+    (id, mobile, `password`, nickname, sex, birthday, avatar, email, regdate, updatedate, 
+      lastdate, `online`, interest, personality, fanscount, followcount)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=VARCHAR}, #{item.mobile,jdbcType=VARCHAR}, #{item.password,jdbcType=VARCHAR}, 
+        #{item.nickname,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR}, #{item.birthday,jdbcType=TIMESTAMP}, 
+        #{item.avatar,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, #{item.regdate,jdbcType=TIMESTAMP}, 
+        #{item.updatedate,jdbcType=TIMESTAMP}, #{item.lastdate,jdbcType=TIMESTAMP}, #{item.online,jdbcType=BIGINT}, 
+        #{item.interest,jdbcType=VARCHAR}, #{item.personality,jdbcType=VARCHAR}, #{item.fanscount,jdbcType=INTEGER}, 
+        #{item.followcount,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ferry.server.blog.entity.BlUser">
+    <!--@mbg.generated-->
+    insert into bl_user
+    (id, mobile, `password`, nickname, sex, birthday, avatar, email, regdate, updatedate, 
+      lastdate, `online`, interest, personality, fanscount, followcount)
+    values
+    (#{id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
+      #{avatar,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{regdate,jdbcType=TIMESTAMP}, 
+      #{updatedate,jdbcType=TIMESTAMP}, #{lastdate,jdbcType=TIMESTAMP}, #{online,jdbcType=BIGINT}, 
+      #{interest,jdbcType=VARCHAR}, #{personality,jdbcType=VARCHAR}, #{fanscount,jdbcType=INTEGER}, 
+      #{followcount,jdbcType=INTEGER})
+    on duplicate key update 
+    id = #{id,jdbcType=VARCHAR}, 
+    mobile = #{mobile,jdbcType=VARCHAR}, 
+    `password` = #{password,jdbcType=VARCHAR}, 
+    nickname = #{nickname,jdbcType=VARCHAR}, 
+    sex = #{sex,jdbcType=VARCHAR}, 
+    birthday = #{birthday,jdbcType=TIMESTAMP}, 
+    avatar = #{avatar,jdbcType=VARCHAR}, 
+    email = #{email,jdbcType=VARCHAR}, 
+    regdate = #{regdate,jdbcType=TIMESTAMP}, 
+    updatedate = #{updatedate,jdbcType=TIMESTAMP}, 
+    lastdate = #{lastdate,jdbcType=TIMESTAMP}, 
+    `online` = #{online,jdbcType=BIGINT}, 
+    interest = #{interest,jdbcType=VARCHAR}, 
+    personality = #{personality,jdbcType=VARCHAR}, 
+    fanscount = #{fanscount,jdbcType=INTEGER}, 
+    followcount = #{followcount,jdbcType=INTEGER}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ferry.server.blog.entity.BlUser">
+    <!--@mbg.generated-->
+    insert into bl_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="regdate != null">
+        regdate,
+      </if>
+      <if test="updatedate != null">
+        updatedate,
+      </if>
+      <if test="lastdate != null">
+        lastdate,
+      </if>
+      <if test="online != null">
+        `online`,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="personality != null">
+        personality,
+      </if>
+      <if test="fanscount != null">
+        fanscount,
+      </if>
+      <if test="followcount != null">
+        followcount,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null">
+        #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastdate != null">
+        #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="online != null">
+        #{online,jdbcType=BIGINT},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="personality != null">
+        #{personality,jdbcType=VARCHAR},
+      </if>
+      <if test="fanscount != null">
+        #{fanscount,jdbcType=INTEGER},
+      </if>
+      <if test="followcount != null">
+        #{followcount,jdbcType=INTEGER},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null">
+        regdate = #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastdate != null">
+        lastdate = #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="online != null">
+        `online` = #{online,jdbcType=BIGINT},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="personality != null">
+        personality = #{personality,jdbcType=VARCHAR},
+      </if>
+      <if test="fanscount != null">
+        fanscount = #{fanscount,jdbcType=INTEGER},
+      </if>
+      <if test="followcount != null">
+        followcount = #{followcount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

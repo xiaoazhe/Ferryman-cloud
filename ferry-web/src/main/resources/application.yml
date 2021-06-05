@@ -44,3 +44,8 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
+#3600000 1h
+jwt:
+  config:
+    key: ferry
+    ttl: 3600000
