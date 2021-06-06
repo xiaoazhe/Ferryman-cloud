@@ -82,7 +82,7 @@ public class BlComment implements Serializable {
      * 评论类型 1:点赞 0:评论
      */
     @TableField(value = "TYPE")
-    private Boolean type;
+    private Integer type;
 
     /**
      * 一级评论ID

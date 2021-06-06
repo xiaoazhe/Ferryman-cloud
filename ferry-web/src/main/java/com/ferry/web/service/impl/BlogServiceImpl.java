@@ -6,17 +6,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.StringUtils;
+import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlBlog;
+import com.ferry.server.blog.entity.BlComment;
 import com.ferry.server.blog.entity.BlType;
 import com.ferry.server.blog.mapper.BlBlogMapper;
+import com.ferry.server.blog.mapper.BlCommentMapper;
 import com.ferry.server.blog.mapper.BlTypeMapper;
 import com.ferry.web.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +41,9 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     @Autowired
     private IdWorker idWorker;
 
+    @Autowired
+    private BlCommentMapper commentMapper;
+
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
@@ -44,6 +51,9 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
         String label = pageRequest.getName();
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like(!StringUtils.isBlank(label),"title", label);
+        if (pageRequest.getEnabled()!=-1) {
+            queryWrapper.eq("type_id", pageRequest.getEnabled());
+        }
         Page<BlBlog> typePage = blogMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
         return pageResult;
@@ -98,8 +108,23 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     }
 
     @Override
-    public BlBlog selectById(String id) {
-        return blogMapper.selectById(id);
+    public Result selectById(String id) {
+        Result result = new Result();
+        BlBlog blog = blogMapper.selectById(id);
+        QueryWrapper<BlComment> queryWrapper = new QueryWrapper <>();
+        queryWrapper.eq("blog_id", id);
+        List<BlComment> comment = commentMapper.selectCommentList(queryWrapper);
+        for (BlComment blComment : comment) {
+            QueryWrapper<BlComment> sonComment = new QueryWrapper <>();
+            sonComment.eq("to_comment_id", blComment.getId());
+            List<BlComment> childComment= commentMapper.selectCommentList(sonComment);
+            blComment.setCommentList(childComment);
+        }
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("blog", blog);
+        map.put("comment", comment);
+        result.setData(map);
+        return result;
     }
 
     /**

@@ -3,7 +3,6 @@ package com.ferry.web.controller;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
-import com.ferry.server.blog.entity.BlBlog;
 import com.ferry.web.service.BlogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,11 +29,8 @@ public class BlogController {
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException("id不能为空");
         }
-        BlBlog blog = blogService.selectById(id);
-        if (blog == null) {
-            return Result.error();
-        }
-        return Result.ok(blog);
+        Result result = blogService.selectById(id);
+        return result;
     }
 
     @RequestMapping("/hello")

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +23,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         if(header!=null && !"".equals(header)){
             //如果有包含有Authorization头信息，就对其进行解析
-            if(header.startsWith("Bearer ")){
+//            if(header.startsWith("Bearer ")){
                 //得到token
                 String token = header.substring(7);
                 //对令牌进行验证
@@ -40,7 +41,7 @@ public class JwtInterceptor implements HandlerInterceptor {
                 }catch (Exception e){
                     throw new RuntimeException("令牌不正确！");
                 }
-            }
+//            }
         }
         return false;
     }

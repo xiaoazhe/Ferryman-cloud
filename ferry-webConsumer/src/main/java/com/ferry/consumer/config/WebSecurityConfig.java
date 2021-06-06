@@ -18,10 +18,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         //antMatchers表示拦截什么路径，permitAll任何权限都可以访问，直接放行所有。
         //anyRequest()任何的请求，authenticated认证后才能访问
         //.and().csrf().disable();固定写法，表示使csrf拦截失效。
-        http
+        http.cors()//新加入,允许跨域
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
-                .and().csrf().disable();
+                .anyRequest().authenticated();
     }
 }
