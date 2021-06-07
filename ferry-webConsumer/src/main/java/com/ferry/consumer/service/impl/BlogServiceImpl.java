@@ -25,6 +25,11 @@ public class BlogServiceImpl implements BlogService {
         return Result.error();
     }
 
+    @PostMapping("/blog/hotBlog")
+    public Result hotBlog() {
+        return Result.error();
+    }
+
     @RequestMapping("/getBlogById")
     public String hello() {
         return "抱歉,没有获取到";

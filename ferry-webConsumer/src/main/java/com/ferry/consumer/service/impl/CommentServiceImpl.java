@@ -43,13 +43,18 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
         String token = (String) request.getAttribute("claims_user");
         Claims claims = jwtUtil.parseJWT(token);
         String userId = claims.getId();
+        if (comment.getToCommentId() == null || "".equals(comment.getToCommentId())) {
+            comment.setFirstCommentId("1");
+        }
         comment.setCreateBy(userMapper.selectById(userId).getNickname());
         comment.setCreateTime(new Date());
+        comment.setUpdateTime(new Date());
         comment.setUserId(userId);
         comment.setId(idWorker.nextId()+"");
         comment.setStatus(1);
         comment.setType(0);
+        comment.setSource("BLOG_INFO");
         int id = commentMapper.insert(comment);
-        return new Result().ok(StateEnums.REQUEST_SUCCESS);
+        return new Result().ok(StateEnums.COMMENT_SUC.getMsg());
     }
 }

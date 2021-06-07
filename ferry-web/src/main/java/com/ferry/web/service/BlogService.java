@@ -24,4 +24,6 @@ public interface BlogService extends IService <BlBlog> {
     String deleteById(String id);
 
     Result selectById(String id);
+
+    Result hotBlog();
 }

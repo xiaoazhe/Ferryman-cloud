@@ -55,7 +55,14 @@ public enum StateEnums {
      * 0表示管理员，1表示普通用户
      */
     REGISTER_ERR(0, "注册失败"),
-    REGISTER_SUC(1, "注册成功");
+    REGISTER_SUC(1, "注册成功"),
+
+    /**
+     * 注册状态。
+     * 0表示管理员，1表示普通用户
+     */
+    COMMENT_ERR(0, "评论失败"),
+    COMMENT_SUC(1, "评论成功");
 
     private Integer code;
     private String msg;

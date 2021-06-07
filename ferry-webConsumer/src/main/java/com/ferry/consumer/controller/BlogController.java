@@ -30,6 +30,11 @@ public class BlogController {
         return result;
     }
 
+    @PostMapping(value="/hotBlog")
+    public Result hotBlog() {
+        return blogService.hotBlog();
+    }
+
     @RequestMapping("/hello")
     public String call() {
         // 像调用本地服务一样

@@ -21,6 +21,11 @@ public interface BlogService {
     @RequestMapping("/blog/getBlogById")
     public Result getBlogById(String id);
 
+    @PostMapping("/blog/hotBlog")
+    Result hotBlog();
+
     @RequestMapping("/getBlogById")
     public String hello();
+
+
 }

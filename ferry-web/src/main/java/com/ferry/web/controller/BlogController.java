@@ -33,6 +33,13 @@ public class BlogController {
         return result;
     }
 
+    @ApiOperation(value = "热门查询")
+    @PostMapping("/hotBlog")
+    public Result hotBlog() {
+        Result result = blogService.hotBlog();
+        return result;
+    }
+
     @RequestMapping("/hello")
     public String hello() {
         return "hello Mango !";

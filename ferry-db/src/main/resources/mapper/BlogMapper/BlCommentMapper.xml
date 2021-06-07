@@ -288,11 +288,11 @@
     </trim>
   </insert>
   <select id="selectCommentList" resultMap="BaseResultMap">
-    select bl_comment.*, bb.title as blogName, users.nick_name as userName,
-      us.nick_name as toUserName from bl_comment
+    select bl_comment.*, bb.title as blogName, users.nickname as userName,
+      us.nickname as toUserName from bl_comment
     left join bl_blog bb on bl_comment.blog_id = bb.id
-    left join sys_user users on bl_comment.user_id = users.id
-    left join sys_user us on bl_comment.to_user_id = us.id
+    left join bl_user users on bl_comment.user_id = users.id
+    left join bl_user us on bl_comment.to_user_id = us.id
     ${ew.customSqlSegment}
   </select>
 </mapper>

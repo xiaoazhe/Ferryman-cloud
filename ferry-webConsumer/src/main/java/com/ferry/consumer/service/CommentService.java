@@ -9,5 +9,7 @@ import com.ferry.server.blog.entity.BlComment;
  * @Date: 2021/6/6
  */
 public interface CommentService extends IService <BlComment> {
+
     Result add(BlComment spit);
+
 }

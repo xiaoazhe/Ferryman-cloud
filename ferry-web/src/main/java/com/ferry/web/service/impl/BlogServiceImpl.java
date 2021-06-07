@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * @Author: 摆渡人
@@ -111,8 +112,10 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     public Result selectById(String id) {
         Result result = new Result();
         BlBlog blog = blogMapper.selectById(id);
+        blog.setClickCount(blog.getClickCount() + 1);
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper <>();
         queryWrapper.eq("blog_id", id);
+        queryWrapper.eq("first_comment_id", "1");
         List<BlComment> comment = commentMapper.selectCommentList(queryWrapper);
         for (BlComment blComment : comment) {
             QueryWrapper<BlComment> sonComment = new QueryWrapper <>();
@@ -125,6 +128,16 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
         map.put("comment", comment);
         result.setData(map);
         return result;
+    }
+
+    @Override
+    public Result hotBlog() {
+        QueryWrapper<BlBlog> queryWrapper = new QueryWrapper <>();
+        queryWrapper.eq("is_publish", "1");
+        queryWrapper.orderByDesc("click_count");
+        List<BlBlog> blogList = blogMapper.selectList(queryWrapper);
+        List<BlBlog> hotList = blogList.stream().limit(5).collect(Collectors.toList());
+        return new Result().ok(hotList);
     }
 
     /**
