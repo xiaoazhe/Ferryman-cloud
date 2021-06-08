@@ -15,10 +15,14 @@ import com.ferry.server.blog.entity.BlType;
 import com.ferry.server.blog.mapper.BlBlogMapper;
 import com.ferry.server.blog.mapper.BlCommentMapper;
 import com.ferry.server.blog.mapper.BlTypeMapper;
+import com.ferry.server.blog.mapper.BlUserMapper;
 import com.ferry.web.service.BlogService;
+import com.ferry.web.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +73,7 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     }
 
     @Override
-    public boolean saveBlog(BlBlog blBlog) {
+    public Result saveBlog(BlBlog blBlog) {
         BlType type = null;
         if (blBlog.getTypeId() == null && blBlog.getTypeName() == null) {
             blBlog.setTypeId("1");
@@ -99,7 +103,7 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
             blBlog.setCreateTime(new Date());
             blogMapper.insert(blBlog);
         }
-        return true;
+        return Result.ok(StateEnums.SAVEBLOG_SUC.getMsg());
     }
 
     @Override
@@ -146,6 +150,9 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
      * @return
      */
     public boolean isNumeric(String str){
+        if (StringUtils.isBlank(str)) {
+            return false;
+        }
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
         if( !isNum.matches() ){

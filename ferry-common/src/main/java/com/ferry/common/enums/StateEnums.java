@@ -58,6 +58,13 @@ public enum StateEnums {
     REGISTER_SUC(1, "注册成功"),
 
     /**
+     * 发布状态。
+     * 0表示管理员，1表示普通用户
+     */
+    SAVEBLOG_ERR(0, "发布失败"),
+    SAVEBLOG_SUC(1, "发布成功"),
+
+    /**
      * 注册状态。
      * 0表示管理员，1表示普通用户
      */

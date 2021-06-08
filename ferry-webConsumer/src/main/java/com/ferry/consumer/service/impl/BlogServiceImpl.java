@@ -3,6 +3,7 @@ package com.ferry.consumer.service.impl;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.service.BlogService;
+import com.ferry.server.blog.entity.BlBlog;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,11 @@ public class BlogServiceImpl implements BlogService {
 
     @PostMapping("/blog/hotBlog")
     public Result hotBlog() {
+        return Result.error();
+    }
+
+    @PostMapping("/blog/saveBlog")
+    public Result saveBlog(BlBlog blBlog) {
         return Result.error();
     }
 

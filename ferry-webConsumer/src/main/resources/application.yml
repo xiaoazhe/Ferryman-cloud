@@ -57,4 +57,4 @@ feign:
 jwt:
   config:
     key: ferry
-    ttl: 3600000
+    ttl: 36000000

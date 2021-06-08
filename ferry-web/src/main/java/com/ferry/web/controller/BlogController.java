@@ -3,6 +3,7 @@ package com.ferry.web.controller;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
+import com.ferry.server.blog.entity.BlBlog;
 import com.ferry.web.service.BlogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +39,15 @@ public class BlogController {
     public Result hotBlog() {
         Result result = blogService.hotBlog();
         return result;
+    }
+
+    @ApiOperation(value = "用户添加博客")
+    @PostMapping("/saveBlog")
+    public Result saveBlog(@RequestBody BlBlog blBlog) {
+        if (blBlog == null) {
+            throw new RuntimeException("添加数据异常");
+        }
+        return blogService.saveBlog(blBlog);
     }
 
     @RequestMapping("/hello")
