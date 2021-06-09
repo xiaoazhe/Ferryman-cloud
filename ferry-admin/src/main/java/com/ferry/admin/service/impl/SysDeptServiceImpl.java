@@ -52,7 +52,7 @@ public class SysDeptServiceImpl extends ServiceImpl <SysDeptMapper, SysDept> imp
 	public List<SysDept> findTree() {
 		List<SysDept> sysDepts = new ArrayList<>();
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.ne("id", 0);
+		queryWrapper.ne(SysDept.COL_ID, 0);
 		List<SysDept> depts = sysDeptMapper.selectList(queryWrapper);
 		for (SysDept dept : depts) {
 			if (dept.getParentId() == null || dept.getParentId() == 0) {

@@ -1,5 +1,6 @@
 package com.ferry.web.controller;
 
+import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import com.ferry.web.service.TypeService;
@@ -32,7 +33,7 @@ public class TypeController {
     public Result findBlogByTypeId(@RequestBody PageRequest pageRequest) {
         String typeId = String.valueOf(pageRequest.getEnabled());
         if (typeId == null || "-1" .equals(typeId)) {
-            throw new RuntimeException("没有指定类型");
+            throw new RuntimeException(CommonStatusEnum.NO_FIND);
         }
         return Result.ok(typeService.findBlogPage(pageRequest, typeId));
     }

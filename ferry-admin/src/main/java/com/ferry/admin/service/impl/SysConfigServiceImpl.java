@@ -3,6 +3,7 @@ package com.ferry.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.admin.entity.SysConfig;
 import com.ferry.server.admin.mapper.SysConfigMapper;
 import com.ferry.admin.service.SysConfigService;
@@ -46,9 +47,9 @@ public class SysConfigServiceImpl extends ServiceImpl <SysConfigMapper, SysConfi
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
 		Page <SysConfig> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-		String label = pageRequest.getParamValue("label");
+		String label = pageRequest.getParamValue(FieldStatusEnum.LABEL);
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.like(!StringUtils.isBlank(label),"label",label);
+		queryWrapper.like(!StringUtils.isBlank(label), SysConfig.COL_LABEL, label);
 		Page<SysConfig> userIPage = sysConfigMapper.selectPage(page, queryWrapper);
 		PageResult pageResult = new PageResult(userIPage);
 		return pageResult;
@@ -57,7 +58,7 @@ public class SysConfigServiceImpl extends ServiceImpl <SysConfigMapper, SysConfi
 	@Override
 	public List<SysConfig> findByLable(String lable) {
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq(!StringUtils.isBlank(lable), "label" , lable);
+		queryWrapper.eq(!StringUtils.isBlank(lable), SysConfig.COL_LABEL, lable);
 		return sysConfigMapper.selectList(queryWrapper);
 	}
 

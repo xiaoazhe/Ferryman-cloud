@@ -2,12 +2,10 @@ package com.ferry.consumer.controller;
 
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
-import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.BlogService;
 import com.ferry.consumer.service.impl.BlogDealService;
 import com.ferry.server.blog.entity.BlBlog;
-import com.ferry.server.blog.mapper.BlUserMapper;
-import io.jsonwebtoken.Claims;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
  * @Author: 摆渡人
  * @Date: 2021/4/29
  */
+
+@Api(tags = "博客")
 @CrossOrigin
 @RestController
 @RequestMapping("/blog")
@@ -29,27 +29,21 @@ public class BlogController {
     @Autowired
     private BlogDealService blogDealService;
 
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private JwtUtil jwtUtil;
-
-    @Autowired
-    private BlUserMapper userMapper;
-
+    @ApiOperation(value = "分页查询")
     @PostMapping(value="/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest) {
         Result result = blogService.findPage(pageRequest);
         return result;
     }
 
+    @ApiOperation(value = "根据ID获取")
     @PostMapping(value="/getBlogById")
     public Result getBlogById(@RequestParam(value = "id") String id) {
         Result result = blogService.getBlogById(id);
         return result;
     }
 
+    @ApiOperation(value = "热门推荐")
     @PostMapping(value="/hotBlog")
     public Result hotBlog() {
         return blogService.hotBlog();

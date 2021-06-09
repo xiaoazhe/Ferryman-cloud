@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlProLabelMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlProLabel">
+    <!--@mbg.generated-->
+    <!--@Table bl_pro_label-->
+    <id column="problemid" jdbcType="VARCHAR" property="problemid" />
+    <id column="labelid" jdbcType="VARCHAR" property="labelid" />
+  </resultMap>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_pro_label
+    <trim prefix="set" suffixOverrides="," />
+    where problemid in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.problemid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into bl_pro_label
+    (problemid, labelid)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.problemid,jdbcType=VARCHAR}, #{item.labelid,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ferry.server.blog.entity.BlProLabel">
+    <!--@mbg.generated-->
+    insert into bl_pro_label
+    (problemid, labelid)
+    values
+    (#{problemid,jdbcType=VARCHAR}, #{labelid,jdbcType=VARCHAR})
+    on duplicate key update 
+    problemid = #{problemid,jdbcType=VARCHAR}, 
+    labelid = #{labelid,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ferry.server.blog.entity.BlProLabel">
+    <!--@mbg.generated-->
+    insert into bl_pro_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="problemid != null">
+        problemid,
+      </if>
+      <if test="labelid != null">
+        labelid,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="problemid != null">
+        #{problemid,jdbcType=VARCHAR},
+      </if>
+      <if test="labelid != null">
+        #{labelid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="problemid != null">
+        problemid = #{problemid,jdbcType=VARCHAR},
+      </if>
+      <if test="labelid != null">
+        labelid = #{labelid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

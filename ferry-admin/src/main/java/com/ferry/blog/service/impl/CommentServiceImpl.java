@@ -3,6 +3,7 @@ package com.ferry.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.blog.entity.BlComment;
 import com.ferry.server.blog.entity.BlType;
 import com.ferry.server.blog.mapper.BlCommentMapper;
@@ -32,12 +33,11 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlComment> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        String label = pageRequest.getParamValue("name");
+        String label = pageRequest.getParamValue(FieldStatusEnum.NAME);
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper<BlComment>();
-        queryWrapper.like(!StringUtils.isBlank(label),"bl_comment.content",label);
-        queryWrapper.ne("bl_comment.status",0);
+        queryWrapper.like(!StringUtils.isBlank(label), FieldStatusEnum.BLCONTENT, label);
+        queryWrapper.ne(FieldStatusEnum.BLSTATUS,0);
         Page<BlComment> typePageNew = commentMapper.selectPageNew(page, queryWrapper);
-        //Page<BlComment> typePage = commentMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePageNew);
         return pageResult;
     }
@@ -54,8 +54,8 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
     @Override
     public String deleteAll(String id) {
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper <>();
-        queryWrapper.eq("to_comment_id", id).or().eq("id", id);
-        queryWrapper.ne("status",0);
+        queryWrapper.eq(BlComment.COL_TO_COMMENT_ID, id).or().eq(BlComment.COL_ID, id);
+        queryWrapper.ne(BlComment.COL_STATUS,0);
         List <BlComment> commentList = commentMapper.selectList(queryWrapper);
         for (BlComment comment: commentList) {
             comment.setStatus(EStatus.DISABLED);
@@ -69,10 +69,9 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
     public BlComment findById(String id) {
         BlComment comment = commentMapper.selectById(id);
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper <>();
-        queryWrapper.eq("to_comment_id", id);
+        queryWrapper.eq(BlComment.COL_TO_COMMENT_ID, id);
         List<BlComment> childComment= commentMapper.selectCommentList(queryWrapper);
         comment.setBlogName(childComment.get(0).getBlogName());
-//        List<BlComment> childComment= commentMapper.selectList(queryWrapper);
         comment.setCommentList(childComment);
         return comment;
     }

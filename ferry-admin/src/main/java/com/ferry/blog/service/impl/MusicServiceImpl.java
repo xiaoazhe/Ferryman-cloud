@@ -59,24 +59,13 @@ public class MusicServiceImpl extends ServiceImpl <BlMusicMapper, BlMusic> imple
         musicMapper.updateById(music);
     }
 
-//    @Override
-//    public Page<BlMusic> getByPage(Page<BlMusic> page) {
-//        // 查询数据
-//        List <BlMusic> musicList = musicMapper.getByPage(page);
-//        page.setList(musicList);
-//        // 查询总数
-//        int totalCount = musicMapper.getCountByPage(page);
-//        page.setTotalCount(totalCount);
-//        return page;
-//    }
-
     @Override
     public PageResult getByPage(PageRequest pageRequest) {
         Page <BlMusic> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper<BlMusic> queryWrapper = new QueryWrapper();
-        queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()),"name", pageRequest.getName());
-        queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()),"artist", pageRequest.getName());
-        queryWrapper.eq(pageRequest.getEnabled() > -1,"enable", pageRequest.getEnabled());
+        queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()), BlMusic.COL_NAME, pageRequest.getName());
+        queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()), BlMusic.COL_ARTIST, pageRequest.getName());
+        queryWrapper.eq(pageRequest.getEnabled() > -1, BlMusic.COL_ENABLE, pageRequest.getEnabled());
         Page<BlMusic> typePage = musicMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
         return pageResult;
@@ -84,7 +73,7 @@ public class MusicServiceImpl extends ServiceImpl <BlMusicMapper, BlMusic> imple
     @Override
     public List<BlMusic> getList() {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.ne("id", 0);
+        queryWrapper.ne(BlMusic.COL_ID, 0);
         return musicMapper.selectList(queryWrapper);
     }
 

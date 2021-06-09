@@ -3,6 +3,7 @@ package com.ferry.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.admin.entity.SysDict;
 import com.ferry.server.admin.mapper.SysDictMapper;
 import com.ferry.admin.service.SysDictService;
@@ -45,10 +46,10 @@ public class SysDictServiceImpl extends ServiceImpl <SysDictMapper, SysDict> imp
 
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
-		String label = pageRequest.getParamValue("label");
+		String label = pageRequest.getParamValue(FieldStatusEnum.LABEL);
 		Page <SysDict> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.like(!StringUtils.isBlank(label),"label",label);
+		queryWrapper.like(!StringUtils.isBlank(label), SysDict.COL_LABEL, label);
 		Page<SysDict> userIPage = sysDictMapper.selectPage(page, queryWrapper);
 		PageResult pageResult = new PageResult(userIPage);
 		return pageResult;
@@ -57,7 +58,7 @@ public class SysDictServiceImpl extends ServiceImpl <SysDictMapper, SysDict> imp
 	@Override
 	public List<SysDict> findByLable(String lable) {
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq(!StringUtils.isBlank(lable), "label", lable);
+		queryWrapper.eq(!StringUtils.isBlank(lable), SysDict.COL_LABEL, lable);
 		return sysDictMapper.selectList(queryWrapper);
 	}
 

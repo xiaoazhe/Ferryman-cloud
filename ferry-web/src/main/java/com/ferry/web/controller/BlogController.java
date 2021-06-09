@@ -1,5 +1,6 @@
 package com.ferry.web.controller;
 
+import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
@@ -28,7 +29,7 @@ public class BlogController {
     @PostMapping("/getBlogById")
     public Result blBlog(@RequestBody String id) {
         if (StringUtils.isBlank(id)) {
-            throw new RuntimeException("id不能为空");
+            throw new RuntimeException(CommonStatusEnum.ID_NOT_NULL);
         }
         Result result = blogService.selectById(id);
         return result;
@@ -45,7 +46,7 @@ public class BlogController {
     @PostMapping("/saveBlog")
     public Result saveBlog(@RequestBody BlBlog blBlog) {
         if (blBlog == null) {
-            throw new RuntimeException("添加数据异常");
+            throw new RuntimeException(CommonStatusEnum.ERR);
         }
         return blogService.saveBlog(blBlog);
     }

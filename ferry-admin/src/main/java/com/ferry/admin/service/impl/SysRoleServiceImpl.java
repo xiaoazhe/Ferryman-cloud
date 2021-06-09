@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.constant.SysConstants;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.admin.entity.SysMenu;
 import com.ferry.server.admin.entity.SysRole;
 import com.ferry.server.admin.entity.SysRoleMenu;
@@ -63,10 +64,10 @@ public class SysRoleServiceImpl extends ServiceImpl <SysRoleMapper, SysRole> imp
 
     @Override
     public PageResult findPage(PageRequest pageRequest) {
-        Object name = pageRequest.getParamValue("name");
+        Object name = pageRequest.getParamValue(FieldStatusEnum.NAME);
         Page <SysRole> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like(!Objects.isNull(name),"name", name);
+        queryWrapper.like(!Objects.isNull(name),SysRole.COL_NAME, name);
         Page<SysRole> userIPage = sysRoleMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(userIPage);
         return pageResult;
@@ -75,7 +76,7 @@ public class SysRoleServiceImpl extends ServiceImpl <SysRoleMapper, SysRole> imp
     @Override
     public List<SysRole> findAll() {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.ne("id", 0);
+        queryWrapper.ne(SysRole.COL_ID, 0);
         return sysRoleMapper.selectList(queryWrapper);
     }
 
@@ -92,7 +93,7 @@ public class SysRoleServiceImpl extends ServiceImpl <SysRoleMapper, SysRole> imp
         SysRole sysRole = sysRoleMapper.selectById(roleId);
         if(SysConstants.ADMIN.equalsIgnoreCase(sysRole.getName())) {
             // 如果是超级管理员，返回全部
-            QueryWrapper queryWrapper = new QueryWrapper <>().ne("id", 0);
+            QueryWrapper queryWrapper = new QueryWrapper <>().ne(SysRole.COL_ID, 0);
             return sysMenuMapper.selectList(queryWrapper);
         }
         return sysMenuMapper.findRoleMenus(roleId);
@@ -115,7 +116,7 @@ public class SysRoleServiceImpl extends ServiceImpl <SysRoleMapper, SysRole> imp
     @Override
     public List<SysRole> findByName(String name) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("name", name);
+        queryWrapper.eq(SysRole.COL_NAME, name);
         return sysRoleMapper.selectList(queryWrapper);
     }
 

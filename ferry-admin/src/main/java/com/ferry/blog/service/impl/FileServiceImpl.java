@@ -20,17 +20,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileServiceImpl extends ServiceImpl <BlFileMapper, BlFile> implements FileService {
 
     @Override
-    public Result uploadFile(MultipartFile image) {
+    public String uploadFile(MultipartFile image) {
         String imgUrl = null;
         try {
             imgUrl = uploader(image);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Result result = new Result();
-//        result.setData("http://azhe.oss-cn-beijing.aliyuncs.com/oneblog/20210509124220353.jpg");
-        result.setData(imgUrl);
-        return result;
+        return imgUrl;
     }
     public String uploader(MultipartFile multipartFile) {
         FileUploader uploader = new GlobalFileUploader();

@@ -73,7 +73,7 @@ public class SysMenuServiceImpl extends ServiceImpl <SysMenuMapper, SysMenu> imp
 	public List<SysMenu> findByUser(String userName) {
 		if(userName == null || "".equals(userName) || SysConstants.ADMIN.equalsIgnoreCase(userName)) {
 			QueryWrapper queryWrapper = new QueryWrapper();
-			queryWrapper.ne("id", 0);
+			queryWrapper.ne(SysMenu.COL_ID, 0);
 			return sysMenuMapper.selectList(queryWrapper);
 		}
 		return sysMenuMapper.findByUserName(userName);

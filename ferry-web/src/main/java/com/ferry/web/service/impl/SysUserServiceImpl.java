@@ -3,6 +3,7 @@ package com.ferry.web.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.utils.DateTimeUtils;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.PoiUtils;
@@ -98,11 +99,11 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
 		Page<SysUser> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-		String name = pageRequest.getParamValue("name");
-		String email = pageRequest.getParamValue("email");
+		String name = pageRequest.getParamValue(FieldStatusEnum.NAME);
+		String email = pageRequest.getParamValue(FieldStatusEnum.EMAIL);
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.like(!Objects.isNull(name),"name",name);
-		queryWrapper.like(!Objects.isNull(email),"email",email);
+		queryWrapper.like(!Objects.isNull(name), SysUser.COL_NAME, name);
+		queryWrapper.like(!Objects.isNull(email), SysUser.COL_EMAIL, email);
 		Page<SysUser> userIPage = sysUserMapper.selectPage(page, queryWrapper);
 		PageResult pageResult = new PageResult(userIPage);
 		// 加载用户角色信息
@@ -143,7 +144,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	@Override
 	public List<SysUserRole> findUserRoles(Long userId) {
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq("user_id", userId);
+		queryWrapper.eq(SysUserRole.COL_USER_ID, userId);
 		return sysUserRoleMapper.selectList(queryWrapper);
 	}
 	

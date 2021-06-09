@@ -1,6 +1,7 @@
 package com.ferry.blog.controller;
 
 
+import com.ferry.common.enums.StateEnums;
 import com.ferry.server.blog.entity.BlMusic;
 import com.ferry.blog.service.MusicService;
 import com.ferry.core.http.Result;
@@ -75,7 +76,6 @@ public class MusicController {
     @PreAuthorize("hasAuthority('sys:music:view')")
     @PostMapping(value="/getByPage")
     public Result findPage(@RequestBody PageRequest page) {
-
         return Result.ok(musicService.getByPage(page));
     }
 
@@ -107,7 +107,7 @@ public class MusicController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Result update(@RequestBody BlMusic music) {
         musicService.updateById(music);
-        return Result.ok("修改成功！");
+        return Result.ok(StateEnums.REQUEST_SUCCESS.getMsg());
     }
 
     /**
@@ -120,8 +120,7 @@ public class MusicController {
     @PreAuthorize("hasAuthority('sys:music:view')")
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     public Result get(@PathVariable String id) {
-        BlMusic music = musicService.getById(id);
-        return Result.ok(music);
+        return Result.ok(musicService.getById(id));
     }
 
     /**
@@ -135,7 +134,7 @@ public class MusicController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable Integer id) {
         musicService.deleteById(id);
-        return Result.ok("删除成功！");
+        return Result.ok(StateEnums.DELETED.getMsg());
     }
 
     /**
@@ -149,7 +148,7 @@ public class MusicController {
     @RequestMapping(value = "/enable/{id}", method = RequestMethod.PUT)
     public Result enable(@PathVariable Integer id) {
         musicService.enableById(id);
-        return Result.ok("启用成功");
+        return Result.ok(StateEnums.ENABLED.getMsg());
     }
 
     /**
@@ -163,7 +162,7 @@ public class MusicController {
     @RequestMapping(value = "/disable/{id}", method = RequestMethod.PUT)
     public Result disable(@PathVariable Integer id) {
         musicService.disableById(id);
-        return Result.ok("弃用成功");
+        return Result.ok(StateEnums.NOT_ENABLE.getMsg());
     }
 
 
@@ -175,8 +174,7 @@ public class MusicController {
     @ApiOperation(value = "前台查询")
     @RequestMapping(value = "/getList", method = RequestMethod.GET)
     public Result getList() {
-        List <BlMusic> musicList = musicService.getList();
-        return Result.ok(musicList);
+        return Result.ok(musicService.getList());
     }
 
 }

@@ -56,9 +56,11 @@ public class FriendServiceImpl extends ServiceImpl <BlFriendLinkMapper, BlFriend
 
     @Override
     public PageResult getByPage(PageRequest pageRequest) {
-        Page <BlFriendLink> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+        Page <BlFriendLink> page = new Page<>(pageRequest.getPageNum(),
+                pageRequest.getPageSize());
         QueryWrapper <BlFriendLink> queryWrapper = new QueryWrapper();
-        queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()),"title", pageRequest.getName());
+        queryWrapper.like(!StringUtils.isBlank(pageRequest.getName()),
+                BlFriendLink.COL_TITLE, pageRequest.getName());
         Page<BlFriendLink> typePage = friendLinkMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
         return pageResult;

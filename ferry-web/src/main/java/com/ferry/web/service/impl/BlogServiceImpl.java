@@ -3,6 +3,7 @@ package com.ferry.web.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.StringUtils;
@@ -20,12 +21,14 @@ import com.ferry.web.service.BlogService;
 import com.ferry.web.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -49,15 +52,16 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     @Autowired
     private BlCommentMapper commentMapper;
 
+
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
 //        String label = pageRequest.getParamValue("name");
         String label = pageRequest.getName();
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like(!StringUtils.isBlank(label),"title", label);
-        if (pageRequest.getEnabled()!=-1) {
-            queryWrapper.eq("type_id", pageRequest.getEnabled());
+        queryWrapper.like(!StringUtils.isBlank(label), BlBlog.COL_TITLE, label);
+        if (pageRequest.getEnabled()!= -1) {
+            queryWrapper.eq(BlBlog.COL_TYPE_ID, pageRequest.getEnabled());
         }
         Page<BlBlog> typePage = blogMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
@@ -101,7 +105,7 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
             blBlog.setTypeId(String.valueOf(type.getId()));
             blBlog.setId(idWorker.nextId()+"");
             blBlog.setCreateTime(new Date());
-            blogMapper.insert(blBlog);
+            int id = blogMapper.insert(blBlog);
         }
         return Result.ok(StateEnums.SAVEBLOG_SUC.getMsg());
     }
@@ -116,17 +120,22 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     public Result selectById(String id) {
         Result result = new Result();
         BlBlog blog = blogMapper.selectById(id);
+
         blog.setClickCount(blog.getClickCount() + 1);
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper <>();
-        queryWrapper.eq("blog_id", id);
-        queryWrapper.eq("first_comment_id", "1");
+        queryWrapper.eq(BlComment.COL_BLOG_ID, id);
+        queryWrapper.eq(BlComment.COL_FIRST_COMMENT_ID, "1");
         List<BlComment> comment = commentMapper.selectCommentList(queryWrapper);
         for (BlComment blComment : comment) {
             QueryWrapper<BlComment> sonComment = new QueryWrapper <>();
-            sonComment.eq("to_comment_id", blComment.getId());
+            sonComment.eq(BlComment.COL_TO_COMMENT_ID, blComment.getId());
             List<BlComment> childComment= commentMapper.selectCommentList(sonComment);
             blComment.setCommentList(childComment);
         }
+        if (blog == null) {
+            throw new RuntimeException(CommonStatusEnum.ERR);
+        }
+        blogMapper.updateById(blog);
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("blog", blog);
         map.put("comment", comment);
@@ -137,8 +146,8 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     @Override
     public Result hotBlog() {
         QueryWrapper<BlBlog> queryWrapper = new QueryWrapper <>();
-        queryWrapper.eq("is_publish", "1");
-        queryWrapper.orderByDesc("click_count");
+        queryWrapper.eq(BlBlog.COL_IS_PUBLISH, "1");
+        queryWrapper.orderByDesc(BlBlog.COL_CLICK_COUNT);
         List<BlBlog> blogList = blogMapper.selectList(queryWrapper);
         List<BlBlog> hotList = blogList.stream().limit(5).collect(Collectors.toList());
         return new Result().ok(hotList);

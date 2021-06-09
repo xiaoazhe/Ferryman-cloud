@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.exception.ServeException;
+import com.ferry.common.enums.CommonStatusEnum;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.admin.mapper.SysRoleMapper;
 import com.ferry.server.admin.mapper.SysUserMapper;
 import com.ferry.server.admin.mapper.SysUserRoleMapper;
@@ -90,7 +92,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	@Override
 	public SysUser findByName(String name) {
 		if (Objects.isNull(name)) {
-			throw new ServeException("用户名不能为空！");
+			throw new ServeException(CommonStatusEnum.NAME_NOT_NULL);
 		}
 		return sysUserMapper.findByName(name);
 	}
@@ -98,11 +100,11 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
 		Page<SysUser> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-		String name = pageRequest.getParamValue("name");
-		String email = pageRequest.getParamValue("email");
+		String name = pageRequest.getParamValue(FieldStatusEnum.NAME);
+		String email = pageRequest.getParamValue(FieldStatusEnum.EMAIL);
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.like(!Objects.isNull(name),"name",name);
-		queryWrapper.like(!Objects.isNull(email),"email",email);
+		queryWrapper.like(!Objects.isNull(name), SysUser.COL_NAME, name);
+		queryWrapper.like(!Objects.isNull(email), SysUser.COL_EMAIL, email);
 		Page<SysUser> userIPage = sysUserMapper.selectPage(page, queryWrapper);
 		PageResult pageResult = new PageResult(userIPage);
 		// 加载用户角色信息

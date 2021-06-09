@@ -3,6 +3,7 @@ package com.ferry.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.admin.entity.SysLog;
 import com.ferry.server.admin.mapper.SysLogMapper;
 import com.ferry.admin.service.SysLogService;
@@ -45,10 +46,10 @@ public class SysLogServiceImpl extends ServiceImpl <SysLogMapper, SysLog> implem
 
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
-		String userName = pageRequest.getParamValue("userName");
+		String userName = pageRequest.getParamValue(FieldStatusEnum.USERNAME);
 		Page <SysLog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq(!StringUtils.isBlank(userName),"user_Name",userName);
+		queryWrapper.eq(!StringUtils.isBlank(userName),SysLog.COL_USER_NAME,userName);
 		Page<SysLog> userIPage = sysLogMapper.selectPage(page, queryWrapper);
 		PageResult pageResult = new PageResult(userIPage);
 		return pageResult;

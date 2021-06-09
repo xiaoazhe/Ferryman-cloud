@@ -3,6 +3,7 @@ package com.ferry.admin.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.server.admin.entity.SysLoginLog;
 import com.ferry.server.admin.mapper.SysLoginLogMapper;
 import com.ferry.admin.service.SysLoginLogService;
@@ -46,12 +47,12 @@ public class SysLoginLogServiceImpl extends ServiceImpl <SysLoginLogMapper, SysL
 
 	@Override
 	public PageResult findPage(PageRequest pageRequest) {
-		String userName = pageRequest.getParamValue("userName");
-		String status = pageRequest.getParamValue("status");
+		String userName = pageRequest.getParamValue(FieldStatusEnum.USERNAME);
+		String status = pageRequest.getParamValue(FieldStatusEnum.STATUS);
 		Page <SysLoginLog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq(!StringUtils.isBlank(userName),"user_Name",userName);
-		queryWrapper.eq(!StringUtils.isBlank(status),"status",status);
+		queryWrapper.eq(!StringUtils.isBlank(userName), SysLoginLog.COL_USER_NAME, userName);
+		queryWrapper.eq(!StringUtils.isBlank(status), SysLoginLog.COL_STATUS, status);
 		Page<SysLoginLog> userIPage = sysLoginLogMapper.selectPage(page, queryWrapper);
 		PageResult pageResult = new PageResult(userIPage);
 		return pageResult;
@@ -61,8 +62,8 @@ public class SysLoginLogServiceImpl extends ServiceImpl <SysLoginLogMapper, SysL
 	@Override
 	public int writeLoginLog(String userName, String ip) {
 		QueryWrapper queryWrapper = new QueryWrapper();
-		queryWrapper.eq("user_name", userName);
-		queryWrapper.eq("status", SysLoginLog.STATUS_ONLINE);
+		queryWrapper.eq(SysLoginLog.COL_USER_NAME, userName);
+		queryWrapper.eq(SysLoginLog.COL_STATUS, SysLoginLog.STATUS_ONLINE);
 		List<SysLoginLog> sysLoginLogs = sysLoginLogMapper.selectList(queryWrapper);
 		for(SysLoginLog sysLoginLog:sysLoginLogs) {
 			sysLoginLog.setStatus(SysLoginLog.STATUS_LOGIN);

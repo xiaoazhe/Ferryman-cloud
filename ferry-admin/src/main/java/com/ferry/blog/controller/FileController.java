@@ -30,7 +30,7 @@ public class FileController {
      */
     @PostMapping(value = "/images")
     public Result addFile(MultipartFile file) throws Exception {
-        return fileService.uploadFile(file);
+        return Result.ok(fileService.uploadFile(file));
     }
 
     /**
@@ -49,7 +49,6 @@ public class FileController {
 
     @PostMapping(value = "/deletefdfsImage")
     public Result deletefdfsImage(String url) {
-        Result result = uploadService.deletefdfsImage(url);
-        return result;
+        return Result.ok(uploadService.deletefdfsImage(url));
     }
 }

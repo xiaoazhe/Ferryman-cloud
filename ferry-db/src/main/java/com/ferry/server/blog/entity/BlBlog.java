@@ -234,6 +234,8 @@ public class BlBlog implements Serializable {
 
     public static final String COL_TYPE = "type";
 
+    public static final String COL_TYPE_ID = "type_id";
+
     public static final String COL_OUTSIDE_LINK = "outside_link";
 
     public static final String COL_USER_UID = "user_uid";

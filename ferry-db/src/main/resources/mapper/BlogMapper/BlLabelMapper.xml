@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlLabelMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlLabel">
+    <!--@mbg.generated-->
+    <!--@Table bl_label-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="labelname" jdbcType="VARCHAR" property="labelname" />
+    <result column="state" jdbcType="VARCHAR" property="state" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="fans" jdbcType="VARCHAR" property="fans" />
+    <result column="recommend" jdbcType="VARCHAR" property="recommend" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, labelname, `state`, `count`, fans, recommend, create_by, last_update_by, create_time, 
+    update_time
+  </sql>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_label
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="labelname = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.labelname,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`state` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.state,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`count` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.count,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="fans = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.fans,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="recommend = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.recommend,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="last_update_by = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.lastUpdateBy,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="update_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when id = #{item.id,jdbcType=INTEGER} then #{item.updateTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_label
+    (labelname, `state`, `count`, fans, recommend, create_by, last_update_by, create_time, 
+      update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.labelname,jdbcType=VARCHAR}, #{item.state,jdbcType=VARCHAR}, #{item.count,jdbcType=INTEGER}, 
+        #{item.fans,jdbcType=VARCHAR}, #{item.recommend,jdbcType=VARCHAR}, #{item.createBy,jdbcType=VARCHAR}, 
+        #{item.lastUpdateBy,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlLabel" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      labelname,
+      `state`,
+      `count`,
+      fans,
+      recommend,
+      create_by,
+      last_update_by,
+      create_time,
+      update_time,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{labelname,jdbcType=VARCHAR},
+      #{state,jdbcType=VARCHAR},
+      #{count,jdbcType=INTEGER},
+      #{fans,jdbcType=VARCHAR},
+      #{recommend,jdbcType=VARCHAR},
+      #{createBy,jdbcType=VARCHAR},
+      #{lastUpdateBy,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      labelname = #{labelname,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=VARCHAR},
+      `count` = #{count,jdbcType=INTEGER},
+      fans = #{fans,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="id" keyProperty="id" parameterType="com.ferry.server.blog.entity.BlLabel" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into bl_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="labelname != null">
+        labelname,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+      <if test="fans != null">
+        fans,
+      </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labelname != null">
+        #{labelname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null">
+        #{fans,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="labelname != null">
+        labelname = #{labelname,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null">
+        fans = #{fans,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

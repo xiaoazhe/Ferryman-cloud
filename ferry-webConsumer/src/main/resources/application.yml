@@ -35,6 +35,8 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
+  redis:
+    host: 1.116.227.4
 #  zipkin:
 #    base-url: http://localhost:9411/
 #  sleuth:

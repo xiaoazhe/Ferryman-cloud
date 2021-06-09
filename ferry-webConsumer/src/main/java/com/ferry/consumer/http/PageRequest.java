@@ -1,7 +1,9 @@
 package com.ferry.consumer.http;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 摆渡人
@@ -24,6 +26,11 @@ public class PageRequest {
 	private String name = null;
 
 	private int enabled = -1;
+
+	/**
+	 * 参数
+	 */
+	private Map paramMap = new HashMap();
 
 	public void setParams(List<Param> params) {
 		this.params = params;

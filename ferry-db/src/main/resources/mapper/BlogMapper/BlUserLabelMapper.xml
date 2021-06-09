@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.blog.mapper.BlUserLabelMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.blog.entity.BlUserLabel">
+    <!--@mbg.generated-->
+    <!--@Table bl_user_label-->
+    <id column="uid" jdbcType="VARCHAR" property="uid" />
+    <id column="lid" jdbcType="VARCHAR" property="lid" />
+  </resultMap>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update bl_user_label
+    <trim prefix="set" suffixOverrides="," />
+    where `uid` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.uid,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into bl_user_label
+    (`uid`, lid)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.uid,jdbcType=VARCHAR}, #{item.lid,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ferry.server.blog.entity.BlUserLabel">
+    <!--@mbg.generated-->
+    insert into bl_user_label
+    (`uid`, lid)
+    values
+    (#{uid,jdbcType=VARCHAR}, #{lid,jdbcType=VARCHAR})
+    on duplicate key update 
+    `uid` = #{uid,jdbcType=VARCHAR}, 
+    lid = #{lid,jdbcType=VARCHAR}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ferry.server.blog.entity.BlUserLabel">
+    <!--@mbg.generated-->
+    insert into bl_user_label
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="lid != null">
+        lid,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uid != null">
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="lid != null">
+        #{lid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="lid != null">
+        lid = #{lid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

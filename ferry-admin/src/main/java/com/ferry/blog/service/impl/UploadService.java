@@ -52,12 +52,9 @@ public class UploadService {
         }
     }
 
-    public Result deletefdfsImage(String url) {
-        Result result = new Result();
+    public String deletefdfsImage(String url) {
         String storePath = url.substring(19);
         storageClient.deleteFile(storePath);
-        result.setCode(StateEnums.DELETED.getCode());
-        result.setData(StateEnums.DELETED.getMsg());
-        return result;
+        return StateEnums.DELETED.getMsg();
     }
 }

@@ -4,6 +4,7 @@ import com.ferry.consumer.http.Result;
 import com.ferry.consumer.service.CommentService;
 import com.ferry.server.blog.entity.BlComment;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    @ApiOperation(value = "添加评论")
     @PostMapping(value = "save")
     public Result saveComment(@RequestBody BlComment comment) {
         return commentService.add(comment);
