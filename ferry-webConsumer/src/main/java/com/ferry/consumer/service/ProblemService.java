@@ -18,4 +18,8 @@ public interface ProblemService extends IService <BlProblem> {
     PageResult waitlist(Integer labelId, PageRequest pageRequest);
 
     BlProblem getProById(String id);
+
+    String savePro(BlProblem problem);
+
+    String deleteById(String id);
 }

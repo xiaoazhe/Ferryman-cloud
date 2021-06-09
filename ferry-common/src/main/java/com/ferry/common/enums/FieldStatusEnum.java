@@ -16,4 +16,6 @@ public class FieldStatusEnum {
     public static final String BLCONTENT = "bl_comment.content";
 
     public static final String BLSTATUS = "\"bl_comment.status\"";
+
+    public static final String ROLE_USER = "claims_user";
 }

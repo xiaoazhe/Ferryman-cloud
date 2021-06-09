@@ -2,9 +2,8 @@ package com.ferry.consumer.controller;
 
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
-import com.ferry.consumer.service.CommentService;
 import com.ferry.consumer.service.ProblemService;
-import com.ferry.server.blog.entity.BlComment;
+import com.ferry.server.blog.entity.BlProblem;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +45,17 @@ public class ProblemController {
     @GetMapping(value="/getById")
     public Result findById(@RequestParam String id){
         return Result.ok(problemService.getProById(id));
+    }
+
+    @ApiOperation(value = "添加")
+    @PostMapping(value="/savePro")
+    public Result savePro(@RequestBody BlProblem problem){
+        return Result.ok(problemService.savePro(problem));
+    }
+
+    @ApiOperation(value = "删除")
+    @DeleteMapping(value="/deleteById")
+    public Result delete(@PathVariable String id ){
+        return Result.ok(problemService.deleteById(id));
     }
 }

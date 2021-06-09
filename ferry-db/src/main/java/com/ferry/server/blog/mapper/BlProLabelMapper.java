@@ -18,4 +18,6 @@ public interface BlProLabelMapper extends BaseMapper<BlProLabel> {
     int insertOrUpdate(BlProLabel record);
 
     int insertOrUpdateSelective(BlProLabel record);
+
+    List<BlProLabel> selectAll();
 }

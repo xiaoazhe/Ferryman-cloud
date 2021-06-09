@@ -16,6 +16,9 @@
       #{item.problemid,jdbcType=VARCHAR}
     </foreach>
   </update>
+  <select id="selectAll" resultType="com.ferry.server.blog.entity.BlProLabel">
+    select * from bl_pro_label
+  </select>
   <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into bl_pro_label

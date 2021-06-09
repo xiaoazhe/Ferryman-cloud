@@ -120,7 +120,6 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     public Result selectById(String id) {
         Result result = new Result();
         BlBlog blog = blogMapper.selectById(id);
-
         blog.setClickCount(blog.getClickCount() + 1);
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper <>();
         queryWrapper.eq(BlComment.COL_BLOG_ID, id);

@@ -73,6 +73,9 @@ public class BlLabel implements Serializable {
     @TableField(value = "update_time")
     private Date updateTime;
 
+    @TableField(exist = false)
+    private Integer userId;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_ID = "id";

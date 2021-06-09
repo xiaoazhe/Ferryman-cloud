@@ -3,18 +3,25 @@ package com.ferry.consumer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
+import com.ferry.common.enums.StateEnums;
 import com.ferry.consumer.http.PageRequest;
+import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.ProblemService;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlLabel;
 import com.ferry.server.blog.entity.BlProLabel;
 import com.ferry.server.blog.entity.BlProblem;
+import com.ferry.server.blog.entity.BlUser;
 import com.ferry.server.blog.mapper.BlProLabelMapper;
 import com.ferry.server.blog.mapper.BlProblemMapper;
+import com.ferry.server.blog.mapper.BlUserMapper;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -35,19 +42,28 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private BlUserMapper userMapper;
+
     @Override
     public PageResult newlist(Integer labelId, PageRequest pageRequest) {
-        return getPage(labelId,pageRequest, BlProblem.COL_REPLYTIME);
+        return getPage(labelId, pageRequest, BlProblem.COL_REPLYTIME);
     }
 
     @Override
     public PageResult hotlist(Integer labelId, PageRequest pageRequest) {
-        return getPage(labelId,pageRequest, BlProblem.COL_REPLY);
+        return getPage(labelId, pageRequest, BlProblem.COL_REPLY);
     }
 
     @Override
     public PageResult waitlist(Integer labelId, PageRequest pageRequest) {
-        return getPage(labelId,pageRequest, BlProblem.COL_CREATETIME);
+        return getPage(labelId, pageRequest, BlProblem.COL_CREATETIME);
     }
 
     @Override
@@ -60,11 +76,36 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         return problem;
     }
 
+    @Override
+    public String savePro(BlProblem problem) {
+        String token = (String) request.getAttribute(FieldStatusEnum.ROLE_USER);
+        Claims claims = jwtUtil.parseJWT(token);
+        String userId = claims.getId();
+        BlUser user = userMapper.selectById(userId);
+        problem.setCreatetime(new Date());
+        problem.setCreateBy(user.getNickname());
+        problem.setUserid(userId);
+        problemMapper.insert(problem);
+        return StateEnums.SAVEBLOG_SUC.getMsg();
+    }
+
+    @Override
+    public String deleteById(String id) {
+        problemMapper.deleteById(id);
+        redisTemplate.delete("pro_" + id);
+        return StateEnums.DELETED.getMsg();
+    }
+
     public PageResult getPage (Integer labelId, PageRequest pageRequest, String parameter) {
         Page <BlProblem> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        Map map = new HashMap();
-        map.put(BlProLabel.COL_LABELID, labelId);
-        List <BlProLabel> proLabelList = proLabelMapper.selectByMap(map);
+        List <BlProLabel> proLabelList = new ArrayList <>();
+        if (labelId == null) {
+            proLabelList = proLabelMapper.selectAll();
+        } else {
+            Map map = new HashMap();
+            map.put(BlProLabel.COL_LABELID, labelId);
+            proLabelList = proLabelMapper.selectByMap(map);
+        }
         List<String> proIds = proLabelList.stream().
                 map(BlProLabel::getProblemid).collect(Collectors.toList());
         QueryWrapper<BlProblem> queryWrapper = new QueryWrapper();
