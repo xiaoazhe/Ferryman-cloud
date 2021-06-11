@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -39,14 +40,16 @@ public class BlProblem implements Serializable {
     /**
      * 创建日期
      */
-    @TableField(value = "createtime")
-    private Date createtime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "create_time")
+    private Date createTime;
 
     /**
      * 修改日期
      */
-    @TableField(value = "updatetime")
-    private Date updatetime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "update_time")
+    private Date updateTime;
 
     /**
      * 用户ID
@@ -119,9 +122,9 @@ public class BlProblem implements Serializable {
 
     public static final String COL_CONTENT = "content";
 
-    public static final String COL_CREATETIME = "createtime";
+    public static final String COL_CREATETIME = "create_time";
 
-    public static final String COL_UPDATETIME = "updatetime";
+    public static final String COL_UPDATETIME = "update_time";
 
     public static final String COL_USERID = "userid";
 

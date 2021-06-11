@@ -217,7 +217,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		user.setFanscount(0);//粉丝数
 		user.setOnline(0L);//在线时长
 		user.setRegdate(new Date());//注册日期
-		user.setUpdatedate(new Date());//更新日期
+		user.setUpdateTime(new Date());//更新日期
 		user.setLastdate(new Date());//最后登陆日期
 		userMapper.insert(user);
 	}

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -49,6 +51,7 @@ public class BlUser implements Serializable {
     /**
      * 出生年月日
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(value = "birthday")
     private Date birthday;
 
@@ -67,18 +70,28 @@ public class BlUser implements Serializable {
     /**
      * 注册日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(value = "regdate")
     private Date regdate;
 
     /**
      * 修改日期
      */
-    @TableField(value = "updatedate")
-    private Date updatedate;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "update_time")
+    private Date updateTime;
+
+    /**
+     * 修改日期
+     */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "create_time")
+    private Date createTime;
 
     /**
      * 最后登陆日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(value = "lastdate")
     private Date lastdate;
 
@@ -112,6 +125,18 @@ public class BlUser implements Serializable {
     @TableField(value = "followcount")
     private Integer followcount;
 
+    /**
+     * 创建人
+     */
+    @TableField(value = "create_by")
+    private String createBy;
+
+    /**
+     * 更新人
+     */
+    @TableField(value = "last_update_by")
+    private String lastUpdateBy;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_ID = "id";
@@ -132,7 +157,9 @@ public class BlUser implements Serializable {
 
     public static final String COL_REGDATE = "regdate";
 
-    public static final String COL_UPDATEDATE = "updatedate";
+    public static final String COL_UPDATEDATE = "update_time";
+
+    public static final String COL_CREATWDATE = "create_time";
 
     public static final String COL_LASTDATE = "lastdate";
 

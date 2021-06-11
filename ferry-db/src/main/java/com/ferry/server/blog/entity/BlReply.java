@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -37,14 +39,16 @@ public class BlReply implements Serializable {
     /**
      * 创建日期
      */
-    @TableField(value = "createtime")
-    private Date createtime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "create_time")
+    private Date createTime;
 
     /**
      * 更新日期
      */
-    @TableField(value = "updatetime")
-    private Date updatetime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "update_time")
+    private Date updateTime;
 
     /**
      * 回答人ID
@@ -78,9 +82,9 @@ public class BlReply implements Serializable {
 
     public static final String COL_CONTENT = "content";
 
-    public static final String COL_CREATETIME = "createtime";
+    public static final String COL_CREATETIME = "create_time";
 
-    public static final String COL_UPDATETIME = "updatetime";
+    public static final String COL_UPDATETIME = "update_time";
 
     public static final String COL_USERID = "userid";
 
