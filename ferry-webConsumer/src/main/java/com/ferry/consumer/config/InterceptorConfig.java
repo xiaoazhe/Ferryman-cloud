@@ -15,9 +15,14 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
         //注册拦截器要声明拦截器对象和要拦截的请求
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
+                .excludePathPatterns("/problem/**")
                 .excludePathPatterns("/blog/**")
                 .excludePathPatterns("/type/**")
                 .excludePathPatterns("/user/**")
-                .addPathPatterns("/blog/saveBlog");
+                .excludePathPatterns("/label/**")
+                .excludePathPatterns("/reply/**")
+                .addPathPatterns("/blog/saveBlog")
+                .addPathPatterns("/reply/save")
+                .addPathPatterns("/problem/save");
     }
 }

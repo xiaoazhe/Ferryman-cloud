@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.enums.StateEnums;
+import com.ferry.common.utils.IdWorker;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.ProblemService;
@@ -51,6 +52,9 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     @Autowired
     private BlUserMapper userMapper;
 
+    @Autowired
+    private IdWorker idWorker;
+
     @Override
     public PageResult newlist(Integer labelId, PageRequest pageRequest) {
         return getPage(labelId, pageRequest, BlProblem.COL_REPLYTIME);
@@ -78,14 +82,22 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
 
     @Override
     public String savePro(BlProblem problem) {
-        String token = (String) request.getAttribute(FieldStatusEnum.ROLE_USER);
+        String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
         Claims claims = jwtUtil.parseJWT(token);
         String userId = claims.getId();
         BlUser user = userMapper.selectById(userId);
-        problem.setCreatetime(new Date());
+        problem.setCreateTime(new Date());
         problem.setCreateBy(user.getNickname());
         problem.setUserid(userId);
+        String proId = idWorker.nextId() + "";
+        problem.setId(proId);
         problemMapper.insert(problem);
+        for (BlLabel label : problem.getLabelList()) {
+            BlProLabel proLabel = new BlProLabel();
+            proLabel.setProblemid(proId);
+            proLabel.setLabelid(String.valueOf(label.getId()));
+            proLabelMapper.insert(proLabel);
+        }
         return StateEnums.SAVEBLOG_SUC.getMsg();
     }
 
@@ -99,7 +111,7 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     public PageResult getPage (Integer labelId, PageRequest pageRequest, String parameter) {
         Page <BlProblem> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         List <BlProLabel> proLabelList = new ArrayList <>();
-        if (labelId == null) {
+        if (labelId == 0) {
             proLabelList = proLabelMapper.selectAll();
         } else {
             Map map = new HashMap();

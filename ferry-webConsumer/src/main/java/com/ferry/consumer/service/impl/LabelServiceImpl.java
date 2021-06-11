@@ -44,7 +44,7 @@ public class LabelServiceImpl extends ServiceImpl <BlLabelMapper, BlLabel> imple
     @Override
     public PageResult selectAllByUser(PageRequest pageRequest) {
         Page <BlLabel> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        String token = (String) request.getAttribute(FieldStatusEnum.ROLE_USER);
+        String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
         Claims claims = jwtUtil.parseJWT(token);
         String userId = claims.getId();
         Map map = new HashMap();
@@ -62,5 +62,13 @@ public class LabelServiceImpl extends ServiceImpl <BlLabelMapper, BlLabel> imple
         }
         PageResult pageResult = new PageResult(labelPage);
         return pageResult;
+    }
+
+    @Override
+    public List <BlLabel> toplist() {
+        QueryWrapper <BlLabel> queryWrapper= new QueryWrapper <>();
+        queryWrapper.ne(BlLabel.COL_STATE, 0);
+        queryWrapper.orderByDesc(BlLabel.COL_FANS);
+        return labelMapper.selectList(queryWrapper);
     }
 }

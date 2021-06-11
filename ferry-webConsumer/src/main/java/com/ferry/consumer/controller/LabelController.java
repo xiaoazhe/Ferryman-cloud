@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @Api(tags = "标签")
 @RestController
-@RequestMapping("/lable")
+@RequestMapping("/label")
 public class LabelController {
 
     @Autowired
@@ -26,4 +26,11 @@ public class LabelController {
     public Result newlist(@RequestBody PageRequest pageRequest){
         return Result.ok(labelService.selectAllByUser(pageRequest));
     }
+
+    @ApiOperation(value = "获取列表")
+    @GetMapping(value = "/toplist")
+    public Result toplist(){
+        return Result.ok(labelService.toplist());
+    }
+
 }
