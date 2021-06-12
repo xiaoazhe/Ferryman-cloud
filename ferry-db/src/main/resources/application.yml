@@ -27,6 +27,13 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
+  data:
+    mongodb:
+      uri: mongodb://hcz:hcz123456@1.116.227.4:27017/?authSource=admin&authMechanism=SCRAM-SHA-1
+        database: ferryGossip
+    redis:
+      host: 1.116.227.4
+      port: 6379
 #配置MybatisPlus
 mybatis-plus:
   mapper-locations: classpath:mapper/*/*.xml

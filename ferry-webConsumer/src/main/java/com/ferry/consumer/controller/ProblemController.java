@@ -8,6 +8,7 @@ import com.ferry.server.blog.entity.BlProblem;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -64,10 +65,8 @@ public class ProblemController {
     }
 
     @ApiOperation(value = "点赞")
-    @DeleteMapping(value="/setGood")
+    @GetMapping(value="/setGood/{id}")
     public Result setGood(@PathVariable String id){
-        BlProblem problem = problemService.getProById(id);
-        problem.setThumbup(problem.getThumbup() + 1);
-        return Result.ok(problemService.updateById(problem));
+        return Result.ok(problemService.setGood(id));
     }
 }

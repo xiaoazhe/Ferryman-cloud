@@ -89,6 +89,7 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         problem.setCreateTime(new Date());
         problem.setCreateBy(user.getNickname());
         problem.setUserid(userId);
+        problem.setNickname(user.getNickname());
         String proId = idWorker.nextId() + "";
         problem.setId(proId);
         problemMapper.insert(problem);
@@ -106,6 +107,23 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         problemMapper.deleteById(id);
         redisTemplate.delete("pro_" + id);
         return StateEnums.DELETED.getMsg();
+    }
+
+    @Override
+    public String setGood(String id) {
+        String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+        Claims claims = jwtUtil.parseJWT(token);
+        String userId = claims.getId();
+        Boolean userLike = (Boolean) redisTemplate.opsForValue().get("user_pro_like_" + userId + "_" + id);
+        if (userLike == null || !userLike) {
+            BlProblem blProblem = problemMapper.selectById(id);
+            blProblem.setThumbup(blProblem.getThumbup() + 1);
+            redisTemplate.opsForValue().set("user_pro_like_" + userId + "_" + id, true, 1, TimeUnit.DAYS);
+            problemMapper.updateById(blProblem);
+        } else {
+            return StateEnums.ADDLIKE_ERR.getMsg();
+        }
+        return StateEnums.ADDLIKE_SUC.getMsg();
     }
 
     public PageResult getPage (Integer labelId, PageRequest pageRequest, String parameter) {

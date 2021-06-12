@@ -35,6 +35,10 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
+  data:
+    mongodb:
+      uri: mongodb://hcz:hcz123456@1.116.227.4:27017/?authSource=admin&authMechanism=SCRAM-SHA-1
+      database: ferryGossip
 # 开放健康检查接口
 management:
   endpoints:

@@ -21,8 +21,10 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                 .excludePathPatterns("/user/**")
                 .excludePathPatterns("/label/**")
                 .excludePathPatterns("/reply/**")
+                .excludePathPatterns("/gossip/**")
                 .addPathPatterns("/blog/saveBlog")
                 .addPathPatterns("/reply/save")
+                .addPathPatterns("/gossip/save")
                 .addPathPatterns("/problem/save");
     }
 }

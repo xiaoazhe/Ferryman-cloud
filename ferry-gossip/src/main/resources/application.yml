@@ -1,14 +1,14 @@
 server:
-  port: 8005
+  port: 8006
 spring:
   application:
-    name: Ferry-webConsumer
+    name: Ferry-gossip
   cloud:
     consul:
       host: localhost
       port: 8500
       discovery:
-        serviceName: Ferry-webConsumer
+        serviceName: Ferry-gossip	# 注册到consul的服务名称
   boot:
     admin:
       client:
@@ -42,11 +42,6 @@ spring:
     redis:
       host: 1.116.227.4
       port: 6379
-#  zipkin:
-#    base-url: http://localhost:9411/
-#  sleuth:
-#    sampler:
-#      probability: 1 #样本采集量，默认为0.1，为了测试这里修改为1，正式环境一般使用默认值
 # 开放健康检查接口
 management:
   endpoints:
@@ -56,10 +51,6 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-#开启熔断器
-feign:
-  hystrix:
-    enabled: true
 #3600000 1h
 jwt:
   config:

@@ -22,4 +22,6 @@ public interface ProblemService extends IService <BlProblem> {
     String savePro(BlProblem problem);
 
     String deleteById(String id);
+
+    String setGood(String id);
 }

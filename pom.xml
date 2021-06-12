@@ -16,6 +16,7 @@
         <module>ferry-zuul</module>
         <module>ferry-db</module>
         <module>ferry-file</module>
+        <module>ferry-gossip</module>
     </modules>
 	<parent>
         <groupId>org.springframework.boot</groupId>
