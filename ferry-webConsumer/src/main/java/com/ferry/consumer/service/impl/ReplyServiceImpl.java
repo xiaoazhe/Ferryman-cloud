@@ -49,6 +49,24 @@ public class ReplyServiceImpl extends ServiceImpl <BlReplyMapper, BlReply> imple
     private BlProblemMapper problemMapper;
 
     @Override
+    public PageResult getIndividualReply(PageRequest pageRequest) {
+        Page <BlReply> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            throw new RuntimeException(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        QueryWrapper<BlReply> queryWrapper = new QueryWrapper <>();
+        queryWrapper.eq(BlReply.COL_USERID, userId);
+        Page<BlReply> problemPage = replyMapper.selectPage(page, queryWrapper);
+        PageResult pageResult = new PageResult(problemPage);
+        return pageResult;
+    }
+
+    @Override
     public List <BlReply> newlist() {
         String token = (String) request.getAttribute(FieldStatusEnum.ROLE_USER);
         Claims claims = jwtUtil.parseJWT(token);

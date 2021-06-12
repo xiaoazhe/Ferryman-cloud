@@ -190,7 +190,7 @@ public class BlBlog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String COL_UID = "uid";
+    public static final String COL_ID = "id";
 
     public static final String COL_OID = "oid";
 

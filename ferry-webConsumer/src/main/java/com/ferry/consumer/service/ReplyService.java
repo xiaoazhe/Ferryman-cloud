@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface ReplyService extends IService <BlReply> {
 
+    PageResult getIndividualReply(PageRequest pageRequest);
+
     List <BlReply> newlist();
 
     PageResult getByProId(String proId, PageRequest pageRequest);

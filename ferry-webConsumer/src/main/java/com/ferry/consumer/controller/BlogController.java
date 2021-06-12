@@ -1,16 +1,24 @@
 package com.ferry.consumer.controller;
 
+import com.ferry.common.enums.FieldStatusEnum;
+import com.ferry.common.enums.StateEnums;
+import com.ferry.common.utils.StringUtils;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
+import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.BlogService;
 import com.ferry.consumer.service.impl.BlogDealService;
 import com.ferry.server.blog.entity.BlBlog;
+import com.ferry.server.blog.entity.BlCollect;
+import com.ferry.server.blog.mapper.BlCollectMapper;
+import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @Author: 摆渡人
@@ -29,6 +37,15 @@ public class BlogController {
     @Autowired
     private BlogDealService blogDealService;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private BlCollectMapper collectMapper;
+
     @ApiOperation(value = "分页查询")
     @PostMapping(value="/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest) {
@@ -39,6 +56,27 @@ public class BlogController {
     @ApiOperation(value = "根据ID获取")
     @PostMapping(value="/getBlogById")
     public Result getBlogById(@RequestParam(value = "id") String id) {
+        String userId = null;
+        String token = request.getHeader(FieldStatusEnum.HEARD);
+        if (!StringUtils.isBlank(token)) {
+            try {
+                Claims claims = jwtUtil.parseJWT(token.substring(7));
+                userId = claims.getId();
+                BlCollect collect = new BlCollect();
+                collect.setStatus(3);
+                collect.setBlogId(id);
+                collect.setUserId(userId);
+                collect.setCreateBy(userId);
+                collect.setCreateTime(new Date());
+                collectMapper.insert(collect);
+            } catch (Exception e) {
+                throw new RuntimeException(StateEnums.REQUEST_ERROR.getMsg());
+            } finally {
+                Result result = blogService.getBlogById(id);
+                return result;
+            }
+        }
+
         Result result = blogService.getBlogById(id);
         return result;
     }

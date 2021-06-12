@@ -58,6 +58,12 @@ public enum StateEnums {
     REGISTER_SUC(1, "注册成功"),
 
     /**
+     * 收藏状态。
+     * 0收藏失败，1收藏成功
+     */
+    COLLECT_ERR(0, "收藏失败"),
+    COLLECT_SUC(1, "收藏成功"),
+    /**
      * 发布状态。
      * 0发布失败，1发布成功
      */

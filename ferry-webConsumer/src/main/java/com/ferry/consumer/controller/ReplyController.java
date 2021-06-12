@@ -24,6 +24,12 @@ public class ReplyController {
     @Autowired
     private ReplyService replyService;
 
+    @ApiOperation(value = "个人回答")
+    @PostMapping(value = "/getIndividualReply")
+    public Result getIndividualReply(@RequestBody PageRequest pageRequest){
+        return Result.ok(replyService.getIndividualReply(pageRequest));
+    }
+
     @ApiOperation(value = "获取最新回复")
     @GetMapping(value = "/newlist")
     public Result newlist(){

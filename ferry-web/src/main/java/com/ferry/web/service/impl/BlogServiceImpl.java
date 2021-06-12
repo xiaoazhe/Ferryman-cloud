@@ -13,22 +13,14 @@ import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlBlog;
 import com.ferry.server.blog.entity.BlComment;
 import com.ferry.server.blog.entity.BlType;
-import com.ferry.server.blog.mapper.BlBlogMapper;
-import com.ferry.server.blog.mapper.BlCommentMapper;
-import com.ferry.server.blog.mapper.BlTypeMapper;
-import com.ferry.server.blog.mapper.BlUserMapper;
+import com.ferry.server.blog.mapper.*;
 import com.ferry.web.service.BlogService;
-import com.ferry.web.util.JwtUtil;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -56,7 +48,6 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-//        String label = pageRequest.getParamValue("name");
         String label = pageRequest.getName();
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like(!StringUtils.isBlank(label), BlBlog.COL_TITLE, label);

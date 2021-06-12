@@ -25,6 +25,12 @@ public class ProblemController {
     @Autowired
     private ProblemService problemService;
 
+    @ApiOperation(value = "个人提问")
+    @PostMapping(value = "/getIndividualPro")
+    public Result getIndividualPro(@RequestBody PageRequest pageRequest){
+        return Result.ok(problemService.getIndividualPro(pageRequest));
+    }
+
     @ApiOperation(value = "获取最新列表")
     @PostMapping(value = "/newlist")
     public Result newlist(@RequestParam Integer label, @RequestBody PageRequest pageRequest){
@@ -68,5 +74,24 @@ public class ProblemController {
     @GetMapping(value="/setGood/{id}")
     public Result setGood(@PathVariable String id){
         return Result.ok(problemService.setGood(id));
+    }
+
+    @ApiOperation(value = "添加收藏")
+    @GetMapping(value="/setCollect/{id}/{statusId}")
+    public Result setCollect(@PathVariable String id, @PathVariable Integer statusId){
+        return Result.ok(problemService.setCollect(id, statusId));
+    }
+
+    @ApiOperation(value = "查看收藏")
+    @GetMapping(value="/getCollect/{id}/{statusId}")
+    public Result getCollect(@PathVariable String id, @PathVariable Integer statusId
+            , @RequestBody PageRequest pageRequest){
+        return Result.ok(problemService.getCollect(id, statusId, pageRequest));
+    }
+
+    @ApiOperation(value = "取消收藏")
+    @DeleteMapping(value="/deleteCollect/{id}")
+    public Result deleteCollect(@PathVariable Integer id){
+        return Result.ok(problemService.deleteCollect(id));
     }
 }

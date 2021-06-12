@@ -11,6 +11,8 @@ import com.ferry.server.blog.entity.BlProblem;
  */
 public interface ProblemService extends IService <BlProblem> {
 
+    PageResult getIndividualPro(PageRequest pageRequest);
+
     PageResult newlist(Integer labelId, PageRequest pageRequest);
 
     PageResult hotlist(Integer labelId, PageRequest pageRequest);
@@ -24,4 +26,10 @@ public interface ProblemService extends IService <BlProblem> {
     String deleteById(String id);
 
     String setGood(String id);
+
+    String setCollect(String id, Integer statusId);
+
+    PageResult getCollect(String id, Integer statusId, PageRequest pageRequest);
+
+    String deleteCollect(Integer id);
 }
