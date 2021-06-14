@@ -1,10 +1,13 @@
 package com.ferry.consumer.controller;
 
 
+import com.ferry.common.enums.StateEnums;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
+import com.ferry.consumer.service.ProblemService;
 import com.ferry.consumer.service.ReplyService;
 import com.ferry.consumer.utils.UserUtils;
+import com.ferry.server.blog.entity.BlProblem;
 import com.ferry.server.blog.entity.BlReply;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,6 +26,9 @@ public class ReplyController {
 
     @Autowired
     private ReplyService replyService;
+
+    @Autowired
+    private ProblemService problemService;
 
     @ApiOperation(value = "个人回答")
     @PostMapping(value = "/getIndividualReply")
@@ -48,9 +54,16 @@ public class ReplyController {
         return Result.ok(replyService.add(reply));
     }
 
-    @ApiOperation(value = "获取最新回复")
+    @ApiOperation(value = "删除")
     @GetMapping(value = "/delectComment/{id}")
     public Result delectComment(@PathVariable String id){
+        BlReply reply = replyService.getById(id);
+        if (reply == null) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        BlProblem problem = problemService.getById(reply.getProblemid());
+        problem.setReply(problem.getReply() - 1);
+        problemService.updateById(problem);
         return Result.ok(replyService.removeById(id));
     }
 }

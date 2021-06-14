@@ -61,6 +61,7 @@ public enum StateEnums {
      * 收藏状态。
      * 0收藏失败，1收藏成功
      */
+    COLLECT_REPEAT(3, "不要重复收藏"),
     COLLECT_ERR(0, "收藏失败"),
     COLLECT_SUC(1, "收藏成功"),
     /**

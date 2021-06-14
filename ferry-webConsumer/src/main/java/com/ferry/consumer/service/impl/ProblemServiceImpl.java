@@ -37,6 +37,9 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     private BlProLabelMapper proLabelMapper;
 
     @Autowired
+    private BlLabelMapper labelMapper;
+
+    @Autowired
     private RedisTemplate redisTemplate;
 
     @Autowired
@@ -95,9 +98,48 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         BlProblem problem = (BlProblem)redisTemplate.opsForValue().get("pro_" + id);
         if (problem == null) {
             problem = problemMapper.selectById(id);
-            redisTemplate.opsForValue().set("pro_"+id, problem, 20, TimeUnit.SECONDS);
+            problem.setVisits(problem.getVisits() + 1);
+            problemMapper.updateById(problem);
+            redisTemplate.opsForValue().set("pro_"+id, problem, 10, TimeUnit.SECONDS);
+        } else {
+            problem.setVisits(problem.getVisits() + 1);
+            problemMapper.updateById(problem);
         }
         return problem;
+    }
+
+    @Override
+    public List <BlProblem> getSimilarById(String id) {
+        QueryWrapper<BlProLabel> queryWrapper = new QueryWrapper <>();
+        queryWrapper.eq(BlProLabel.COL_PROBLEMID, id);
+        List<String> labId = proLabelMapper.selectList(queryWrapper)
+                .stream().map(BlProLabel::getLabelid).collect(Collectors.toList());
+        List<String> proIds = proLabelMapper.selectList(new QueryWrapper <BlProLabel>()
+                .in(BlProLabel.COL_LABELID, labId))
+                .stream()
+                .map(BlProLabel::getProblemid)
+                .collect(Collectors.toList());
+        return problemMapper.selectBatchIds(proIds)
+                .stream()
+                .limit(7)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String delete() {
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            throw new RuntimeException(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq(BlCollect.COL_USER_ID, userId);
+        queryWrapper.eq(BlCollect.COL_STATUS, 3);
+        collectMapper.delete(queryWrapper);
+        return StateEnums.DELETED.getMsg();
     }
 
     @Override
@@ -118,6 +160,9 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
             proLabel.setProblemid(proId);
             proLabel.setLabelid(String.valueOf(label.getId()));
             proLabelMapper.insert(proLabel);
+            BlLabel lab = labelMapper.selectById(label.getId());
+            lab.setCount(lab.getCount() + 1);
+            labelMapper.updateById(lab);
         }
         return StateEnums.SAVEBLOG_SUC.getMsg();
     }
@@ -156,12 +201,22 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         } catch (Exception e) {
             throw new RuntimeException(StateEnums.REQUEST_ERROR.getMsg());
         }
+        QueryWrapper<BlCollect> queryWrapper = new QueryWrapper <>();
+        queryWrapper.eq(BlCollect.COL_USER_ID, userId);
+        queryWrapper.eq(BlCollect.COL_STATUS, statusId);
         BlCollect collect = new BlCollect();
         if (statusId == 1) {
             collect.setBlogId(id);
+            queryWrapper.eq(BlCollect.COL_BLOG_ID, id);
         } else {
             collect.setProId(id);
+            queryWrapper.eq(BlCollect.COL_PRO_ID, id);
         }
+        BlCollect blCollect = collectMapper.selectOne(queryWrapper);
+        if (blCollect != null) {
+            return StateEnums.COLLECT_REPEAT.getMsg();
+        }
+        collect.setStatus(statusId);
         collect.setUserId(userId);
         collect.setCreateBy(userId);
         collect.setCreateTime(new Date());
@@ -170,14 +225,14 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     }
 
     @Override
-    public PageResult getCollect(String id, Integer statusId, PageRequest pageRequest) {
+    public PageResult getCollect(Integer statusId, PageRequest pageRequest) {
         String userId = null;
         try {
             String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
             Claims claims = jwtUtil.parseJWT(token);
             userId = claims.getId();
         } catch (Exception e) {
-            throw new RuntimeException(StateEnums.REQUEST_ERROR.getMsg());
+            return null;
         }
         QueryWrapper<BlCollect> queryWrapper = new QueryWrapper <>();
         queryWrapper.eq(BlCollect.COL_USER_ID, userId);
@@ -213,8 +268,24 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     }
 
     @Override
-    public String deleteCollect(Integer id) {
-        collectMapper.deleteById(id);
+    public String deleteCollect(String id, Integer statusId) {
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            return null;
+        }
+        QueryWrapper<BlCollect> queryWrapper = new QueryWrapper <>();
+        queryWrapper.eq(BlCollect.COL_USER_ID, userId);
+        queryWrapper.eq(BlCollect.COL_STATUS, statusId);
+        if (statusId == 1) {
+            queryWrapper.eq(BlCollect.COL_BLOG_ID, id);
+        } else {
+            queryWrapper.eq(BlCollect.COL_PRO_ID, id);
+        }
+        collectMapper.delete(queryWrapper);
         return StateEnums.DELETED.getMsg();
     }
 

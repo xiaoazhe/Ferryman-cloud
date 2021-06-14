@@ -14,9 +14,9 @@ import org.springframework.cloud.netflix.turbine.EnableTurbine;
 @EnableHystrixDashboard
 @EnableDiscoveryClient
 @SpringBootApplication
-public class HystrixApplication {
+public class FerryHystrixApplication {
     public static void main(String[] args) {
-        SpringApplication.run(HystrixApplication.class, args);
+        SpringApplication.run(FerryHystrixApplication.class, args);
     }
 
 }

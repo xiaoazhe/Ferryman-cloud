@@ -23,6 +23,8 @@ public interface GossipService {
 
     public Page <Gossip> pageQuery(String parentid, int page, int size);
 
+    public Page <Gossip> pageByUser(int page, int size);
+
     public void addthumbup(String id);
 
     public List<Gossip> findAllByPre(String gossipId);

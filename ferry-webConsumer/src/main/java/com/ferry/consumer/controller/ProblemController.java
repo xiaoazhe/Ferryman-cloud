@@ -1,6 +1,8 @@
 package com.ferry.consumer.controller;
 
 import com.ferry.common.enums.CommonStatusEnum;
+import com.ferry.common.enums.StateEnums;
+import com.ferry.common.utils.StringUtils;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.service.ProblemService;
@@ -55,6 +57,12 @@ public class ProblemController {
         return Result.ok(problemService.getProById(id));
     }
 
+    @ApiOperation(value = "根据id查询类似")
+    @GetMapping(value="/getSimilarById")
+    public Result getSimilarById(@RequestParam String id){
+        return Result.ok(problemService.getSimilarById(id));
+    }
+
     @ApiOperation(value = "添加")
     @PostMapping(value="/save")
     public Result savePro(@RequestBody BlProblem problem){
@@ -79,19 +87,34 @@ public class ProblemController {
     @ApiOperation(value = "添加收藏")
     @GetMapping(value="/setCollect/{id}/{statusId}")
     public Result setCollect(@PathVariable String id, @PathVariable Integer statusId){
+        if (StringUtils.isBlank(id) || statusId == null) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
         return Result.ok(problemService.setCollect(id, statusId));
     }
 
     @ApiOperation(value = "查看收藏")
-    @GetMapping(value="/getCollect/{id}/{statusId}")
-    public Result getCollect(@PathVariable String id, @PathVariable Integer statusId
+    @PostMapping(value="/collect/getCollect/{statusId}")
+    public Result getCollect(@PathVariable Integer statusId
             , @RequestBody PageRequest pageRequest){
-        return Result.ok(problemService.getCollect(id, statusId, pageRequest));
+        if (statusId == null) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        return Result.ok(problemService.getCollect(statusId, pageRequest));
     }
 
     @ApiOperation(value = "取消收藏")
-    @DeleteMapping(value="/deleteCollect/{id}")
-    public Result deleteCollect(@PathVariable Integer id){
-        return Result.ok(problemService.deleteCollect(id));
+    @GetMapping(value="/collect/deleteCollect/{id}/{statusId}")
+    public Result deleteCollect(@PathVariable String id, @PathVariable Integer statusId){
+        if (StringUtils.isBlank(id) || statusId == null) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        return Result.ok(problemService.deleteCollect(id, statusId));
+    }
+
+    @ApiOperation(value = "清空记录")
+    @GetMapping(value="/collect/delete")
+    public Result delete(){
+        return Result.ok(problemService.delete());
     }
 }

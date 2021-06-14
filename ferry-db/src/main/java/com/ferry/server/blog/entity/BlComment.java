@@ -136,6 +136,9 @@ public class BlComment implements Serializable {
     @TableField(exist = false)
     private List <BlComment> commentList;
 
+    @TableField(exist = false)
+    private BlBlog blBlog;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_ID = "id";

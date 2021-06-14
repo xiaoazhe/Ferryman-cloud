@@ -1,6 +1,7 @@
 package com.ferry.consumer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.server.blog.entity.BlComment;
 
@@ -12,4 +13,5 @@ public interface CommentService extends IService <BlComment> {
 
     Result add(BlComment spit);
 
+    Result getCommentAndReply(PageRequest pageRequest);
 }

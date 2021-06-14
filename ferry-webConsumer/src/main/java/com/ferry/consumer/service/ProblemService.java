@@ -5,6 +5,8 @@ import com.ferry.consumer.http.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlProblem;
 
+import java.util.List;
+
 /**
  * @Author: 摆渡人
  * @Date: 2021/6/9
@@ -29,7 +31,11 @@ public interface ProblemService extends IService <BlProblem> {
 
     String setCollect(String id, Integer statusId);
 
-    PageResult getCollect(String id, Integer statusId, PageRequest pageRequest);
+    PageResult getCollect(Integer statusId, PageRequest pageRequest);
 
-    String deleteCollect(Integer id);
+    String deleteCollect(String id, Integer statusId);
+
+    List <BlProblem> getSimilarById(String id);
+
+    String delete();
 }

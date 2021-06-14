@@ -74,6 +74,9 @@ public class BlReply implements Serializable {
     @TableField(value = "last_update_by")
     private String lastUpdateBy;
 
+    @TableField(exist = false)
+    private BlProblem problem;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_ID = "id";

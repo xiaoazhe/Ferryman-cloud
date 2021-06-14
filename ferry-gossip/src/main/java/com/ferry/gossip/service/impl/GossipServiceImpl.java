@@ -87,6 +87,11 @@ public class GossipServiceImpl implements GossipService {
     }
 
     @Override
+    public Page <Gossip> pageByUser(int page, int size) {
+        return null;
+    }
+
+    @Override
     public void addthumbup(String id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(id));

@@ -25,6 +25,7 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                 .addPathPatterns("/blog/saveBlog")
                 .addPathPatterns("/reply/save")
                 .addPathPatterns("/gossip/save")
-                .addPathPatterns("/problem/save");
+                .addPathPatterns("/problem/save")
+                .addPathPatterns("/problem/collect/**");
     }
 }

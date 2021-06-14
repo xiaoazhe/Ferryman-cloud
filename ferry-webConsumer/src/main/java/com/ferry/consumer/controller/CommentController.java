@@ -1,5 +1,6 @@
 package com.ferry.consumer.controller;
 
+import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.service.CommentService;
 import com.ferry.server.blog.entity.BlComment;
@@ -26,5 +27,11 @@ public class CommentController {
     @PostMapping(value = "save")
     public Result saveComment(@RequestBody BlComment comment) {
         return commentService.add(comment);
+    }
+
+    @ApiOperation(value = "获取评论和回复")
+    @PostMapping(value = "getCommentAndReply")
+    public Result getCommentAndReply(@RequestBody PageRequest pageRequest) {
+        return commentService.getCommentAndReply(pageRequest);
     }
 }
