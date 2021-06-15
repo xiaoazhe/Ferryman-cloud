@@ -250,6 +250,9 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         } else if (statusId == 2){
             Page <BlProblem> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
             ids = collectList.stream().map(BlCollect::getProId).collect(Collectors.toList());
+            if (ids == null) {
+                return null;
+            }
             QueryWrapper blogQuery = new QueryWrapper<>();
             blogQuery.in(BlProblem.COL_ID, ids);
             Page<BlProblem> problemPage = problemMapper.selectPage(page, blogQuery);
@@ -259,6 +262,9 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
             Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
             ids = collectList.stream().filter(collect -> collect.getStatus() == 3)
                     .map(BlCollect::getBlogId).collect(Collectors.toList());
+            if (ids == null) {
+                return null;
+            }
             QueryWrapper blogQuery = new QueryWrapper<>();
             blogQuery.in(BlBlog.COL_ID, ids);
             Page<BlBlog> blBlogPage = blogMapper.selectPage(page, blogQuery);

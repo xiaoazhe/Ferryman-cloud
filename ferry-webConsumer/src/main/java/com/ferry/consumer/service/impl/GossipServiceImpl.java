@@ -44,6 +44,11 @@ public class GossipServiceImpl implements GossipService {
         return Result.error();
     }
 
+    @RequestMapping(value = "/gossip/pageByUser/{userId}/{page}/{size}", method = RequestMethod.GET)
+    public Result pageByUser(String userId, int page, int size) {
+        return Result.error();
+    }
+
     @RequestMapping(value = "/thumbup/{spitId}", method = RequestMethod.PUT)
     public Result addthumbup(String spitId){
         return Result.error();

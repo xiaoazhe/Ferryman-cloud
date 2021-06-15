@@ -31,6 +31,9 @@ public interface GossipService {
     @RequestMapping(value = "/gossip/comment/{parentid}/{page}/{size}", method = RequestMethod.GET)
     public Result comment(@PathVariable String parentid, @PathVariable int page, @PathVariable int size);
 
+    @RequestMapping(value = "/gossip/pageByUser/{userId}/{page}/{size}", method = RequestMethod.GET)
+    public Result pageByUser(@PathVariable String userId, @PathVariable int page, @PathVariable int size);
+
     @RequestMapping(value = "/gossip/thumbup/{gossipId}", method = RequestMethod.PUT)
     public Result addthumbup(@PathVariable String gossipId);
 

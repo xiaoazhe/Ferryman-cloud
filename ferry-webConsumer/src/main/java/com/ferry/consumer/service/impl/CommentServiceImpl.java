@@ -3,6 +3,7 @@ package com.ferry.consumer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.consumer.http.PageRequest;
@@ -80,7 +81,7 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
         Page <BlReply> pageReply = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         String userId = null;
         try {
-            String token = (String) request.getAttribute("claims_user");
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
             Claims claims = jwtUtil.parseJWT(token);
             userId = claims.getId();
         } catch (Exception e) {

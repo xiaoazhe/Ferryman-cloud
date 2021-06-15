@@ -66,6 +66,12 @@ public class GossipController {
         return Result.ok(new PageResult <Gossip>(pageData.getTotalElements(), pageData.getContent()));
     }
 
+    @RequestMapping(value = "/pageByUser/{userId}/{page}/{size}", method = RequestMethod.GET)
+    public Result pageByUser(@PathVariable String userId, @PathVariable int page, @PathVariable int size){
+        Page <Gossip> pageData = gossipService.pageByUser(userId, page, size);
+        return Result.ok(new PageResult <Gossip>(pageData.getTotalElements(), pageData.getContent()));
+    }
+
     @RequestMapping(value = "/thumbup/{gossipId}", method = RequestMethod.PUT)
     public Result addthumbup(@PathVariable String gossipId){
         gossipService.addthumbup(gossipId);

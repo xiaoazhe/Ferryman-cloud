@@ -87,6 +87,19 @@ public class GossipController {
         return gossipService.comment(parentid, page, size);
     }
 
+    @RequestMapping(value = "/pageByUser/{page}/{size}", method = RequestMethod.GET)
+    public Result pageByUser(@PathVariable int page, @PathVariable int size){
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        return gossipService.pageByUser(userId, page, size);
+    }
+
     @RequestMapping(value = "/thumbup/{gossipId}", method = RequestMethod.PUT)
     public Result addthumbup(@PathVariable String gossipId){
         String userId = null;

@@ -14,5 +14,7 @@ public interface GossipDao extends MongoRepository <Gossip, String> {
     List <Gossip> findAllByParentidAndState(String parentid, String status);
 
     public Page <Gossip> findByParentid(String parentid, Pageable pageable);
+
+    public Page <Gossip> findByUserid(String userId, Pageable pageable);
 }
 

@@ -87,8 +87,9 @@ public class GossipServiceImpl implements GossipService {
     }
 
     @Override
-    public Page <Gossip> pageByUser(int page, int size) {
-        return null;
+    public Page <Gossip> pageByUser(String userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page-1, size);
+        return gossipDao.findByUserid(userId, pageable);
     }
 
     @Override
