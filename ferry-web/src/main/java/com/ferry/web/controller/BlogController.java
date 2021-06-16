@@ -1,6 +1,7 @@
 package com.ferry.web.controller;
 
 import com.ferry.common.enums.CommonStatusEnum;
+import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
@@ -23,6 +24,12 @@ public class BlogController {
     @PostMapping(value="/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest) {
         return Result.ok(blogService.findPage(pageRequest));
+    }
+
+    @ApiOperation(value = "个人查询")
+    @PostMapping(value="/findUserPage/{userId}")
+    public Result findUserPage(@PathVariable String userId, @RequestBody PageRequest pageRequest) {
+        return Result.ok(blogService.findUserPage(userId, pageRequest));
     }
 
     @ApiOperation(value = "id查询")
@@ -49,6 +56,13 @@ public class BlogController {
             throw new RuntimeException(CommonStatusEnum.ERR);
         }
         return blogService.saveBlog(blBlog);
+    }
+
+    @ApiOperation(value = "删除")
+    @GetMapping("/delete/{id}")
+    public Result delete(@PathVariable String id) {
+        blogService.deleteById(id);
+        return Result.ok(StateEnums.DELETED.getMsg());
     }
 
     @RequestMapping("/hello")

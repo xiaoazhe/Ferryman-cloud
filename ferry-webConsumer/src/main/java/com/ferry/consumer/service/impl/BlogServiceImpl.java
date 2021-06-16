@@ -6,6 +6,7 @@ import com.ferry.consumer.service.BlogService;
 import com.ferry.server.blog.entity.BlBlog;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -39,5 +40,15 @@ public class BlogServiceImpl implements BlogService {
     @RequestMapping("/getBlogById")
     public String hello() {
         return "抱歉,没有获取到";
+    }
+
+    @PostMapping("/blog/findUserPage/{userId}")
+    public Result findUserPage(@PathVariable String userId, PageRequest pageRequest) {
+        return Result.error();
+    }
+
+    @GetMapping("/delete/{id}")
+    public Result deleteById(String id) {
+        return Result.error();
     }
 }

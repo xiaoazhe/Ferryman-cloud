@@ -60,6 +60,21 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     }
 
     @Override
+    public PageResult findUserPage(String userId, PageRequest pageRequest) {
+        Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+        String label = pageRequest.getName();
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like(!StringUtils.isBlank(label), BlBlog.COL_TITLE, label);
+        queryWrapper.eq(BlBlog.COL_USER_UID, userId);
+        if (pageRequest.getEnabled()!= -1) {
+            queryWrapper.eq(BlBlog.COL_TYPE_ID, pageRequest.getEnabled());
+        }
+        Page<BlBlog> typePage = blogMapper.selectPage(page, queryWrapper);
+        PageResult pageResult = new PageResult(typePage);
+        return pageResult;
+    }
+
+    @Override
     public boolean removeTypes(List <BlBlog> blBlogs) {
         for (BlBlog blBlog : blBlogs) {
             blogMapper.deleteById(blBlog.getId());

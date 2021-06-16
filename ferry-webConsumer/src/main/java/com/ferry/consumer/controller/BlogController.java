@@ -53,6 +53,20 @@ public class BlogController {
         return result;
     }
 
+    @ApiOperation(value = "个人查询")
+    @PostMapping(value="/findUserPage")
+    public Result findUserPage(@RequestBody PageRequest pageRequest) {
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            return null;
+        }
+        return blogService.findUserPage(userId, pageRequest);
+    }
+
     @ApiOperation(value = "根据ID获取")
     @PostMapping(value="/getBlogById")
     public Result getBlogById(@RequestParam(value = "id") String id) {
@@ -76,7 +90,6 @@ public class BlogController {
                 return result;
             }
         }
-
         Result result = blogService.getBlogById(id);
         return result;
     }
@@ -89,8 +102,23 @@ public class BlogController {
 
     @ApiOperation(value = "用户添加博客")
     @PostMapping("/saveBlog")
-    public Result saveBlog(@RequestBody BlBlog blBlog, HttpServletRequest request) {
+    public Result saveBlog(@RequestBody BlBlog blBlog) {
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        blBlog.setUserUid(userId);
         return blogDealService.saveBlog(blBlog);
+    }
+
+    @ApiOperation(value = "删除")
+    @GetMapping("/delete/{id}")
+    public Result delete(@PathVariable String id) {
+        return blogService.deleteById(id);
     }
 
     @RequestMapping("/hello")

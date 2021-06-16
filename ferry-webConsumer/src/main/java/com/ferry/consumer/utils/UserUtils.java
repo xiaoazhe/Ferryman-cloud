@@ -1,6 +1,8 @@
 package com.ferry.consumer.utils;
 
 import com.ferry.common.enums.FieldStatusEnum;
+import com.ferry.common.enums.StateEnums;
+import com.ferry.consumer.http.Result;
 import com.ferry.consumer.interceptor.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,15 @@ public class UserUtils {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public static String getUserId(HttpServletRequest request, JwtUtil jwtUtil) {
-        String token = (String) request.getAttribute(FieldStatusEnum.ROLE_USER);
-        Claims claims = jwtUtil.parseJWT(token);
-        String userId = claims.getId();
+    public String getUserId() {
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            return null;
+        }
         return userId;
     }
 }

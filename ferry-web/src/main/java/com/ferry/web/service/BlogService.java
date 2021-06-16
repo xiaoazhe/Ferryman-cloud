@@ -26,4 +26,6 @@ public interface BlogService extends IService <BlBlog> {
     Result selectById(String id);
 
     Result hotBlog();
+
+    PageResult findUserPage(String userId, PageRequest pageRequest);
 }

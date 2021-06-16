@@ -6,6 +6,7 @@ import com.ferry.consumer.service.impl.BlogServiceImpl;
 import com.ferry.server.blog.entity.BlBlog;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,4 +31,10 @@ public interface BlogService {
 
     @RequestMapping("/getBlogById")
     public String hello();
+
+    @PostMapping("/blog/findUserPage/{userId}")
+    Result findUserPage(@PathVariable String userId, PageRequest pageRequest);
+
+    @GetMapping("/blog/delete/{id}")
+    Result deleteById(@PathVariable String id);
 }

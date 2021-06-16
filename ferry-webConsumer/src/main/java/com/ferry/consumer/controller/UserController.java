@@ -42,6 +42,7 @@ public class UserController {
         map.put("name", user.getNickname());
         map.put("avatar", user.getAvatar());
         map.put("roles", "user");
+        map.put("userInfo", user);
         return new Result().ok(map);
     }
 
