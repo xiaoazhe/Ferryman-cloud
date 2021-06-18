@@ -55,16 +55,20 @@ public class BlogController {
 
     @ApiOperation(value = "个人查询")
     @PostMapping(value="/findUserPage")
-    public Result findUserPage(@RequestBody PageRequest pageRequest) {
-        String userId = null;
-        try {
-            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
-            Claims claims = jwtUtil.parseJWT(token);
-            userId = claims.getId();
-        } catch (Exception e) {
-            return null;
+    public Result findUserPage(@RequestParam String id, @RequestBody PageRequest pageRequest) {
+        if (id == null) {
+            String userId = null;
+            try {
+                String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+                Claims claims = jwtUtil.parseJWT(token);
+                userId = claims.getId();
+            } catch (Exception e) {
+                return null;
+            }
+            return blogService.findUserPage(userId, pageRequest);
+        } else {
+            return blogService.findUserPage(id, pageRequest);
         }
-        return blogService.findUserPage(userId, pageRequest);
     }
 
     @ApiOperation(value = "根据ID获取")

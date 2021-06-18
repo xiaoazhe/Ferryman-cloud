@@ -6,13 +6,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.exception.ServeException;
 import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.common.enums.FieldStatusEnum;
+import com.ferry.server.admin.entity.*;
+import com.ferry.server.admin.mapper.SysDeptMapper;
 import com.ferry.server.admin.mapper.SysRoleMapper;
 import com.ferry.server.admin.mapper.SysUserMapper;
 import com.ferry.server.admin.mapper.SysUserRoleMapper;
-import com.ferry.server.admin.entity.SysMenu;
-import com.ferry.server.admin.entity.SysRole;
-import com.ferry.server.admin.entity.SysUser;
-import com.ferry.server.admin.entity.SysUserRole;
 import com.ferry.admin.service.SysMenuService;
 import com.ferry.admin.service.SysUserService;
 import com.ferry.common.utils.DateTimeUtils;
@@ -41,6 +39,8 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	private SysUserRoleMapper sysUserRoleMapper;
 	@Autowired
 	private SysRoleMapper sysRoleMapper;
+	@Autowired
+	private SysDeptMapper deptMapper;
 
 	@Transactional
 	@Override
@@ -106,6 +106,9 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		queryWrapper.like(!Objects.isNull(name), SysUser.COL_NAME, name);
 		queryWrapper.like(!Objects.isNull(email), SysUser.COL_EMAIL, email);
 		Page<SysUser> userIPage = sysUserMapper.selectPage(page, queryWrapper);
+		for (SysUser sysUser: userIPage.getRecords()) {
+			sysUser.setDeptName(deptMapper.selectById(sysUser.getDeptId()).getName());
+		}
 		PageResult pageResult = new PageResult(userIPage);
 		// 加载用户角色信息
 		findUserRoles(pageResult);
@@ -156,7 +159,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 
 	@Override
 	public List<SysUserRole> findUserRoles(Long userId) {
-		QueryWrapper queryWrapper = new QueryWrapper();
+		QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper();
 		queryWrapper.eq("user_id", userId);
 		return sysUserRoleMapper.selectList(queryWrapper);
 	}

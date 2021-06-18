@@ -111,6 +111,7 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
             blBlog.setTypeId(String.valueOf(type.getId()));
             blBlog.setId(idWorker.nextId()+"");
             blBlog.setCreateTime(new Date());
+            blBlog.setArticlesPart(blBlog.getAuthor());
             int id = blogMapper.insert(blBlog);
         }
         return Result.ok(StateEnums.SAVEBLOG_SUC.getMsg());

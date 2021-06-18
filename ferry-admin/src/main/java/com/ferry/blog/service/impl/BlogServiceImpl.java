@@ -40,9 +40,8 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-//        String label = pageRequest.getParamValue("name");
         String label = pageRequest.getName();
-        QueryWrapper queryWrapper = new QueryWrapper();
+        QueryWrapper<BlBlog> queryWrapper = new QueryWrapper();
         queryWrapper.like(!StringUtils.isBlank(label),BlBlog.COL_TITLE, label);
         Page<BlBlog> typePage = blogMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
@@ -84,7 +83,7 @@ public class BlogServiceImpl extends ServiceImpl <BlBlogMapper, BlBlog> implemen
         } else {
             blBlog.setTypeName(type.getName());
             blBlog.setTypeId(String.valueOf(type.getId()));
-            blBlog.setId(idWorker.nextId()+"");
+            blBlog.setId(idWorker.nextId() + "");
             blBlog.setCreateTime(new Date());
             blogMapper.insert(blBlog);
         }

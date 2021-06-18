@@ -72,25 +72,8 @@ public class MusicServiceImpl extends ServiceImpl <BlMusicMapper, BlMusic> imple
     }
     @Override
     public List<BlMusic> getList() {
-        QueryWrapper queryWrapper = new QueryWrapper();
+        QueryWrapper<BlMusic> queryWrapper = new QueryWrapper();
         queryWrapper.ne(BlMusic.COL_ID, 0);
         return musicMapper.selectList(queryWrapper);
-    }
-
-    /**
-     * 利用正则表达式判断字符串是否是数字
-     * @param str
-     * @return
-     */
-    public boolean isNumeric(String str){
-        Pattern pattern = Pattern.compile("[0-9]*");
-        if (StringUtils.isBlank(str)) {
-            return false;
-        }
-        Matcher isNum = pattern.matcher(str);
-        if( !isNum.matches() ){
-            return false;
-        }
-        return true;
     }
 }

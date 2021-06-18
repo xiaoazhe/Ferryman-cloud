@@ -22,10 +22,13 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
                 .excludePathPatterns("/label/**")
                 .excludePathPatterns("/reply/**")
                 .excludePathPatterns("/gossip/**")
+                .excludePathPatterns("/link/**")
+                .excludePathPatterns("/material/**")
                 .addPathPatterns("/blog/saveBlog")
                 .addPathPatterns("/reply/save")
                 .addPathPatterns("/gossip/save")
                 .addPathPatterns("/problem/save")
+                .addPathPatterns("/link/save")
                 .addPathPatterns("/problem/collect/**");
     }
 }

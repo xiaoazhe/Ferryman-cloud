@@ -115,6 +115,12 @@ public class BlFriendLink implements Serializable {
     @TableField(value = "last_update_by")
     private String lastUpdateBy;
 
+    /**
+     * 作者名
+     */
+    @TableField(value = "nick_name")
+    private String nickName;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_UID = "uid";

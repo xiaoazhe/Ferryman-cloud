@@ -33,7 +33,7 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlComment> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        String label = pageRequest.getParamValue(FieldStatusEnum.NAME);
+        String label = pageRequest.getName();
         QueryWrapper<BlComment> queryWrapper = new QueryWrapper<BlComment>();
         queryWrapper.like(!StringUtils.isBlank(label), FieldStatusEnum.BLCONTENT, label);
         queryWrapper.ne(FieldStatusEnum.BLSTATUS,0);
