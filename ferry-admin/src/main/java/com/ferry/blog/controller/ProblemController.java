@@ -22,11 +22,11 @@ public class ProblemController {
     @Autowired
     private ProblemService problemService;
 
-    @ApiOperation(value = "获取最新列表")
+    @ApiOperation(value = "获取列表")
     @PreAuthorize("hasAuthority('sys:label:view')")
     @PostMapping(value = "/newlist")
-    public Result newlist(@RequestParam Integer label, @RequestBody PageRequest pageRequest){
-        return Result.ok(problemService.newlist(label, pageRequest));
+    public Result newlist(@RequestBody PageRequest pageRequest){
+        return Result.ok(problemService.newlist(pageRequest));
     }
 
     @ApiOperation(value = "删除")

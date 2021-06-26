@@ -26,13 +26,10 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
     private BlProblemMapper problemMapper;
 
     @Autowired
-    private BlProLabelMapper proLabelMapper;
-
-    @Autowired
     private RedisTemplate redisTemplate;
 
     @Override
-    public PageResult newlist(Integer labelId, PageRequest pageRequest) {
+    public PageResult newlist(PageRequest pageRequest) {
         Page <BlProblem> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper<BlProblem> queryWrapper = new QueryWrapper();
         queryWrapper.orderByDesc(BlProblem.COL_CREATETIME);

@@ -12,7 +12,7 @@ import com.ferry.server.blog.entity.BlProblem;
  */
 public interface ProblemService extends IService <BlProblem> {
 
-    PageResult newlist(Integer labelId, PageRequest pageRequest);
+    PageResult newlist(PageRequest pageRequest);
 
     String deleteById(String id);
 }
