@@ -7,10 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: 摆渡人
@@ -29,5 +26,15 @@ public class UserController {
     @PostMapping(value = "/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest){
         return Result.ok(userService.findPage(pageRequest));
+    }
+
+    @ApiOperation(value = "删除")
+    @PreAuthorize("hasAuthority('sys:user:delete')")
+    @PostMapping(value = "/findPage")
+    public Result delete(@PathVariable Integer id){
+        if (id == null) {
+            return Result.error();
+        }
+        return Result.ok(userService.removeById(id));
     }
 }
