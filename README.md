@@ -17,7 +17,8 @@
 10. MyBatisCodeHelperPro 插件代码生成
 11. FastDFS文件系统,OSS。。
 12. RabbitMQ
-13. .......
+13. mongdb
+14. .......
 
 #### 使用说明
 
@@ -29,6 +30,7 @@
 
 管理系统前端地址：https://gitee.com/chongzhe/ferryman-vue
 拉取main分支代码
+系统前端地址：****
 完善中·····
 
 #### 提醒
