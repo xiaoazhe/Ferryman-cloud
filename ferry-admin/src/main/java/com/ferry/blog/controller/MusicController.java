@@ -34,8 +34,10 @@ public class MusicController {
 
     @Autowired
     private JavaMailSender mailSender;
+
     @Value("${spring.mail.username}")
     private String from;
+
     @PostMapping(value="/mail1")
     public void testSendSimple() {
         try {
