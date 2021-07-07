@@ -1,18 +1,21 @@
-package com.ferry.gossip.controller;
+package com.ferry.blog.controller;
 
-
+import com.ferry.blog.service.GossipService;
 import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.file.object.PageResult;
 import com.ferry.core.http.Result;
-import com.ferry.gossip.service.GossipService;
 import com.ferry.server.blog.entity.Gossip;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+/**
+ * @Author: 摆渡人
+ * @Date: 2021/7/6
+ */
+@Api(tags = "交流")
 @RestController
 @RequestMapping("/gossip")
 public class GossipController {
@@ -75,5 +78,4 @@ public class GossipController {
         gossipService.addthumbup(gossipId);
         return Result.ok(StateEnums.ADDLIKE_SUC.getMsg());
     }
-
 }
