@@ -25,8 +25,13 @@
 1.  启动 ferry-consul 模块的注册中心 
   windows安装consul，启动命令  consul agent -dev
 2.  启动 ferry-admin 后台管理模块
-3.  启动 ferry-recover 数据备份模块（非必须）
-4.  依次启动 ferry-web（服务提供者1）、ferry-webBalanced（服务提供者）、ferry-webConsumer（服务消费者）、ferry-hystrix（熔断器）、ferry-zuul（网关转发）
+3.  启动 ferry-recover 数据备份模块
+4.  依次启动 ferry-web（服务提供者1）
+、ferry-webBalanced（服务提供者）
+、ferry-gossip（服务提供者2）
+、ferry-webConsumer（服务消费者）
+、ferry-hystrix（熔断器）
+、ferry-zuul（网关转发）
 
 管理系统前端地址：https://gitee.com/chongzhe/ferryman-vue
 拉取main分支代码
