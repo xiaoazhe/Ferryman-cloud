@@ -17,7 +17,7 @@
 10. MyBatisCodeHelperPro 插件代码生成
 11. FastDFS文件系统,OSS。。
 12. RabbitMQ
-13. mongdb
+13. mongdb, redis
 14. .......
 
 #### 使用说明
