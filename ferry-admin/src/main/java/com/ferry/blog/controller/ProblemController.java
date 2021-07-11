@@ -31,9 +31,8 @@ public class ProblemController {
 
     @ApiOperation(value = "删除")
     @PreAuthorize("hasAuthority('sys:label:delete')")
-    @DeleteMapping(value="/deleteById")
+    @GetMapping(value="/deleteById/{id}")
     public Result delete(@PathVariable String id){
         return Result.ok(problemService.deleteById(id));
     }
-
 }
