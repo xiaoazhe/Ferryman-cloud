@@ -11,11 +11,13 @@ import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlMaterial;
 import com.ferry.server.blog.mapper.BlMaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @Author: 摆渡人
  * @Date: 2021/6/27
  */
+@Service
 public class MaterialServiceImpl extends ServiceImpl <BlMaterialMapper, BlMaterial> implements MaterialService {
 
     @Autowired
