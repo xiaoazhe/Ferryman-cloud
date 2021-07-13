@@ -61,7 +61,7 @@ public class BlMusic implements Serializable {
     private Date createTime;
 
     /**
-     * 是否启用，0否1是
+     * 是否启用，2否 1是
      */
     @TableField(value = "enable")
     private Integer enable;
