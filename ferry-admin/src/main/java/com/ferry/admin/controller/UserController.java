@@ -125,4 +125,10 @@ public class UserController {
         return Result.ok(userService.save(user));
     }
 
+    @ApiOperation(value = "获取登陆用户")
+    @PreAuthorize("hasAuthority('sys:user:view')")
+    @GetMapping(value="/getLoginUser")
+    public Result getLoginUser() {
+        return Result.ok(userService.findByName(SecurityUtils.getUsername()));
+    }
 }
