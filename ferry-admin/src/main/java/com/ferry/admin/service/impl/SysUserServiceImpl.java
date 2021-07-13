@@ -107,7 +107,10 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		queryWrapper.like(!Objects.isNull(email), SysUser.COL_EMAIL, email);
 		Page<SysUser> userIPage = sysUserMapper.selectPage(page, queryWrapper);
 		for (SysUser sysUser: userIPage.getRecords()) {
-			sysUser.setDeptName(deptMapper.selectById(sysUser.getDeptId()).getName());
+			SysDept dept = deptMapper.selectById(sysUser.getDeptId());
+			if (dept != null) {
+				sysUser.setDeptName(dept.getName());
+			}
 		}
 		PageResult pageResult = new PageResult(userIPage);
 		// 加载用户角色信息
