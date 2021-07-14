@@ -16,4 +16,6 @@ public interface LabelService extends IService <BlLabel> {
     PageResult selectAllByUser(PageRequest pageRequest);
 
     String saveLabel(BlLabel label);
+
+    String updateLabelState(BlLabel label);
 }

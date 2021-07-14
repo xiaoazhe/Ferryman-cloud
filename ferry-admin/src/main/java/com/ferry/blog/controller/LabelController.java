@@ -58,4 +58,14 @@ public class LabelController {
         }
         return Result.ok(labelService.getById(id));
     }
+
+    @ApiOperation(value = "修改状态")
+    @PreAuthorize("hasAuthority('sys:label:view')")
+    @PostMapping(value = "/updateLabelState")
+    public Result updateLabelState(@RequestBody BlLabel label){
+        if (label.getId() == null) {
+            return Result.error(StateEnums.REQUEST_ERROR.getMsg());
+        }
+        return Result.ok(labelService.updateLabelState(label));
+    }
 }

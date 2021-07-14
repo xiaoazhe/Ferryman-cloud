@@ -31,7 +31,6 @@ public class LabelServiceImpl extends ServiceImpl <BlLabelMapper, BlLabel> imple
     public PageResult selectAllByUser(PageRequest pageRequest) {
         Page <BlLabel> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper <BlLabel> queryWrapper = new QueryWrapper();
-        queryWrapper.ne(BlLabel.COL_STATE, 0);
         Page <BlLabel> labelPage = labelMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(labelPage);
         return pageResult;
@@ -56,5 +55,21 @@ public class LabelServiceImpl extends ServiceImpl <BlLabelMapper, BlLabel> imple
             labelMapper.updateById(blLabel);
             return StateEnums.REQUEST_SUCCESS.getMsg();
         }
+    }
+
+    @Override
+    public String updateLabelState(BlLabel label) {
+        synchronized (label) {
+            BlLabel blLabel = labelMapper.selectById(label.getId());
+            if (blLabel.getState().equals("1")) {
+                blLabel.setState("0");
+            } else {
+                blLabel.setState("1");
+            }
+            blLabel.setUpdateTime(new Date());
+            blLabel.setLastUpdateBy(SecurityUtils.getUsername());
+            labelMapper.updateById(blLabel);
+        }
+        return StateEnums.REQUEST_SUCCESS.getMsg();
     }
 }
