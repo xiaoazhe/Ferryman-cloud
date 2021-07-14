@@ -35,6 +35,9 @@ public class MaterialController {
     @PostMapping(value = "/save")
     @PreAuthorize("hasAuthority('sys:material:add')")
     public Result save(@RequestBody BlMaterial material){
+        if (material.getId() != 0) {
+            return Result.ok(materialService.updateMaterial(material));
+        }
         return Result.ok(materialService.saveMaterial(material));
     }
 

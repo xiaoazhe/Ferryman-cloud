@@ -3,6 +3,7 @@ package com.ferry.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.admin.util.SecurityUtils;
 import com.ferry.blog.service.MaterialService;
 import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.StringUtils;
@@ -12,6 +13,8 @@ import com.ferry.server.blog.entity.BlMaterial;
 import com.ferry.server.blog.mapper.BlMaterialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * @Author: 摆渡人
@@ -38,6 +41,8 @@ public class MaterialServiceImpl extends ServiceImpl <BlMaterialMapper, BlMateri
     @Override
     public String saveMaterial(BlMaterial material) {
         material.setStatus(1);
+        material.setCreateTime(new Date());
+        material.setCreateBy(SecurityUtils.getUsername());
         materialMapper.insert(material);
         return StateEnums.REQUEST_SUCCESS.getMsg();
     }
@@ -45,6 +50,8 @@ public class MaterialServiceImpl extends ServiceImpl <BlMaterialMapper, BlMateri
     @Override
     public String updateMaterial(BlMaterial material) {
         materialMapper.updateById(material);
+        material.setUpdateTime(new Date());
+        material.setLastUpdateBy(SecurityUtils.getUsername());
         return StateEnums.REQUEST_SUCCESS.getMsg();
     }
 
