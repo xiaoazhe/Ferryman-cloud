@@ -57,9 +57,14 @@ public class CommentServiceImpl extends ServiceImpl <BlCommentMapper, BlComment>
 
     @Override
     public Result add(BlComment comment) {
-        String token = (String) request.getAttribute("claims_user");
-        Claims claims = jwtUtil.parseJWT(token);
-        String userId = claims.getId();
+        String userId = null;
+        try {
+            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+            Claims claims = jwtUtil.parseJWT(token);
+            userId = claims.getId();
+        } catch (Exception e) {
+            return null;
+        }
         if (comment.getToCommentId() == null || "".equals(comment.getToCommentId())) {
             comment.setFirstCommentId("1");
         }
