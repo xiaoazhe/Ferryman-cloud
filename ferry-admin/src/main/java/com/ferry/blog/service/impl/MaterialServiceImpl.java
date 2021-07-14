@@ -28,7 +28,6 @@ public class MaterialServiceImpl extends ServiceImpl <BlMaterialMapper, BlMateri
         Page <BlMaterial> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         String label = pageRequest.getName();
         QueryWrapper <BlMaterial> queryWrapper = new QueryWrapper <>();
-        queryWrapper.eq(BlMaterial.COL_STATUS, 1);
         queryWrapper.like(!StringUtils.isBlank(label), BlMaterial.COL_TITLE, label);
         queryWrapper.orderByDesc(BlMaterial.COL_SORT);
         Page<BlMaterial> problemPage = materialMapper.selectPage(page, queryWrapper);
