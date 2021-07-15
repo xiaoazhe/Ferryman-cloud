@@ -18,7 +18,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://1.116.227.4:3306/ferryman?useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      url: jdbc:mysql://1.116.227.4:3306/ferryman?useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false
       username: root
       password: huangchongzhe
       filters: stat,wall,log4j,config
