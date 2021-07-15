@@ -1,10 +1,10 @@
 package com.ferry.web.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlBlog;
-
 
 import java.util.List;
 
@@ -18,9 +18,13 @@ public interface BlogService extends IService <BlBlog> {
 
     boolean removeTypes(List <BlBlog> blBlogs);
 
-    boolean saveBlog(BlBlog blog);
+    Result saveBlog(BlBlog blog);
 
     String deleteById(String id);
 
-    BlBlog selectById(String id);
+    Result selectById(String id);
+
+    Result hotBlog();
+
+    PageResult findUserPage(String userId, PageRequest pageRequest);
 }
