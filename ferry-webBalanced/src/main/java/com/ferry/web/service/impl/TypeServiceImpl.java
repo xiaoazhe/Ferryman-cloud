@@ -3,6 +3,7 @@ package com.ferry.web.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
@@ -33,10 +34,10 @@ public class TypeServiceImpl extends ServiceImpl <BlTypeMapper, BlType> implemen
     @Override
     public PageResult findPage(PageRequest pageRequest) {
         Page <BlType> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        String label = pageRequest.getParamValue("name");
+        String label = pageRequest.getParamValue(FieldStatusEnum.NAME);
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like(!StringUtils.isBlank(label),"name",label);
-        queryWrapper.ne("available",0);
+        queryWrapper.like(!StringUtils.isBlank(label),BlType.COL_NAME, label);
+        queryWrapper.ne(BlType.COL_AVAILABLE,0);
         Page<BlType> typePage = blTypeMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
         return pageResult;
@@ -73,7 +74,7 @@ public class TypeServiceImpl extends ServiceImpl <BlTypeMapper, BlType> implemen
     @Override
     public List <BlType> findAll() {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.ne("id", 0);
+        queryWrapper.ne(BlType.COL_ID, 0);
         List <BlType> typeList= blTypeMapper.selectList(queryWrapper);
         return typeList;
     }
@@ -83,5 +84,18 @@ public class TypeServiceImpl extends ServiceImpl <BlTypeMapper, BlType> implemen
         BlBlog blog = blBlogMapper.selectById(id);
         BlType typeName = blTypeMapper.selectById(blog.getTypeId());
         return typeName;
+    }
+
+    @Override
+    public PageResult findBlogPage(PageRequest pageRequest, String typeId) {
+        Page <BlBlog> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+//        String label = pageRequest.getParamValue("name");
+        String label = pageRequest.getName();
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like(!StringUtils.isBlank(label),BlBlog.COL_TITLE, label);
+        queryWrapper.eq(BlBlog.COL_TYPE_ID, typeId);
+        Page<BlBlog> typePage = blBlogMapper.selectPage(page, queryWrapper);
+        PageResult pageResult = new PageResult(typePage);
+        return pageResult;
     }
 }

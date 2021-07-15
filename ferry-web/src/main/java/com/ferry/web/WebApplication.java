@@ -17,22 +17,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @SpringBootApplication
 @MapperScan("com.ferry.server.*.mapper")
 public class WebApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(WebApplication.class, args);
     }
 
     @Bean
-    public IdWorker idWorkker(){
+    public IdWorker idWorkker() {
         return new IdWorker(1, 1);
     }
 
     @Bean
-    public JwtUtil jwtUtil(){
+    public JwtUtil jwtUtil() {
         return new JwtUtil();
     }
 
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 }

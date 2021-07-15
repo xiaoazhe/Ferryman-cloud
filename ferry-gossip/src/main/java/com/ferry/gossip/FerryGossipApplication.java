@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(value= "com.ferry.server.blog.db")
 @SpringBootApplication
 public class FerryGossipApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(FerryGossipApplication.class, args);
     }

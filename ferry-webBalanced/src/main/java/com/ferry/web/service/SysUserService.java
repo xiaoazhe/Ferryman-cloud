@@ -5,6 +5,7 @@ import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.entity.SysUserRole;
+import com.ferry.server.blog.entity.BlUser;
 
 import java.io.File;
 import java.util.List;
@@ -39,4 +40,8 @@ public interface SysUserService extends IService <SysUser> {
 	 * @return
 	 */
 	File createUserExcelFile(PageRequest pageRequest);
+
+	public BlUser login(String mobile, String password);
+
+	public void add(BlUser user);
 }
