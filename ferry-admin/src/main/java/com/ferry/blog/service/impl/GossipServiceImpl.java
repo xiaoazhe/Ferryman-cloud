@@ -42,8 +42,7 @@ public class GossipServiceImpl implements GossipService {
     @Override
     public Gossip findById(String id) {
         Gossip gossip = gossipDao.findById(id).get();
-        gossip.setVisits(gossip.getVisits() + 1);
-        gossipDao.save(gossip);
+        gossip.setGossipList(gossipDao.findByParentid(gossip.get_id()));
         return gossip;
     }
 
