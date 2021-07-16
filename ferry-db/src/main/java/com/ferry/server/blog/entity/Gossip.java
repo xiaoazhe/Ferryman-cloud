@@ -6,34 +6,77 @@ import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Gossip implements Serializable {
 
+    /**
+     *  id
+     */
     @Id
-    // ID
     private String _id;
-    //吐槽内容
+
+    /**
+     *  吐槽内容
+     */
     private String content;
-    //发布日期
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+
+    /**
+     *  发布日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date publishtime;
-    //发布人ID
+
+    /**
+     *  发布人ID
+     */
     private String userid;
-    //发布人昵称
+
+    /**
+     *  发布人昵称
+     */
     private String nickname;
-    //浏览量
+
+    /**
+     *  浏览量
+     */
     private Integer visits;
-    //点赞数
+
+    /**
+     *  点赞数
+     */
     private Integer thumbup;
-    //分享数
+
+    /**
+     *  分享数
+     */
     private Integer share;
-    //回复数
+
+    /**
+     *  回复数
+     */
     private Integer comment;
-    //是否可见 1可 0否
+
+    /**
+     *  是否可见 1可 0否
+     */
     private String state;
-    //上级ID
+
+    /**
+     *  上级ID
+     */
     private String parentid;
+
+    private List<Gossip> gossipList;
+
+    public List<Gossip> getGossipList() {
+        return gossipList;
+    }
+
+    public void setGossipList(List<Gossip> gossipList) {
+        this.gossipList = gossipList;
+    }
 
     public String get_id() {
         return _id;

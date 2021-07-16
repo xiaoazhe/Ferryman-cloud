@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class GossipServiceImpl implements GossipService {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public List <Gossip> findAll() {
+    public List<Gossip> findAll() {
         return gossipDao.findAll();
     }
 
@@ -59,7 +60,7 @@ public class GossipServiceImpl implements GossipService {
         gossip.setComment(0);//回复数
         gossip.setState("1");//状态
         //判断当前吐槽是否有父节点
-        if(gossip.getParentid()!=null && !"".equals(gossip.getParentid())){
+        if (gossip.getParentid() != null && !"".equals(gossip.getParentid())) {
             //给父节点吐槽的回复数加一
             Query query = new Query();
             query.addCriteria(Criteria.where("_id").is(gossip.getParentid()));
@@ -81,14 +82,29 @@ public class GossipServiceImpl implements GossipService {
     }
 
     @Override
-    public Page <Gossip> pageQuery(String parentid, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, size);
+    public Page<Gossip> findPage(int page, int size, String content) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Gossip> gossipPage = null;
+        if (StringUtils.isBlank(content)) {
+            gossipPage = gossipDao.findAllByParentidIs("0", pageable);
+        } else {
+            gossipPage = gossipDao.findAllByParentidIsAndContentLike("0", content, pageable);
+        }
+        for (Gossip gossip : gossipPage.getContent()) {
+            gossip.setGossipList(gossipDao.findByParentid(gossip.get_id()));
+        }
+        return gossipPage;
+    }
+
+    @Override
+    public Page<Gossip> pageQuery(String parentid, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
         return gossipDao.findByParentid(parentid, pageable);
     }
 
     @Override
-    public Page <Gossip> pageByUser(String userId, int page, int size) {
-        Pageable pageable = PageRequest.of(page-1, size);
+    public Page<Gossip> pageByUser(String userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
         return gossipDao.findByUserid(userId, pageable);
     }
 
@@ -103,7 +119,7 @@ public class GossipServiceImpl implements GossipService {
     }
 
     @Override
-    public List <Gossip> findAllByPre(String gossipId) {
+    public List<Gossip> findAllByPre(String gossipId) {
         return gossipDao.findAllByParentidAndState(gossipId, "1");
     }
 }

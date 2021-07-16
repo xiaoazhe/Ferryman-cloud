@@ -11,21 +11,23 @@ import java.util.List;
  */
 public interface GossipService {
 
-    public List <Gossip> findAll();
+    List <Gossip> findAll();
 
-    public Gossip findById(String id);
+    Gossip findById(String id);
 
-    public void save(Gossip gossip);
+    void save(Gossip gossip);
 
-    public void update(Gossip gossip);
+    void update(Gossip gossip);
 
-    public void deleteById(String id);
+    void deleteById(String id);
 
-    public Page <Gossip> pageQuery(String parentid, int page, int size);
+    Page <Gossip> pageQuery(String parentid, int page, int size);
 
-    public Page <Gossip> pageByUser(String userId, int page, int size);
+    Page <Gossip> pageByUser(String userId, int page, int size);
 
-    public void addthumbup(String id);
+    void addthumbup(String id);
 
-    public List<Gossip> findAllByPre(String gossipId);
+    List<Gossip> findAllByPre(String gossipId);
+
+    Page<Gossip> findPage(int page, int size, String content);
 }
