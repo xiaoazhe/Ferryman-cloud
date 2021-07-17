@@ -34,8 +34,8 @@ public class FileUtil {
     //上传阿里云
     public static String getUrl(MultipartFile fileupload) throws OSSException, ClientException, IOException {
         String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-        String accessKeyId = "LTAI8h2kX4mRQTfx";
-        String accessKeySecret = "0BkE2K8Wu4PYGB06XztGIXJM63ToFz";
+        String accessKeyId = "";
+        String accessKeySecret = "";
         // 创建OSSClient实例
         OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
         // 文件桶
