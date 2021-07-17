@@ -59,6 +59,27 @@ public class UserController {
         return Result.ok(userService.save(record));
     }
 
+    @ApiOperation(value = "用户修改")
+    @PreAuthorize("hasAuthority('sys:user:add') AND hasAuthority('sys:user:edit')")
+    @PostMapping(value = "/userUpdate")
+    public Result userUpdate(@RequestBody SysUser record) {
+        SysUser user = userService.findById(record.getId());
+        if (user != null) {
+            if (SysConstants.ADMIN.equalsIgnoreCase(user.getName())) {
+                return Result.error("超级管理员不允许修改!");
+            }
+        }
+        if (userService.findByName(record.getName()) != null) {
+            return Result.error("用户名已存在!");
+        }
+        SysUser sysUser = userService.findById(record.getId());
+        sysUser.setName(record.getName());
+        sysUser.setNickName(record.getNickName());
+        sysUser.setEmail(record.getEmail());
+        sysUser.setMobile(record.getMobile());
+        return Result.ok(userService.updateById(sysUser));
+    }
+
     @ApiOperation(value = "删除用户")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     @PostMapping(value = "/delete")
