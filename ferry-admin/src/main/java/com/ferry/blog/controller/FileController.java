@@ -1,12 +1,11 @@
 package com.ferry.blog.controller;
 
+import com.ferry.blog.dto.FileConfig;
 import com.ferry.blog.service.FileService;
 import com.ferry.blog.service.impl.UploadService;
 import com.ferry.core.http.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -19,8 +18,30 @@ public class FileController {
 
     @Autowired
     private FileService fileService;
+
     @Autowired
     private UploadService uploadService;
+
+    /**
+     * 阿里云 七牛云 文件上传 配置
+     * @param fileConfig
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/fileConfig")
+    public Result fileConfig(@RequestBody FileConfig fileConfig) {
+        return Result.ok(fileService.fileConfig(fileConfig));
+    }
+
+    /**
+     * 获取阿里云 七牛云 文件上传 配置
+     * @return
+     * @throws Exception
+     */
+    @GetMapping(value = "/getFileConfig")
+    public Result getFileConfig() {
+        return Result.ok(fileService.getFileConfig());
+    }
 
     /**
      * 阿里云 七牛云 文件上传 限图片
