@@ -17,24 +17,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class BlogDealService {
+
     @Autowired
     private BlogService blogService;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private JwtUtil jwtUtil;
 
     @Autowired
     private BlUserMapper userMapper;
 
     public Result saveBlog(BlBlog blBlog) {
-        String header = request.getHeader("Authorization");
-        String token = header.substring(7);
-        Claims claims = jwtUtil.parseJWT(token);
-        String userId = claims.getId();
-        String name = userMapper.selectById(userId).getNickname();
+        String name = userMapper.selectById(blBlog.getUserUid()).getNickname();
         blBlog.setCreateBy(name);
         blBlog.setAuthor(name);
         return blogService.saveBlog(blBlog);
