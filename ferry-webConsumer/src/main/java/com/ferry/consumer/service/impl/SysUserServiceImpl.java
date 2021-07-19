@@ -3,9 +3,11 @@ package com.ferry.consumer.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.DateTimeUtils;
 import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.PoiUtils;
+import com.ferry.common.utils.StringUtils;
 import com.ferry.consumer.service.SysUserService;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
@@ -208,7 +210,11 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	}
 
 	@Override
-	public void add(BlUser user) {
+	public String add(BlUser user) {
+		if (StringUtils.isBlank(user.getEmail()) || StringUtils.isBlank(user.getNickname()) ||
+				StringUtils.isBlank(user.getPassword()) || StringUtils.isBlank(user.getMobile())) {
+			return StateEnums.PARAMETER_ERROR.getMsg();
+		}
 		user.setId(idWorker.nextId() + "");
 		//密码加密
 		user.setPassword(encoder.encode(user.getPassword()));
@@ -219,6 +225,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		user.setUpdateTime(new Date());//更新日期
 		user.setLastdate(new Date());//最后登陆日期
 		userMapper.insert(user);
+		return StateEnums.REGISTER_SUC.getMsg();
 	}
 
 }

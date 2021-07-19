@@ -26,6 +26,12 @@ public enum StateEnums {
     NOT_DELETED(0, "未删除"),
 
     /**
+     * 参数状态
+     */
+    PARAMETER_SUC(1, "参数正常"),
+    PARAMETER_ERROR(0, "参数异常"),
+
+    /**
      * 启用状态
      */
     ENABLED(1, "启用"),

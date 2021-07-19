@@ -43,5 +43,5 @@ public interface SysUserService extends IService <SysUser> {
 
 	public BlUser login(String mobile, String password);
 
-	public void add(BlUser user);
+	String add(BlUser user);
 }
