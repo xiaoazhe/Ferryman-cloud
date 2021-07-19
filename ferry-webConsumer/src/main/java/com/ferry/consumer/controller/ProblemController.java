@@ -46,8 +46,8 @@ public class ProblemController {
     }
 
     @ApiOperation(value = "没有回答列表")
-    @PostMapping(value = "/waitlist")
-    public Result waitlist(@RequestParam Integer label, @RequestBody PageRequest pageRequest){
+    @PostMapping(value = "/waitlist/{label}")
+    public Result waitlist(@PathVariable Integer label, @RequestBody PageRequest pageRequest){
         return Result.ok(problemService.waitlist(label, pageRequest));
     }
 

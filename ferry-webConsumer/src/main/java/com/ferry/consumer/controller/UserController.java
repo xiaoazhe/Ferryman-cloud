@@ -60,6 +60,6 @@ public class UserController {
 //        if(!checkcodeRedis.equals(code)){
 //            return new Result(false, StatusCode.ERROR, "请输入正确的验证码");
 //        }
-        return new Result().ok(userService.add(user););
+        return new Result().ok(userService.add(user));
     }
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: 2021/6/3
  */
 
+@CrossOrigin
 @Api(tags = "分类模块")
 @RestController
 @RequestMapping("type")

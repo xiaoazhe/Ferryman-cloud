@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "分类模块")
 @RestController
+@CrossOrigin
 @RequestMapping("type")
 public class TypeController {
 
