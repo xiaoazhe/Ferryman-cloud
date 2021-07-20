@@ -6,23 +6,30 @@
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
+
 后台前端
 [https://gitee.com/chongzhe/ferryman-admin](http://)
 #### 软件架构
-Spring Cloud Consul 注册中心
-Spring Cloud Hystrix 熔断
-Spring Cloud Feign and Ribbon 轮询方式负载均衡
-Spring Cloud Zuul 网关转发请求
-Druid 数据监控
-Swagger 接口
-Spring Cloud Admin 服务监控
-Spring Security + Token 权限控制
-Mybatis-plus ORM框架
-MyBatisCodeHelperPro 插件代码生成
-FastDFS文件系统,OSS。。
-RabbitMQ
-mongdb, redis
-.......
+
+
+
+- Spring Cloud Consul 注册中心
+- Spring Cloud Hystrix 熔断
+- Spring Cloud Feign and Ribbon 轮询方式负载均衡
+- Spring Cloud Zuul 网关转发请求
+- Druid 数据监控
+- Swagger 接口
+- Spring Cloud Admin 服务监控
+- Spring Security + Token 权限控制
+- Mybatis-plus ORM框架
+- MyBatisCodeHelperPro 插件代码生成
+- FastDFS文件系统,OSS,七牛云
+- RabbitMQ
+- mongdb, redis
+- .......
+
+
+
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230822_9db8f56f_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230841_fde7a87f_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230902_5422a3de_2227854.png "屏幕截图.png")
