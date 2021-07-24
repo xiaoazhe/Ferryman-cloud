@@ -34,14 +34,14 @@ public class ProblemController {
     }
 
     @ApiOperation(value = "获取最新列表")
-    @PostMapping(value = "/newlist")
-    public Result newlist(@RequestParam Integer label, @RequestBody PageRequest pageRequest){
+    @PostMapping(value = "/newlist/{label}")
+    public Result newlist(@PathVariable Integer label, @RequestBody PageRequest pageRequest){
         return Result.ok(problemService.newlist(label, pageRequest));
     }
 
     @ApiOperation(value = "热门列表")
-    @PostMapping(value = "/hotlist")
-    public Result hotlist(@RequestParam Integer label, @RequestBody PageRequest pageRequest){
+    @PostMapping(value = "/hotlist/{label}")
+    public Result hotlist(@PathVariable Integer label, @RequestBody PageRequest pageRequest){
         return Result.ok(problemService.hotlist(label, pageRequest));
     }
 

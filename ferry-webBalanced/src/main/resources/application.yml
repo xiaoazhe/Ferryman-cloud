@@ -67,12 +67,6 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-#配置MybatisPlus
-mybatis-plus:
-  mapper-locations: classpath:mapper/*.xml
-  configuration:
-    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
 #3600000 1h
 jwt:
   config:
