@@ -54,15 +54,16 @@ public class BlogController {
     }
 
     @ApiOperation(value = "个人查询")
-    @PostMapping(value="/findUserPage")
-    public Result findUserPage(@RequestBody PageRequest pageRequest) {
-        String userId = null;
-        try {
-            String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
-            Claims claims = jwtUtil.parseJWT(token);
-            userId = claims.getId();
-        } catch (Exception e) {
-            return null;
+    @PostMapping(value="/findUserPage/{userId}")
+    public Result findUserPage(@RequestBody PageRequest pageRequest, @PathVariable String userId) {
+        if (StringUtils.isBlank(userId)) {
+            try {
+                String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
+                Claims claims = jwtUtil.parseJWT(token);
+                userId = claims.getId();
+            } catch (Exception e) {
+                return null;
+            }
         }
         return blogService.findUserPage(userId, pageRequest);
     }
