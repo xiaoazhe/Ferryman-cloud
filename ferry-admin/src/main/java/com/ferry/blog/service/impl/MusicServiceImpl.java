@@ -34,7 +34,6 @@ public class MusicServiceImpl extends ServiceImpl <BlMusicMapper, BlMusic> imple
     @Autowired
     private BlMusicMapper musicMapper;
 
-
     @Override
     public BlMusic getById(Integer id) {
         return musicMapper.selectById(id);
@@ -69,11 +68,5 @@ public class MusicServiceImpl extends ServiceImpl <BlMusicMapper, BlMusic> imple
         Page<BlMusic> typePage = musicMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(typePage);
         return pageResult;
-    }
-    @Override
-    public List<BlMusic> getList() {
-        QueryWrapper<BlMusic> queryWrapper = new QueryWrapper();
-        queryWrapper.ne(BlMusic.COL_ID, 0);
-        return musicMapper.selectList(queryWrapper);
     }
 }

@@ -44,10 +44,4 @@ public interface MusicService extends IService <BlMusic> {
      * @return
      */
     PageResult getByPage(PageRequest page);
-
-    /**
-     * 前台查询
-     * @return
-     */
-    List <BlMusic> getList();
 }

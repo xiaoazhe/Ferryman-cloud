@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ferry.consumer.http.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlLabel;
+import com.ferry.server.blog.entity.BlMusic;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface LabelService extends IService <BlLabel> {
     PageResult selectAllByUser(PageRequest pageRequest);
 
     List <BlLabel> toplist();
+
+    List<BlMusic> getMusicList();
 }

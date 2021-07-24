@@ -167,16 +167,4 @@ public class MusicController {
         return Result.ok(StateEnums.NOT_ENABLE.getMsg());
     }
 
-
-    /**
-     * 前台查询
-     *
-     * @return
-     */
-    @ApiOperation(value = "前台查询")
-    @RequestMapping(value = "/getList", method = RequestMethod.GET)
-    public Result getList() {
-        return Result.ok(musicService.getList());
-    }
-
 }

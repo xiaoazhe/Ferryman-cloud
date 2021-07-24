@@ -7,6 +7,7 @@ import com.ferry.consumer.http.PageRequest;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.BlogService;
+import com.ferry.consumer.service.LabelService;
 import com.ferry.consumer.service.impl.BlogDealService;
 import com.ferry.server.blog.entity.BlBlog;
 import com.ferry.server.blog.entity.BlCollect;
@@ -45,6 +46,9 @@ public class BlogController {
 
     @Autowired
     private BlCollectMapper collectMapper;
+
+    @Autowired
+    private LabelService labelService;
 
     @ApiOperation(value = "分页查询")
     @PostMapping(value="/findPage")
@@ -122,9 +126,14 @@ public class BlogController {
         return blogService.deleteById(id);
     }
 
-    @RequestMapping("/hello")
-    public String call() {
-        // 像调用本地服务一样
-        return blogService.hello();
+    /**
+     *音乐列表
+     *
+     * @return
+     */
+    @ApiOperation(value = "前台查询")
+    @RequestMapping(value = "/getMusicList", method = RequestMethod.GET)
+    public Result getList() {
+        return Result.ok(labelService.getMusicList());
     }
 }

@@ -9,8 +9,10 @@ import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.LabelService;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlLabel;
+import com.ferry.server.blog.entity.BlMusic;
 import com.ferry.server.blog.entity.BlUserLabel;
 import com.ferry.server.blog.mapper.BlLabelMapper;
+import com.ferry.server.blog.mapper.BlMusicMapper;
 import com.ferry.server.blog.mapper.BlUserLabelMapper;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,9 @@ public class LabelServiceImpl extends ServiceImpl <BlLabelMapper, BlLabel> imple
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private BlMusicMapper musicMapper;
+
     @Override
     public PageResult selectAllByUser(PageRequest pageRequest) {
         Page <BlLabel> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
@@ -70,5 +75,13 @@ public class LabelServiceImpl extends ServiceImpl <BlLabelMapper, BlLabel> imple
         queryWrapper.ne(BlLabel.COL_STATE, 0);
         queryWrapper.orderByDesc(BlLabel.COL_FANS);
         return labelMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<BlMusic> getMusicList() {
+        QueryWrapper<BlMusic> queryWrapper = new QueryWrapper();
+        queryWrapper.ne(BlMusic.COL_ENABLE, 1);
+        queryWrapper.ne(BlMusic.COL_DELETED, 1);
+        return musicMapper.selectList(queryWrapper);
     }
 }
