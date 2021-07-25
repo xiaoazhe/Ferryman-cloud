@@ -1,5 +1,10 @@
 package com.ferry.admin.controller;
 
+import com.baidu.aip.util.Base64Util;
+import com.ferry.admin.service.impl.FaceLoginServiceImpl;
+import com.ferry.admin.util.BaiduAiUtil;
+import com.ferry.admin.vo.FaceLoginResult;
+import com.ferry.admin.vo.QRCode;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.security.JwtAuthenticatioToken;
 import com.ferry.admin.service.SysLoginLogService;
@@ -16,10 +21,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -46,6 +50,12 @@ public class LoginController {
 
     @Autowired
     private SysLoginLogService sysLoginLogService;
+
+    @Autowired
+    private FaceLoginServiceImpl faceLoginService;
+
+    @Autowired
+    private BaiduAiUtil baiduAiUtil;
 
     @PostMapping(value = "/login")
     public Result login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
@@ -96,5 +106,53 @@ public class LoginController {
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
+    }
+
+    /**
+     * 获取刷脸登录二维码
+     */
+    @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
+    public Result qrcode() throws Exception {
+        QRCode qrCode=faceLoginService.getQRCode();
+        return Result.ok(qrCode);
+    }
+
+    /**
+     * 检查二维码：登录页面轮询调用此方法，根据唯一标识code判断用户登录情况
+     */
+    @RequestMapping(value = "/qrcode/{code}", method = RequestMethod.GET)
+    public Result qrcodeCeck(@PathVariable(name = "code") String code) throws Exception {
+        FaceLoginResult result = faceLoginService.checkQRCode(code);
+        return Result.ok(result);
+    }
+
+    /**
+     * 人脸登录：根据落地页随机拍摄的面部头像进行登录
+     *          根据拍摄的图片调用百度云AI进行检索查找
+     */
+    @RequestMapping(value = "/{code}", method = RequestMethod.POST)
+    public Result loginByFace(@PathVariable(name = "code") String code,
+                              @RequestParam(name = "file") MultipartFile attachment
+            , HttpServletRequest request) throws Exception {
+        JwtAuthenticatioToken token=faceLoginService.loginByFace(code,attachment,request);
+        if(token!=null){
+            return Result.ok(token);
+        }else {
+            return Result.error();
+        }
+    }
+
+    /**
+     * 图像检测，判断图片中是否存在面部头像
+     */
+    @RequestMapping(value = "/checkFace", method = RequestMethod.POST)
+    public Result checkFace(@RequestParam(name = "file") MultipartFile attachment) throws Exception {
+        String image= Base64Util.encode(attachment.getBytes());
+        Boolean aBoolean=baiduAiUtil.faceCheck(image);
+        if(aBoolean){
+            return Result.ok();
+        }else {
+            return Result.error();
+        }
     }
 }
