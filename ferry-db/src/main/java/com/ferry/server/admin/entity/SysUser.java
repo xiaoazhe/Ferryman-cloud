@@ -117,7 +117,8 @@ public class SysUser {
     @TableField(exist = false)
     private List <SysUserRole> userRoles = new ArrayList <>();
 
-
+    @TableField(value = "pwd")
+    private String pwd;
 
     public static final String COL_ID = "id";
 

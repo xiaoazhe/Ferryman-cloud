@@ -1,5 +1,6 @@
 package com.ferry.admin.vo;
 
+import com.ferry.server.admin.entity.SysUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,12 +23,12 @@ public class FaceLoginResult implements Serializable {
     /**
      * 用户ID
      */
-    private String userId;
+    private SysUser user;
 
-    public FaceLoginResult(String state, String token, String userId) {
+    public FaceLoginResult(String state, String token, SysUser user) {
         this.state = state;
         this.token = token;
-        this.userId = userId;
+        this.user = user;
     }
 
     public FaceLoginResult(String state) {

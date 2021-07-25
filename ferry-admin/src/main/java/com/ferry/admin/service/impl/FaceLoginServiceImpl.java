@@ -4,10 +4,7 @@ package com.ferry.admin.service.impl;
 import com.baidu.aip.util.Base64Util;
 import com.ferry.admin.security.JwtAuthenticatioToken;
 import com.ferry.admin.service.SysLoginLogService;
-import com.ferry.admin.util.BaiduAiUtil;
-import com.ferry.admin.util.IPUtils;
-import com.ferry.admin.util.QRCodeUtil;
-import com.ferry.admin.util.SecurityUtils;
+import com.ferry.admin.util.*;
 import com.ferry.admin.vo.FaceLoginResult;
 import com.ferry.admin.vo.QRCode;
 import com.ferry.common.utils.IdWorker;
@@ -85,12 +82,13 @@ public class FaceLoginServiceImpl {
 //               subject.login(new UsernamePasswordToken(user.getMobile(),user.getPassword()));
 //               String token=subject.getSession().getId()+"";
 
+                String salt = PasswordUtils.getSalt();
                // 系统登录认证
                JwtAuthenticatioToken token = SecurityUtils.login(request, user.getName(),
-                       user.getPassword(), authenticationManager);
+                       user.getPwd(), authenticationManager);
                // 记录登录日志
                sysLoginLogService.writeLoginLog(user.getName(), IPUtils.getIpAddr(request));
-               result=new FaceLoginResult("1",token.getToken(),userId);
+               result=new FaceLoginResult("1",token.getToken(),user);
                redisTemplate.boundValueOps(getCacheKey(code)).set(result,10,TimeUnit.MINUTES);
                return token;
             }

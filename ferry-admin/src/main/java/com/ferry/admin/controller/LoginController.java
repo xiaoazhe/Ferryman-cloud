@@ -130,7 +130,7 @@ public class LoginController {
      * 人脸登录：根据落地页随机拍摄的面部头像进行登录
      *          根据拍摄的图片调用百度云AI进行检索查找
      */
-    @RequestMapping(value = "/{code}", method = RequestMethod.POST)
+    @RequestMapping(value = "/faceLogin/{code}", method = RequestMethod.POST)
     public Result loginByFace(@PathVariable(name = "code") String code,
                               @RequestParam(name = "file") MultipartFile attachment
             , HttpServletRequest request) throws Exception {
@@ -146,8 +146,8 @@ public class LoginController {
      * 图像检测，判断图片中是否存在面部头像
      */
     @RequestMapping(value = "/checkFace", method = RequestMethod.POST)
-    public Result checkFace(@RequestParam(name = "file") MultipartFile attachment) throws Exception {
-        String image= Base64Util.encode(attachment.getBytes());
+    public Result checkFace(@RequestParam(name = "file") MultipartFile file) throws Exception {
+        String image= Base64Util.encode(file.getBytes());
         Boolean aBoolean=baiduAiUtil.faceCheck(image);
         if(aBoolean){
             return Result.ok();
