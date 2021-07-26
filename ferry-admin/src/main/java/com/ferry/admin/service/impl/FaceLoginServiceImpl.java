@@ -68,7 +68,7 @@ public class FaceLoginServiceImpl {
     }
 
 	//扫描二维码之后，使用拍摄照片进行登录
-    public JwtAuthenticatioToken loginByFace(String code, MultipartFile attachment,
+    public FaceLoginResult loginByFace(String code, MultipartFile attachment,
                               HttpServletRequest request) throws Exception {
 		String userId=baiduAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()));
 		//自动登录（tonken）
@@ -90,7 +90,7 @@ public class FaceLoginServiceImpl {
                sysLoginLogService.writeLoginLog(user.getName(), IPUtils.getIpAddr(request));
                result=new FaceLoginResult("1",token.getToken(),user);
                redisTemplate.boundValueOps(getCacheKey(code)).set(result,10,TimeUnit.MINUTES);
-               return token;
+               return result;
             }
         }
         return null;

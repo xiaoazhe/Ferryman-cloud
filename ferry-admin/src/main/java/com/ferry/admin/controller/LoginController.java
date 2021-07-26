@@ -134,7 +134,7 @@ public class LoginController {
     public Result loginByFace(@PathVariable(name = "code") String code,
                               @RequestParam(name = "file") MultipartFile attachment
             , HttpServletRequest request) throws Exception {
-        JwtAuthenticatioToken token=faceLoginService.loginByFace(code,attachment,request);
+        FaceLoginResult token=faceLoginService.loginByFace(code,attachment,request);
         if(token!=null){
             return Result.ok(token);
         }else {
