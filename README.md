@@ -2,7 +2,7 @@
 
 #### DEMO版本
 摆渡人
-#### Spring Boot + Spring Cloud + Vue + Nuxt
+#### Spring Boot + Spring Cloud + Vue + Nuxt + 人脸识别登录
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
@@ -26,10 +26,11 @@
 - FastDFS文件系统,OSS,七牛云
 - RabbitMQ
 - mongdb, redis
+- 百度人脸识别 （旷世人脸识别待添加）
 - .......
 
 
-
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0727/213440_856967bb_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230822_9db8f56f_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230841_fde7a87f_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230902_5422a3de_2227854.png "屏幕截图.png")
