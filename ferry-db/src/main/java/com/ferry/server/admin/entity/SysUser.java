@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @ToString
 @TableName(value = "sys_user")
-public class SysUser {
+public class SysUser implements Serializable {
     /**
      * 编号
      */
