@@ -5,6 +5,7 @@ import com.ferry.admin.service.impl.FaceLoginServiceImpl;
 import com.ferry.admin.util.BaiduAiUtil;
 import com.ferry.admin.vo.FaceLoginResult;
 import com.ferry.admin.vo.QRCode;
+import com.ferry.common.utils.StringUtils;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.security.JwtAuthenticatioToken;
 import com.ferry.admin.service.SysLoginLogService;
@@ -31,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * 登录接口
@@ -134,6 +136,9 @@ public class LoginController {
     public Result loginByFace(@PathVariable(name = "code") String code,
                               @RequestParam(name = "file") MultipartFile attachment
             , HttpServletRequest request) throws Exception {
+        if (StringUtils.isBlank(code) || Objects.equals("undefined", code)) {
+            return Result.error();
+        }
         FaceLoginResult token=faceLoginService.loginByFace(code,attachment,request);
         if(token!=null){
             return Result.ok(token);
