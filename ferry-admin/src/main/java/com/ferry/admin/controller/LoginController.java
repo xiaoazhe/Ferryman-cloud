@@ -36,6 +36,7 @@ import java.util.Objects;
 
 /**
  * 登录接口
+ *
  * @Author: 摆渡人
  * @Date: 2021/4/26
  */
@@ -59,6 +60,7 @@ public class LoginController {
     @Autowired
     private BaiduAiUtil baiduAiUtil;
 
+    @ApiOperation(value = "账号密码登陆")
     @PostMapping(value = "/login")
     public Result login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
         String username = loginBean.getAccount();
@@ -94,44 +96,35 @@ public class LoginController {
 
     @ApiOperation(value = "图形验证码")
     @GetMapping("captcha.jpg")
-    public void captcha(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
+    public void captcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.setHeader("Cache-Control", "no-store, no-cache");
         response.setContentType("image/jpeg");
-
         // 生成文字验证码
         String text = producer.createText();
         // 生成图片验证码
         BufferedImage image = producer.createImage(text);
         // 保存到验证码到 session
         request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, text);
-
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image, "jpg", out);
         IOUtils.closeQuietly(out);
     }
 
-    /**
-     * 获取刷脸登录二维码
-     */
+    @ApiOperation(value = "登录二维码链接")
     @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
     public Result qrcode() throws Exception {
-        QRCode qrCode=faceLoginService.getQRCode();
+        QRCode qrCode = faceLoginService.getQRCode();
         return Result.ok(qrCode);
     }
 
-    /**
-     * 检查二维码：登录页面轮询调用此方法，根据唯一标识code判断用户登录情况
-     */
+    @ApiOperation(value = "验证登陆")
     @RequestMapping(value = "/qrcode/{code}", method = RequestMethod.GET)
     public Result qrcodeCeck(@PathVariable(name = "code") String code) throws Exception {
         FaceLoginResult result = faceLoginService.checkQRCode(code);
         return Result.ok(result);
     }
 
-    /**
-     * 人脸登录：根据落地页随机拍摄的面部头像进行登录
-     *          根据拍摄的图片调用百度云AI进行检索查找
-     */
+    @ApiOperation(value = "人脸验证")
     @RequestMapping(value = "/faceLogin/{code}", method = RequestMethod.POST)
     public Result loginByFace(@PathVariable(name = "code") String code,
                               @RequestParam(name = "file") MultipartFile attachment
@@ -139,24 +132,22 @@ public class LoginController {
         if (StringUtils.isBlank(code) || Objects.equals("undefined", code)) {
             return Result.error();
         }
-        FaceLoginResult token=faceLoginService.loginByFace(code,attachment,request);
-        if(token!=null){
+        FaceLoginResult token = faceLoginService.loginByFace(code, attachment, request);
+        if (token != null) {
             return Result.ok(token);
-        }else {
+        } else {
             return Result.error();
         }
     }
 
-    /**
-     * 图像检测，判断图片中是否存在面部头像
-     */
+    @ApiOperation(value = "检测人脸")
     @RequestMapping(value = "/checkFace", method = RequestMethod.POST)
     public Result checkFace(@RequestParam(name = "file") MultipartFile file) throws Exception {
-        String image= Base64Util.encode(file.getBytes());
-        Boolean aBoolean=baiduAiUtil.faceCheck(image);
-        if(aBoolean){
+        String image = Base64Util.encode(file.getBytes());
+        Boolean aBoolean = baiduAiUtil.faceCheck(image);
+        if (aBoolean) {
             return Result.ok();
-        }else {
+        } else {
             return Result.error();
         }
     }

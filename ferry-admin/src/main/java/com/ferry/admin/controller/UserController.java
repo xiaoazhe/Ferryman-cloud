@@ -44,6 +44,7 @@ public class UserController {
                 if (userService.findByName(record.getName()) != null) {
                     return Result.error("用户名已存在!");
                 }
+                record.setPwd(record.getPassword());
                 String password = PasswordUtils.encode(record.getPassword(), salt);
                 record.setSalt(salt);
                 record.setPassword(password);
@@ -53,6 +54,7 @@ public class UserController {
                     String password = PasswordUtils.encode(record.getPassword(), salt);
                     record.setSalt(salt);
                     record.setPassword(password);
+                    record.setPwd(record.getPassword());
                 }
             }
         }

@@ -49,54 +49,46 @@ public class FaceLoginServiceImpl {
     @Autowired
     private SysLoginLogService sysLoginLogService;
 
-	//创建二维码
+    // 创建二维码
     public QRCode getQRCode() throws Exception {
-        String code=idWorker.nextId()+"";
-        String content=url+"?code="+code;
-        System.out.println(content);
-        String file =qrCodeUtil.crateQRCode(content);
-        System.out.println(file);
-        FaceLoginResult result=new FaceLoginResult("-1");
-		redisTemplate.boundValueOps(getCacheKey(code)).set(result,10, TimeUnit.MINUTES);
-        return new QRCode(code,file);
+        String code = idWorker.nextId() + "";
+        String content = url + "?code=" + code;
+        String file = qrCodeUtil.crateQRCode(content);
+        FaceLoginResult result = new FaceLoginResult("-1");
+        redisTemplate.boundValueOps(getCacheKey(code)).set(result, 10, TimeUnit.MINUTES);
+        return new QRCode(code, file);
     }
 
-	//根据唯一标识，查询用户是否登录成功
+    // 根据唯一标识，查询用户是否登录成功
     public FaceLoginResult checkQRCode(String code) {
-		String key=getCacheKey(code);
+        String key = getCacheKey(code);
         return (FaceLoginResult) redisTemplate.opsForValue().get(key);
     }
 
-	//扫描二维码之后，使用拍摄照片进行登录
+    //扫描二维码之后，使用拍摄照片进行登录
     public FaceLoginResult loginByFace(String code, MultipartFile attachment,
-                              HttpServletRequest request) throws Exception {
-		String userId=baiduAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()));
-		//自动登录（tonken）
-        FaceLoginResult result=new FaceLoginResult("0");
-        if(userId!=null){
+                                       HttpServletRequest request) throws Exception {
+        String userId = baiduAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()));
+        //自动登录（tonken）
+        FaceLoginResult result = new FaceLoginResult("0");
+        if (userId != null) {
             //自己模拟登录
-            SysUser user =userMapper.selectById(userId);
-            if(user!=null){
-               //获取subject
-//               Subject subject= SecurityUtils.getSubject();
-//               subject.login(new UsernamePasswordToken(user.getMobile(),user.getPassword()));
-//               String token=subject.getSession().getId()+"";
-
-                String salt = PasswordUtils.getSalt();
-               // 系统登录认证
-               JwtAuthenticatioToken token = SecurityUtils.login(request, user.getName(),
-                       user.getPwd(), authenticationManager);
-               // 记录登录日志
-               sysLoginLogService.writeLoginLog(user.getName(), IPUtils.getIpAddr(request));
-               result=new FaceLoginResult("1",token.getToken(),user);
-               redisTemplate.boundValueOps(getCacheKey(code)).set(result,10,TimeUnit.MINUTES);
-               return result;
+            SysUser user = userMapper.selectById(userId);
+            if (user != null) {
+                // 系统登录认证
+                JwtAuthenticatioToken token = SecurityUtils.login(request, user.getName(),
+                        user.getPwd(), authenticationManager);
+                // 记录登录日志
+                sysLoginLogService.writeLoginLog(user.getName(), IPUtils.getIpAddr(request));
+                result = new FaceLoginResult("1", token.getToken(), user);
+                redisTemplate.boundValueOps(getCacheKey(code)).set(result, 10, TimeUnit.MINUTES);
+                return result;
             }
         }
         return null;
     }
 
-	//构造缓存key
+    //构造缓存key
     private String getCacheKey(String code) {
         return "qrcode_" + code;
     }
