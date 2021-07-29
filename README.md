@@ -30,6 +30,11 @@
 - .......
 
 
+
+- 系统架构图
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0729/175813_2165d07a_2227854.jpeg "FerryMan.jpeg")
+
+- 系统截图
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0727/213440_856967bb_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230822_9db8f56f_2227854.png "屏幕截图.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2021/0714/230841_fde7a87f_2227854.png "屏幕截图.png")
