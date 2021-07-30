@@ -163,7 +163,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	@Override
 	public List<SysUserRole> findUserRoles(Long userId) {
 		QueryWrapper<SysUserRole> queryWrapper = new QueryWrapper();
-		queryWrapper.eq("user_id", userId);
+		queryWrapper.eq(SysUserRole.COL_USER_ID, userId);
 		return sysUserRoleMapper.selectList(queryWrapper);
 	}
 	
