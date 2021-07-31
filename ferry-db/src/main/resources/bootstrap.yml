@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      discovery:
+         enablead: true
+         serviceId: Ferry-config
+      name: db
+      profile: dev
+      label: master
+      uri: http://127.0.0.1:8020

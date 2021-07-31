@@ -21,6 +21,7 @@ import com.google.code.kaptcha.Producer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +43,7 @@ import java.util.Objects;
  */
 @Api(tags = "登录接口")
 @RestController
+@RefreshScope
 public class LoginController {
 
     @Autowired
