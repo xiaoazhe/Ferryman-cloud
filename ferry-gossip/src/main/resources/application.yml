@@ -61,6 +61,14 @@ spring:
     redis:
       host: 1.116.227.4
       port: 6379
+  rabbitmq:
+    addresses: 1.116.227.4
+    username: guest
+    password: guest
+    cache:
+      channel:
+        size: 25
+    port: 15672
 # 开放健康检查接口
 management:
   endpoints:

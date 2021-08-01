@@ -5,6 +5,7 @@ import com.ferry.common.utils.IdWorker;
 import com.ferry.gossip.util.JwtUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -15,7 +16,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  */
 @EnableDiscoveryClient
 @EnableMongoRepositories(value= "com.ferry.server.blog.db")
-@SpringBootApplication
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class})
 public class FerryGossipApplication {
 
     public static void main(String[] args) {

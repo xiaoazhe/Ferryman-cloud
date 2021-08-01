@@ -1,5 +1,13 @@
 spring:
   cloud:
+    application:
+      name: Ferry-web
+      cloud:
+        consul:
+          host: localhost
+          port: 8500
+          discovery:
+            serviceName: Ferry-web    # 注册到consul的服务名称
     config:
       discovery:
          enablead: true
@@ -8,3 +16,16 @@ spring:
       profile: dev
       label: master
       uri: http://127.0.0.1:8020
+  rabbitmq:
+    addresses: 1.116.227.4
+    username: guest
+    password: guest
+    cache:
+      channel:
+        size: 25
+    port: 15672
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

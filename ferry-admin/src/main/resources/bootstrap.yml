@@ -1,5 +1,10 @@
 spring:
   cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: Ferry-admin    # 注册到consul的服务名称
     config:
       discovery:
          enablead: true

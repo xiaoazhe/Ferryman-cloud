@@ -1,5 +1,12 @@
 spring:
+  application:
+    name: Ferry-webConsumer
   cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: Ferry-webConsumer
     config:
       discovery:
          enablead: true
