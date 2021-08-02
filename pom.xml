@@ -6,6 +6,7 @@
 	<modules>
 		<module>ferry-admin</module>
         <module>ferry-common</module>
+        <module>ferry-config</module>
         <module>ferry-core</module>
         <module>ferry-recover</module>
         <module>ferry-consul</module>
@@ -31,6 +32,7 @@
     <description>Ferryman-cloud project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
+        <spring-cloud.version>Finchley.SR4</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
