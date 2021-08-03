@@ -24,6 +24,11 @@ spring:
       channel:
         size: 25
     port: 15672
+  boot:
+    admin:
+      client:
+        instance:
+          service-base-url: http://127.0.0.1:8004
 management:
   endpoints:
     web:
