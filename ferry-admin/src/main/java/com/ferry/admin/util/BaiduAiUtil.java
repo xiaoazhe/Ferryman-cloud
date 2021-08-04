@@ -4,12 +4,15 @@ import com.baidu.aip.face.AipFace;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
+@RefreshScope
 public class BaiduAiUtil {
 
     @Value("${ai.appId}")
@@ -95,6 +98,41 @@ public class BaiduAiUtil {
                     return user.getString("user_id");
                 }
             }
+        }
+        return null;
+    }
+
+    /**
+     * 获取用户人脸列表接口
+     *
+     * @param userId - 用户id（由数字、字母、下划线组成），长度限制128B
+     * options - options列表:
+     * @return JSONObject
+     */
+    public JSONObject faceGetlist(String userId) {
+        JSONObject res = client.faceGetlist(userId, groupId, options);
+        if (res.has("error_code") && res.getInt("error_code") == 0) {
+            JSONObject result = res.getJSONObject("result");
+            JSONArray userList = result.getJSONArray("face_list");
+            return result;
+        }
+        return null;
+    }
+
+    /**
+     * 获取用户列表接口
+     *
+     * options - options列表:
+     *   start 默认值0，起始序号
+     *   length 返回数量，默认值100，最大值1000
+     * @return JSONObject
+     */
+    public List getGroupUsers() {
+        JSONObject res = client.getGroupUsers(groupId, options);
+        if (res.has("error_code") && res.getInt("error_code") == 0) {
+            JSONObject result = res.getJSONObject("result");
+            JSONArray userList = result.getJSONArray("user_id_list");
+            return userList.toList();
         }
         return null;
     }
