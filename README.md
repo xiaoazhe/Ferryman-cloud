@@ -2,7 +2,7 @@
 
 #### DEMO版本
 摆渡人
-#### Spring Boot + Spring Cloud + Vue + Nuxt + 人脸识别登录
+#### Spring Boot + Spring Cloud + Vue + Nuxt + 人脸识别登录 + 音乐播放器
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
