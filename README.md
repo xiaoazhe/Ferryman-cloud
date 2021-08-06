@@ -54,6 +54,7 @@ GitHub
 
 1.  启动 ferry-consul 模块的注册中心 
   windows安装consul，启动命令  consul agent -dev
+    启动ferry-config模块
 2.  启动 ferry-admin 后台管理模块
 3.  启动 ferry-recover 数据备份模块
 4.  依次启动 ferry-web（服务提供者1）
