@@ -16,7 +16,7 @@ GitHub
 #### 软件架构
 
 
-
+- Spring Boot
 - Spring Cloud Consul 注册中心
 - Spring Cloud Hystrix 熔断
 - Spring Cloud Feign and Ribbon 轮询方式负载均衡
