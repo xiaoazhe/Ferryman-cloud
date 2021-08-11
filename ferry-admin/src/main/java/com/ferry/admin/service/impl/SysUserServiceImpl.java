@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.exception.ServeException;
+import com.ferry.admin.util.FaceAiUtil;
 import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.common.enums.FieldStatusEnum;
+import com.ferry.common.enums.StateEnums;
 import com.ferry.server.admin.entity.*;
 import com.ferry.server.admin.mapper.SysDeptMapper;
 import com.ferry.server.admin.mapper.SysRoleMapper;
@@ -41,6 +43,8 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	private SysRoleMapper sysRoleMapper;
 	@Autowired
 	private SysDeptMapper deptMapper;
+	@Autowired
+	private FaceAiUtil faceAiUtil;
 
 	@Transactional
 	@Override
@@ -50,9 +54,15 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 			// 新增用户
 			sysUserMapper.insert(record);
 			id = record.getId();
+			if (record.getAvatar() != null) {
+				faceAiUtil.faceRegister(String.valueOf(record.getId()), record.getAvatar(), false);
+			}
 		} else {
 			// 更新用户信息
 			sysUserMapper.updateById(record);
+			if (record.getAvatar() != null) {
+				faceAiUtil.faceUpdate(String.valueOf(record.getId()), record.getAvatar(), false);
+			}
 		}
 		// 更新用户角色
 		if(id != null && id == 0) {
@@ -172,7 +182,16 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		PageResult pageResult = findPage(pageRequest);
 		return createUserExcelFile(pageResult.getContent());
 	}
-	
+
+	@Override
+	public String deleteAvatarById(Integer id) {
+		SysUser user = sysUserMapper.selectById(id);
+		user.setAvatar("");
+		user.setLastUpdateTime(new Date());
+		sysUserMapper.updateById(user);
+		return StateEnums.DELETED.getMsg();
+	}
+
 	public static File createUserExcelFile(List<?> records) {
 		if (records == null) {
 			records = new ArrayList<>();

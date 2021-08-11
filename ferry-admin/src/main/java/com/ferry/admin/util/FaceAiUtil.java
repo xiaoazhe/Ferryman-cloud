@@ -13,7 +13,7 @@ import java.util.List;
 
 @Component
 @RefreshScope
-public class BaiduAiUtil {
+public class FaceAiUtil {
 
     @Value("${ai.appId}")
     private String APP_ID;
@@ -30,7 +30,7 @@ public class BaiduAiUtil {
 
     private HashMap<String, String> options = new HashMap<String, String>();
 
-    public BaiduAiUtil() {
+    public FaceAiUtil() {
         options.put("quality_control", "NORMAL");
         options.put("liveness_control", "LOW");
     }
@@ -47,13 +47,29 @@ public class BaiduAiUtil {
         return errorCode==0?true:false;
     }
 
+    /**
+     * 用户信息查询接口
+     *
+     * @param userId - 用户id（由数字、字母、下划线组成），长度限制128B
+     * options - options列表:
+     * @return JSONObject
+     */
+    public JSONObject getUser(String userId){
+        JSONObject res=client.getUser(userId,groupId,null);
+        return res;
+    }
 
     /**
      *  人脸注册 ：将用户照片存入人脸库中
      */
-    public Boolean faceRegister(String userId, String image) {
+    public Boolean faceRegister(String userId, String image, boolean type) {
         // 人脸注册
-        JSONObject res = client.addUser(image, IMAGE_TYPE, groupId, userId, options);
+        JSONObject res = null;
+        if (type) {
+            res = client.addUser(image, IMAGE_TYPE, groupId, userId, options);
+        } else {
+            res = client.addUser(image, "URL", groupId, userId, options);
+        }
         Integer errorCode = res.getInt("error_code");
         return errorCode == 0 ? true : false;
     }
@@ -61,9 +77,14 @@ public class BaiduAiUtil {
     /**
      *  人脸更新 ：更新人脸库中的用户照片
      */
-    public Boolean faceUpdate(String userId, String image) {
+    public Boolean faceUpdate(String userId, String image, boolean type) {
         // 人脸更新
-        JSONObject res = client.updateUser(image, IMAGE_TYPE, groupId, userId, options);
+        JSONObject res = null;
+        if (type) {
+            res = client.updateUser(image, IMAGE_TYPE, groupId, userId, options);
+        } else {
+            res = client.updateUser(image, "URL", groupId, userId, options);
+        }
         Integer errorCode = res.getInt("error_code");
         return errorCode == 0 ? true : false;
     }
@@ -129,6 +150,23 @@ public class BaiduAiUtil {
      */
     public List getGroupUsers() {
         JSONObject res = client.getGroupUsers(groupId, options);
+        if (res.has("error_code") && res.getInt("error_code") == 0) {
+            JSONObject result = res.getJSONObject("result");
+            JSONArray userList = result.getJSONArray("user_id_list");
+            return userList.toList();
+        }
+        return null;
+    }
+    /**
+     * 人脸删除接口
+     *
+     * @param userId - 用户id（由数字、字母、下划线组成），长度限制128B
+     * @param faceToken - 需要删除的人脸图片token，（由数字、字母、下划线组成）长度限制64B
+     * options - options列表:
+     * @return JSONObject
+     */
+    public List faceDelete(String userId, String faceToken) {
+        JSONObject res = client.faceDelete( userId, groupId, faceToken, options);
         if (res.has("error_code") && res.getInt("error_code") == 0) {
             JSONObject result = res.getJSONObject("result");
             JSONArray userList = result.getJSONArray("user_id_list");

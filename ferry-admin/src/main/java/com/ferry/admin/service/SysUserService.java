@@ -50,4 +50,5 @@ public interface SysUserService extends IService <SysUser> {
 	 */
 	File createUserExcelFile(PageRequest pageRequest);
 
+	String deleteAvatarById(Integer id);
 }

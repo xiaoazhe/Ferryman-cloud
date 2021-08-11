@@ -2,7 +2,7 @@ package com.ferry.admin.controller;
 
 import com.baidu.aip.util.Base64Util;
 import com.ferry.admin.service.impl.FaceLoginServiceImpl;
-import com.ferry.admin.util.BaiduAiUtil;
+import com.ferry.admin.util.FaceAiUtil;
 import com.ferry.admin.vo.FaceLoginResult;
 import com.ferry.admin.vo.QRCode;
 import com.ferry.common.utils.StringUtils;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +59,7 @@ public class LoginController {
     private FaceLoginServiceImpl faceLoginService;
 
     @Autowired
-    private BaiduAiUtil baiduAiUtil;
+    private FaceAiUtil faceAiUtil;
 
     @ApiOperation(value = "账号密码登陆")
     @PostMapping(value = "/login")
@@ -146,7 +145,7 @@ public class LoginController {
     @RequestMapping(value = "/checkFace", method = RequestMethod.POST)
     public Result checkFace(@RequestParam(name = "file") MultipartFile file) throws Exception {
         String image = Base64Util.encode(file.getBytes());
-        Boolean aBoolean = baiduAiUtil.faceCheck(image);
+        Boolean aBoolean = faceAiUtil.faceCheck(image);
         if (aBoolean) {
             return Result.ok();
         } else {

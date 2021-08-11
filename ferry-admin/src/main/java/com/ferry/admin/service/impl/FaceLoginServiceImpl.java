@@ -8,7 +8,6 @@ import com.ferry.admin.util.*;
 import com.ferry.admin.vo.FaceLoginResult;
 import com.ferry.admin.vo.QRCode;
 import com.ferry.common.utils.IdWorker;
-import com.ferry.core.http.Result;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class FaceLoginServiceImpl {
     private SysUserMapper userMapper;
 
     @Autowired
-    private BaiduAiUtil baiduAiUtil;
+    private FaceAiUtil faceAiUtil;
 
     @Autowired
     private IdWorker idWorker;
@@ -68,7 +67,7 @@ public class FaceLoginServiceImpl {
     //扫描二维码之后，使用拍摄照片进行登录
     public FaceLoginResult loginByFace(String code, MultipartFile attachment,
                                        HttpServletRequest request) throws Exception {
-        String userId = baiduAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()));
+        String userId = faceAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()));
         //自动登录（tonken）
         FaceLoginResult result = new FaceLoginResult("0");
         if (userId != null) {

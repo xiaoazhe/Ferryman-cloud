@@ -154,4 +154,11 @@ public class UserController {
     public Result getLoginUser() {
         return Result.ok(userService.findByName(SecurityUtils.getUsername()));
     }
+
+    @ApiOperation(value = "删除face")
+    @PreAuthorize("hasAuthority('sys:user:view')")
+    @GetMapping(value = "/deleteFace/{id}")
+    public Result deleteFace(@PathVariable Integer id) {
+        return Result.ok(userService.deleteAvatarById(id));
+    }
 }
