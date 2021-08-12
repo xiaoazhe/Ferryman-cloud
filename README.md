@@ -2,7 +2,7 @@
 
 #### DEMO版本
 摆渡人
-#### Spring Boot + Spring Cloud + Vue + Nuxt + 人脸识别登录 + 音乐播放器
+#### Spring Boot + Spring Cloud + Vue
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
@@ -17,6 +17,8 @@ GitHub
 
 
 - Spring Boot
+- Mybatis-plus ORM框架
+- MyBatisCodeHelperPro 插件代码生成
 - Spring Cloud Consul 注册中心
 - Spring Cloud Hystrix 熔断
 - Spring Cloud Feign and Ribbon 轮询方式负载均衡
@@ -25,14 +27,17 @@ GitHub
 - Swagger 接口
 - Spring Cloud Admin 服务监控
 - Spring Security + Token 权限控制
-- Mybatis-plus ORM框架
-- MyBatisCodeHelperPro 插件代码生成
-- FastDFS文件系统,OSS,七牛云
+- FastDFS文件系统
+- OSS
+- 七牛云
 - RabbitMQ
-- mongdb, redis
-- 百度人脸识别 （旷世人脸识别待添加）
+- Mongdb, Redis, MySQL
+- 百度人脸识别
 - .......
-
+- Nuxt 
+- 音乐播放器
+- Axios
+- ElementUI
 
 
 - 系统架构图
