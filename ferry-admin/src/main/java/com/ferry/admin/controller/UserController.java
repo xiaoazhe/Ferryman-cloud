@@ -27,6 +27,13 @@ public class UserController {
     @Autowired
     SysUserService userService;
 
+    @ApiOperation(value = "首页查询")
+    @PreAuthorize("hasAuthority('sys:user:view')")
+    @GetMapping(value = "/findIntro")
+    public Result findIntro() {
+        return Result.ok(userService.findIntro());
+    }
+
     @ApiOperation(value = "添加用户")
     @PreAuthorize("hasAuthority('sys:user:add') AND hasAuthority('sys:user:edit')")
     @PostMapping(value = "/save")

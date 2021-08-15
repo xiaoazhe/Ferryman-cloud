@@ -212,6 +212,8 @@ public class BlBlog implements Serializable {
 
     public static final String COL_CREATE_TIME = "create_time";
 
+    public static final String COL_CREATE_BY = "create_by";
+
     public static final String COL_UPDATE_TIME = "update_time";
 
     public static final String COL_ADMIN_UID = "admin_uid";

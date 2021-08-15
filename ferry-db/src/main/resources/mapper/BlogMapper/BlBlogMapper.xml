@@ -162,6 +162,15 @@
       #{item.uid,jdbcType=VARCHAR}
     </foreach>
   </update>
+    <select id="getClickByCreantName" resultType="java.lang.Integer">
+      SELECT sum(bb.click_count) FROM bl_blog bb WHERE create_by = #{name}
+    </select>
+  <select id="getCollectByCreantName" resultType="java.lang.Integer">
+    SELECT sum(bb.collect_count) FROM bl_blog bb WHERE create_by = #{name}
+  </select>
+  <select id="getMaterialByCreantName" resultType="java.lang.Integer">
+    SELECT count(*) FROM bl_material WHERE create_by = #{name}
+  </select>
   <insert id="batchInsert" keyColumn="oid" keyProperty="oid" parameterType="map" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into bl_blog

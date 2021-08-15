@@ -8,6 +8,7 @@ import com.ferry.core.page.PageResult;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,6 +17,8 @@ import java.util.Set;
  * @Date: 2021/4/26
  */
 public interface SysUserService extends IService <SysUser> {
+
+	Map findIntro();
 
 	boolean save(SysUser record);
 

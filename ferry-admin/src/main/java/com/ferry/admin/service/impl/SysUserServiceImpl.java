@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.exception.ServeException;
 import com.ferry.admin.util.FaceAiUtil;
+import com.ferry.admin.util.SecurityUtils;
 import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.enums.StateEnums;
@@ -19,6 +20,8 @@ import com.ferry.common.utils.DateTimeUtils;
 import com.ferry.common.utils.PoiUtils;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
+import com.ferry.server.blog.entity.BlBlog;
+import com.ferry.server.blog.mapper.BlBlogMapper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -45,6 +48,28 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	private SysDeptMapper deptMapper;
 	@Autowired
 	private FaceAiUtil faceAiUtil;
+	@Autowired
+	private BlBlogMapper blBlogMapper;
+
+	@Override
+	public Map findIntro() {
+		HashMap map = new HashMap();
+		SysUser user = sysUserMapper.findByName(SecurityUtils.getUsername());
+		Integer blogClick = blBlogMapper.getClickByCreantName(user.getName());
+		Integer blogCollect = blBlogMapper.getCollectByCreantName(user.getName());
+		Integer material = blBlogMapper.getMaterialByCreantName(user.getName());
+		QueryWrapper<BlBlog> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq(BlBlog.COL_CREATE_BY, user.getName());
+		queryWrapper.orderByDesc(BlBlog.COL_CREATE_TIME);
+		List<BlBlog> blogList = blBlogMapper.selectList(queryWrapper);
+		map.put("blogClick", blogClick);
+		map.put("blogCollect", blogCollect);
+		map.put("material", material);
+		map.put("blogSize", blogList.size());
+		map.put("user", user);
+		map.put("blogList", blogList);
+		return map;
+	}
 
 	@Transactional
 	@Override

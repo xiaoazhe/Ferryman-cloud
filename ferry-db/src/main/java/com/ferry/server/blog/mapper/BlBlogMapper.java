@@ -19,4 +19,10 @@ public interface BlBlogMapper extends BaseMapper<BlBlog> {
     int insertOrUpdate(BlBlog record);
 
     int insertOrUpdateSelective(BlBlog record);
+
+    Integer getClickByCreantName(@Param("name") String name);
+
+    Integer getCollectByCreantName(@Param("name") String name);
+
+    Integer getMaterialByCreantName(@Param("name") String name);
 }
