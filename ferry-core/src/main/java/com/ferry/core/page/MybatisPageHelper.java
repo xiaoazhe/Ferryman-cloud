@@ -1,10 +1,11 @@
 package com.ferry.core.page;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.ferry.common.utils.ReflectionUtils;
 
 
 /**
@@ -19,7 +20,7 @@ public class MybatisPageHelper {
 	 * 分页查询, 约定查询方法名为 “findPage” 
 	 * @param pageRequest 分页请求
 	 * @param mapper Dao对象，MyBatis的 Mapper	
-	 * @param args 方法参数
+	 * @param
 	 * @return
 	 */
 	public static PageResult findPage(PageRequest pageRequest, Object mapper) {
@@ -41,14 +42,14 @@ public class MybatisPageHelper {
 		int pageSize = pageRequest.getPageSize();
 		PageHelper.startPage(pageNum, pageSize);
 		// 利用反射调用查询方法
-		Object result = ReflectionUtils.invoke(mapper, queryMethodName, args);
+		Object result = invoke(mapper, queryMethodName, args);
 		return getPageResult(pageRequest, new PageInfo((List) result));
 	}
 
 	/**
 	 * 将分页信息封装到统一的接口
 	 * @param pageRequest 
-	 * @param page
+	 * @param
 	 * @return
 	 */
 	private static PageResult getPageResult(PageRequest pageRequest, PageInfo<?> pageInfo) {
@@ -61,4 +62,61 @@ public class MybatisPageHelper {
 		return pageResult;
 	}
 
+	public static Object invoke(Object object, String method, Object... args) {
+		Object result = null;
+		Class<? extends Object> clazz = object.getClass();
+		Method queryMethod = getMethod(clazz, method, args);
+		if(queryMethod != null) {
+			try {
+				result = queryMethod.invoke(object, args);
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				throw new NoSuchMethodException(clazz.getName() + " 类中没有找到 " + method + " 方法。");
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 根据方法名和参数对象查找方法
+	 * @param clazz
+	 * @param name
+	 * @param args 参数实例数据
+	 * @return
+	 */
+	public static Method getMethod(Class<? extends Object> clazz, String name, Object[] args) {
+		Method queryMethod = null;
+		Method[] methods = clazz.getMethods();
+		for(Method method:methods) {
+			if(method.getName().equals(name)) {
+				Class<?>[] parameterTypes = method.getParameterTypes();
+				if(parameterTypes.length == args.length) {
+					boolean isSameMethod = true;
+					for(int i=0; i<parameterTypes.length; i++) {
+						Object arg = args[i];
+						if(arg == null) {
+							arg = "";
+						}
+						if(!parameterTypes[i].equals(args[i].getClass())) {
+							isSameMethod = false;
+						}
+					}
+					if(isSameMethod) {
+						queryMethod = method;
+						break ;
+					}
+				}
+			}
+		}
+		return queryMethod;
+	}
 }

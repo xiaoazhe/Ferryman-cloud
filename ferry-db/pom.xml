@@ -113,12 +113,6 @@
         </dependency>
     </dependencies>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
         <!-- 打包时拷贝MyBatis的映射文件 -->
         <resources>
             <resource>

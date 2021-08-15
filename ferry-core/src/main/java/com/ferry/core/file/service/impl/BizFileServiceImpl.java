@@ -1,7 +1,6 @@
 package com.ferry.core.file.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ferry.common.utils.IdWorker;
 import com.ferry.core.file.FileUploader;
 import com.ferry.core.file.GlobalFileUploader;
 import com.ferry.core.file.emums.FileUploadType;
@@ -24,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author innodev java team
@@ -36,9 +36,6 @@ public class BizFileServiceImpl implements BizFileService {
 
     @Autowired
     private BizFileMapper shopFileMapper;
-
-    @Autowired
-    private IdWorker idWorker;
 
     @Override
     public PageInfo <File> findPageBreakByCondition(FileConditionVO vo) {
@@ -112,7 +109,7 @@ public class BizFileServiceImpl implements BizFileService {
         Assert.notNull(entity, "Invalid parameter");
         entity.setCreateTime(new Date());
         entity.setUpdateTime(new Date());
-        entity.setId(idWorker.nextId()+"");
+        entity.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         shopFileMapper.insert(entity.getFile());
         return entity;
     }
