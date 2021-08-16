@@ -33,6 +33,7 @@ GitHub
 - RabbitMQ
 - Mongdb, Redis, MySQL
 - 百度人脸识别
+- docker
 - .......
 - Nuxt 
 - 音乐播放器
