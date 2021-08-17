@@ -11,7 +11,7 @@
 [https://gitee.com/chongzhe/ferryman-admin](http://)
 
 
-GitHub
+GitHub 后端同步更新
 [https://github.com/xiaoazhe/Ferryman-cloud](http://)
 #### 软件架构
 
