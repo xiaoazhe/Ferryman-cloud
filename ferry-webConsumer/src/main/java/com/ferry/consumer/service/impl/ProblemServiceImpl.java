@@ -302,7 +302,7 @@ public class ProblemServiceImpl extends ServiceImpl <BlProblemMapper, BlProblem>
         Page <BlProblem> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         List <BlProLabel> proLabelList = new ArrayList <>();
         if (labelId == 0) {
-            proLabelList = proLabelMapper.selectAll();
+            proLabelList = proLabelMapper.selectList(new QueryWrapper<>());
         } else {
             Map map = new HashMap();
             map.put(BlProLabel.COL_LABELID, labelId);
