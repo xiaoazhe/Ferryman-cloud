@@ -8,7 +8,7 @@
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
 
 后台前端
-[https://gitee.com/chongzhe/ferryman-admin](http://)
+[https://gitee.com/chongzhe/Ferryman-admin](http://)
 
 
 GitHub 后端同步更新
