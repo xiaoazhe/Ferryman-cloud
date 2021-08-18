@@ -64,42 +64,56 @@ public class FaceAiUtil {
      */
     public Boolean faceRegister(String userId, String image, boolean type) {
         // 人脸注册
-        JSONObject res = null;
-        if (type) {
-            res = client.addUser(image, IMAGE_TYPE, groupId, userId, options);
-        } else {
-            res = client.addUser(image, "URL", groupId, userId, options);
+        try {
+            JSONObject res = null;
+            if (type) {
+                res = client.addUser(image, IMAGE_TYPE, groupId, userId, options);
+            } else {
+                res = client.addUser(image, "URL", groupId, userId, options);
+            }
+            Integer errorCode = res.getInt("error_code");
+            return errorCode == 0 ? true : false;
+        } catch (Exception e) {
+            throw new RuntimeException("人脸库加入异常: {}", e.getCause());
         }
-        Integer errorCode = res.getInt("error_code");
-        return errorCode == 0 ? true : false;
+
     }
 
     /**
      *  人脸更新 ：更新人脸库中的用户照片
      */
     public Boolean faceUpdate(String userId, String image, boolean type) {
-        // 人脸更新
-        JSONObject res = null;
-        if (type) {
-            res = client.updateUser(image, IMAGE_TYPE, groupId, userId, options);
-        } else {
-            res = client.updateUser(image, "URL", groupId, userId, options);
+        try {
+            // 人脸更新
+            JSONObject res = null;
+            if (type) {
+                res = client.updateUser(image, IMAGE_TYPE, groupId, userId, options);
+            } else {
+                res = client.updateUser(image, "URL", groupId, userId, options);
+            }
+            Integer errorCode = res.getInt("error_code");
+            return errorCode == 0 ? true : false;
+        }  catch (Exception e) {
+            throw new RuntimeException("人脸库更新异常: {}", e.getCause());
         }
-        Integer errorCode = res.getInt("error_code");
-        return errorCode == 0 ? true : false;
+
     }
 
     /**
      * 人脸检测：判断上传图片中是否具有面部头像
      */
     public Boolean faceCheck(String image) {
-        JSONObject res = client.detect(image, IMAGE_TYPE, options);
-        if (res.has("error_code") && res.getInt("error_code") == 0) {
-            JSONObject resultObject = res.getJSONObject("result");
-            Integer faceNum = resultObject.getInt("face_num");
-            return faceNum == 1?true:false;
-        }else{
-            return false;
+        try {
+            JSONObject res = client.detect(image, IMAGE_TYPE, options);
+            if (res.has("error_code") && res.getInt("error_code") == 0) {
+                JSONObject resultObject = res.getJSONObject("result");
+                Integer faceNum = resultObject.getInt("face_num");
+                return faceNum == 1 ? true : false;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("人脸检测服务异常:{}", e.getCause());
         }
     }
 
@@ -108,19 +122,24 @@ public class FaceAiUtil {
      *          处理：用户的匹配得分（score）大于80分，即可认为是同一个用户
      */
     public String faceSearch(String image) {
-        JSONObject res = client.search(image, IMAGE_TYPE, groupId, options);
-        if (res.has("error_code") && res.getInt("error_code") == 0) {
-            JSONObject result = res.getJSONObject("result");
-            JSONArray userList = result.getJSONArray("user_list");
-            if (userList.length() > 0) {
-                JSONObject user = userList.getJSONObject(0);
-                double score = user.getDouble("score");
-                if(score > 80) {
-                    return user.getString("user_id");
+        try {
+            JSONObject res = client.search(image, IMAGE_TYPE, groupId, options);
+            if (res.has("error_code") && res.getInt("error_code") == 0) {
+                JSONObject result = res.getJSONObject("result");
+                JSONArray userList = result.getJSONArray("user_list");
+                if (userList.length() > 0) {
+                    JSONObject user = userList.getJSONObject(0);
+                    double score = user.getDouble("score");
+                    if(score > 80) {
+                        return user.getString("user_id");
+                    }
                 }
             }
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("人脸查询服务异常:{}", e.getCause());
         }
-        return null;
+
     }
 
     /**
