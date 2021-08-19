@@ -1,5 +1,6 @@
 package com.ferry.admin.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,6 +27,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +38,8 @@ import java.util.*;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> implements SysUserService {
+
+	private static Logger log= LoggerFactory.getLogger(SysUserServiceImpl.class);
 
 	@Autowired
 	private SysUserMapper sysUserMapper;
@@ -76,18 +81,39 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	public boolean save(SysUser record) {
 		Long id = null;
 		if(record.getId() == null || record.getId() == 0) {
-			// 新增用户
-			sysUserMapper.insert(record);
 			id = record.getId();
 			if (record.getAvatar() != null) {
-				faceAiUtil.faceRegister(String.valueOf(record.getId()), record.getAvatar(), false);
+				org.json.JSONObject faceRes = faceAiUtil.faceRegister(String.valueOf(record.getId()), record.getAvatar(), false);
+				Integer errorCode = faceRes.getInt("error_code");
+				if (errorCode == 0) {
+					JSONObject map = JSONObject.parseObject(String.valueOf(faceRes.get("result")));
+					String faceToken = String.valueOf(map.get("face_token"));
+					record.setFaceToken(faceToken);
+				}
 			}
+			// 新增用户
+			sysUserMapper.insert(record);
 		} else {
+			if (record.getAvatar() != null) {
+				try {
+					String userId = faceAiUtil.faceSearch(record.getAvatar(), false);
+					if (Objects.equals(userId, String.valueOf(record.getId()))) {
+						org.json.JSONObject faceRes = faceAiUtil.faceUpdate(String.valueOf(record.getId()), record.getAvatar(), false);
+						JSONObject map = JSONObject.parseObject(String.valueOf(faceRes.get("result")));
+						String faceToken = String.valueOf(map.get("face_token"));
+						record.setFaceToken(faceToken);
+					} else {
+						org.json.JSONObject faceRes = faceAiUtil.faceRegister(String.valueOf(record.getId()), record.getAvatar(), false);
+						JSONObject map = JSONObject.parseObject(String.valueOf(faceRes.get("result")));
+						String faceToken = String.valueOf(map.get("face_token"));
+						record.setFaceToken(faceToken);
+					}
+				} catch (Exception e) {
+					log.info("face update 异常");
+				}
+			}
 			// 更新用户信息
 			sysUserMapper.updateById(record);
-			if (record.getAvatar() != null) {
-				faceAiUtil.faceUpdate(String.valueOf(record.getId()), record.getAvatar(), false);
-			}
 		}
 		// 更新用户角色
 		if(id != null && id == 0) {
@@ -100,6 +126,9 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		} else {
 			sysUserRoleMapper.deleteById(record.getId());
 		}
+		Map map = new HashMap();
+		map.put(SysUserRole.COL_USER_ID, record.getId());
+		sysUserRoleMapper.deleteByMap(map);
 		for(SysUserRole sysUserRole:record.getUserRoles()) {
 			sysUserRoleMapper.insert(sysUserRole);
 		}
@@ -214,6 +243,11 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		user.setAvatar("");
 		user.setLastUpdateTime(new Date());
 		sysUserMapper.updateById(user);
+		try {
+			faceAiUtil.faceDelete(String.valueOf(user.getId()), user.getFaceToken());
+		} catch (Exception e) {
+			log.error("删除face接口掉用异常: {}", user);
+		}
 		return StateEnums.DELETED.getMsg();
 	}
 

@@ -62,7 +62,7 @@ public class FaceAiUtil {
     /**
      *  人脸注册 ：将用户照片存入人脸库中
      */
-    public Boolean faceRegister(String userId, String image, boolean type) {
+    public JSONObject faceRegister(String userId, String image, boolean type) {
         // 人脸注册
         try {
             JSONObject res = null;
@@ -72,7 +72,7 @@ public class FaceAiUtil {
                 res = client.addUser(image, "URL", groupId, userId, options);
             }
             Integer errorCode = res.getInt("error_code");
-            return errorCode == 0 ? true : false;
+            return res;
         } catch (Exception e) {
             throw new RuntimeException("人脸库加入异常: {}", e.getCause());
         }
@@ -82,7 +82,7 @@ public class FaceAiUtil {
     /**
      *  人脸更新 ：更新人脸库中的用户照片
      */
-    public Boolean faceUpdate(String userId, String image, boolean type) {
+    public JSONObject faceUpdate(String userId, String image, boolean type) {
         try {
             // 人脸更新
             JSONObject res = null;
@@ -91,8 +91,7 @@ public class FaceAiUtil {
             } else {
                 res = client.updateUser(image, "URL", groupId, userId, options);
             }
-            Integer errorCode = res.getInt("error_code");
-            return errorCode == 0 ? true : false;
+            return res;
         }  catch (Exception e) {
             throw new RuntimeException("人脸库更新异常: {}", e.getCause());
         }
@@ -121,9 +120,14 @@ public class FaceAiUtil {
      *  人脸查找：查找人脸库中最相似的人脸并返回数据
      *          处理：用户的匹配得分（score）大于80分，即可认为是同一个用户
      */
-    public String faceSearch(String image) {
+    public String faceSearch(String image, Boolean type) {
         try {
-            JSONObject res = client.search(image, IMAGE_TYPE, groupId, options);
+            JSONObject res = null;
+            if (type) {
+                res = client.search(image, IMAGE_TYPE, groupId, options);
+            } else {
+                res = client.search(image, "URL", groupId, options);
+            }
             if (res.has("error_code") && res.getInt("error_code") == 0) {
                 JSONObject result = res.getJSONObject("result");
                 JSONArray userList = result.getJSONArray("user_list");

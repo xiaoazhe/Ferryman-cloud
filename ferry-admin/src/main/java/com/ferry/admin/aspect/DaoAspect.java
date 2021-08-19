@@ -29,11 +29,11 @@ public class DaoAspect {
 	private static final String lastUpdateBy = "lastUpdateBy";
 	private static final String lastUpdateTime = "lastUpdateTime";
 
-	@Pointcut("execution(* com.ferry.*.mapper.*.update*(..))")
+	@Pointcut("execution(* com.ferry.*.*.mapper.*.update*(..))")
 	public void daoUpdate() {
 	}
 
-	@Pointcut("execution(* com.ferry.*.mapper.*.insert*(..))")
+	@Pointcut("execution(* com.ferry.*.*.mapper.*.insert*(..))")
 	public void daoCreate() {
 	}
 

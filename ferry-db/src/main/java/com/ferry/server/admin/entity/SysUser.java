@@ -108,6 +108,9 @@ public class SysUser implements Serializable {
     @TableField(value = "del_flag")
     private Byte delFlag;
 
+    @TableField(value = "face_token")
+    private String faceToken;
+
     // 非数据库字段
     @TableField(exist = false)
     private String deptName;

@@ -67,7 +67,7 @@ public class FaceLoginServiceImpl {
     //扫描二维码之后，使用拍摄照片进行登录
     public FaceLoginResult loginByFace(String code, MultipartFile attachment,
                                        HttpServletRequest request) throws Exception {
-        String userId = faceAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()));
+        String userId = faceAiUtil.faceSearch(Base64Util.encode(attachment.getBytes()), true);
         //自动登录（tonken）
         FaceLoginResult result = new FaceLoginResult("0");
         if (userId != null) {
