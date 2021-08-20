@@ -10,7 +10,8 @@
 后台前端
 [https://gitee.com/chongzhe/Ferryman-admin](http://)
 
-
+Gitee 后端同步更新
+[https://gitee.com/chongzhe/Ferryman-cloud](http://)
 GitHub 后端同步更新
 [https://github.com/xiaoazhe/Ferryman-cloud](http://)
 #### 软件架构
