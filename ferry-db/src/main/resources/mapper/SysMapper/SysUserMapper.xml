@@ -46,4 +46,8 @@
   <select id="findPage" resultMap="BaseResultMap">
     select u.*, (select d.name from sys_dept d where d.id = u.dept_id) deptName from sys_user u
   </select>
+  <select id="findByMobile" resultType="com.ferry.server.admin.entity.SysUser">
+    select u.*, (select d.name from sys_dept d where d.id = u.dept_id) deptName from sys_user u
+    where u.mobile = #{mobile, jdbcType=VARCHAR}
+  </select>
 </mapper>

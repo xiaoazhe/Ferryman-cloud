@@ -4,6 +4,7 @@ import com.ferry.common.enums.StateEnums;
 import com.ferry.consumer.http.Result;
 import com.ferry.consumer.interceptor.JwtUtil;
 import com.ferry.consumer.service.SysUserService;
+import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.blog.entity.BlUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

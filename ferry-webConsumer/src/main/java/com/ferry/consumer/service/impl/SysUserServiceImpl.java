@@ -9,6 +9,8 @@ import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.PoiUtils;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.consumer.service.SysUserService;
+import com.ferry.consumer.utils.PasswordUtils;
+import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.admin.entity.SysRole;
@@ -206,7 +208,21 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		if(user != null && encoder.matches(password, user.getPassword())){
 			return user;
 		}
-		return null;
+		SysUser sysUser = sysUserMapper.findByMobile(mobile);
+		// 账号不存在、密码错误
+		if (sysUser == null) {
+			return null;
+		}
+		if (!PasswordUtils.matches(sysUser.getSalt(), password, sysUser.getPassword())) {
+			return null;
+		}
+		BlUser newUser = new BlUser();
+		newUser.setMobile(sysUser.getMobile());
+		newUser.setEmail(sysUser.getEmail());
+		newUser.setPassword(sysUser.getPwd());
+		newUser.setNickname(sysUser.getName());
+		add(newUser);
+		return newUser;
 	}
 
 	@Override

@@ -16,4 +16,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     List<SysUser> findPageByName(@Param(value = "name") String name);
 
     List<SysUser> findPage();
+
+    SysUser findByMobile(@Param(value = "mobile") String mobile);
 }

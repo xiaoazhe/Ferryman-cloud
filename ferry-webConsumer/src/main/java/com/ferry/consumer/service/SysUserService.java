@@ -41,7 +41,7 @@ public interface SysUserService extends IService <SysUser> {
 	 */
 	File createUserExcelFile(PageRequest pageRequest);
 
-	public BlUser login(String mobile, String password);
+	BlUser login(String mobile, String password);
 
 	String add(BlUser user);
 }
