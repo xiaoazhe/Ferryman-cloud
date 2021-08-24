@@ -33,7 +33,7 @@ public class FileUtil {
     }
     //上传阿里云
     public static String getUrl(MultipartFile fileupload) throws OSSException, ClientException, IOException {
-        String endpoint = "http://oss-cn-beijing.aliyuncs.com";
+        String endpoint = "";
         String accessKeyId = "";
         String accessKeySecret = "";
         // 创建OSSClient实例

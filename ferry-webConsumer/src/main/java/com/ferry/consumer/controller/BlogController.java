@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Author: 摆渡人
@@ -60,7 +61,7 @@ public class BlogController {
     @ApiOperation(value = "个人查询")
     @PostMapping(value="/findUserPage/{userId}")
     public Result findUserPage(@RequestBody PageRequest pageRequest, @PathVariable String userId) {
-        if (StringUtils.isBlank(userId)) {
+        if (StringUtils.isBlank(userId) || Objects.equals(userId, "undefined")) {
             try {
                 String token = request.getHeader(FieldStatusEnum.HEARD).substring(7);
                 Claims claims = jwtUtil.parseJWT(token);
