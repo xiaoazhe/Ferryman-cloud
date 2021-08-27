@@ -14,12 +14,3 @@ spring:
     store-type: redis
 
   ####### 自定义配置 #######
-ai:
-  appId: 17007424
-  apiKey: ZPbvEmEhAtvdnOIG1BKadp4P
-  secretKey: Lq2K2TD9reez1Ifsn9VCbn8zsfrNlMmv
-  imageType: BASE64
-  groupId: itcast
-qr:
-  url: http://localhost:8080/#/facelogin
-  ####### 自定义配置 #######

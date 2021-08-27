@@ -28,7 +28,7 @@ public class SysLogAspect {
 	@Autowired
 	private SysLogService sysLogService;
 	
-	@Pointcut("execution(* com.ferry.*.service.*.*(..))")
+	@Pointcut("execution(* com.ferry.*.*.service.*.*(..))")
 	public void logPointCut() { 
 		
 	}
