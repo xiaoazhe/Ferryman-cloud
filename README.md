@@ -17,22 +17,6 @@ GitHub 后端同步更新
 #### 软件架构
 
 
-- Spring Boot
-- Mybatis-plus ORM框架
-- MyBatisCodeHelperPro 插件代码生成
-- Spring Cloud Consul 注册中心
-- Spring Cloud Hystrix 熔断
-- Spring Cloud Feign and Ribbon 轮询方式负载均衡
-- Spring Cloud Zuul 网关转发请求
-- Druid 数据监控
-- Swagger 接口
-- Spring Cloud Admin 服务监控
-- Spring Security + Token 权限控制
-- FastDFS文件系统
-- OSS
-- 七牛云
-- RabbitMQ
-- Mongdb, Redis, MySQL
 - 百度人脸识别
 - docker
 - .......
