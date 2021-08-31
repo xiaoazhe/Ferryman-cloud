@@ -12,18 +12,62 @@
 
 Gitee 后端同步更新
 [https://gitee.com/chongzhe/Ferryman-cloud](http://)
+
 GitHub 后端同步更新
 [https://github.com/xiaoazhe/Ferryman-cloud](http://)
 #### 软件架构
 
 
-- 百度人脸识别
-- docker
-- .......
-- Nuxt 
-- 音乐播放器
-- Axios
-- ElementUI
+|      后端技术      |           说明            |                             官网                             |
+| :------------: | :-----------------------: | :----------------------------------------------------------: |
+|   Spring Boot   |          MVC框架          | [ https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
+|  Spring Cloud   |        微服务框架         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Consul	   |        注册中心	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Hystrix	   |        熔断	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Feign	   |        负载均衡	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Ribbon	   |        负载均衡	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Zuul	   |        网关         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Admin	   |        服务监控	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Config	   |        服务配置中心	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Boot Actuator   |        应用监控	         |          https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html           |
+| Spring Security |      认证和授权框架       |          https://spring.io/projects/spring-security          |
+|  MyBatis-Plus  |          ORM框架          |                   https://mp.baomidou.com/                   |
+|   Swagger-UI   |       文档生产工具        | [ https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui) |
+|    RabbitMQ    |         消息队列          |   [ https://www.rabbitmq.com/](https://www.rabbitmq.com/)    |
+|     MySQL	      |        关系数据库	         |                      https://www.mysql.com/                  |
+|     MongoDB	      |        分布式文件存储数据库	         |                      https://www.mongodb.org.cn/     |
+|     Redis      |        分布式缓存         |                      https://redis.io/                       |
+|     Docker     |        容器化部署         |      [ https://www.docker.com](https://www.docker.com/)      |
+|     Druid      |       数据库连接池        | [ https://github.com/alibaba/druid](https://github.com/alibaba/druid) |
+|     OSS     |     阿里云 - 对象储存     |         https://www.aliyun.com/product/oss/                    |
+|     FastDFS     |     分布式文件系统	     |         https://sourceforge.net/projects/fastdfs/        |
+|     七牛云     |     七牛云 - 对象储存     |         https://developer.qiniu.com/sdk#official-sdk         |
+|      JWT       |        JWT登录支持        |                 https://github.com/jwtk/jjwt                 |
+|     SLF4J      |         日志框架          |                    http://www.slf4j.org/                     |
+|     Lombok     |     简化对象封装工具      | [ https://github.com/rzwitserloot/lombok](https://github.com/rzwitserloot/lombok) |
+|     Nginx      |  HTTP和反向代理web服务器  |                      http://nginx.org/                       |
+|     Hutool     |      Java工具包类库       |                  https://hutool.cn/docs/#/                   |
+|     Zipkin     |         链路追踪          |             https://github.com/openzipkin/zipkin             |
+|     AipFace     |         人脸识别          |             https://cloud.baidu.com/product/face?track=cp:nsem|pf:pc|pp:nsem-chanpin-renlianshibie-xiaoguo|pu:renlianshibie-pinpaici|ci:|kw:10027829&renqun_youhua=2850304             |
+|     Mail     |         邮箱          |             https://mail.163.com/            |
+
+
+
+|         前端技术          |                  说明                   |                             官网                             |
+| :-------------------: | :-------------------------------------: | :----------------------------------------------------------: |
+|        Vue.js         |                前端框架                 |                      https://vuejs.org/                      |
+|      Vue-router       |                路由框架                 |                  https://router.vuejs.org/                   |
+|         Vuex          |            全局状态管理框架             |                   https://vuex.vuejs.org/                    |
+|        Nuxt.js        |        创建服务端渲染 (SSR) 应用        |                    https://zh.nuxtjs.org/                    |
+|        Element        |               前端ui框架                |    [ https://element.eleme.io](https://element.eleme.io/)    |
+|         Axios         |              前端HTTP框架               | [ https://github.com/axios/axios](https://github.com/axios/axios) |
+|       Vue-Quill-Editor        |              富文本编辑器               |                    https://github.surmon.me/vue-quill-editor/                  |
+|     Less      |            CSS 预处理语言             |        http://lesscss.cn/          |
+|        Mavon-Editor         |             Markdown编辑器              |             https://github.com/hinesboy/mavonEditor            |
+|        Aplayer        |             音乐播放器            |             https://aplayer.js.org/#/            |
+|        Vue-i18n        |             国际化            |             https://kazupon.github.io/vue-i18n/zh/introduction.html           |
+|        Cookie        |             认证cookie            |             https://www.runoob.com/js/js-cookies.html           |
+
 
 
 - 系统架构图
