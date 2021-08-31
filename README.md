@@ -23,10 +23,10 @@ GitHub 后端同步更新
 |   Spring Boot   |          MVC框架          | [ https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
 |  Spring Cloud   |        微服务框架         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Consul	   |        注册中心	         |           https://spring.io/projects/spring-cloud/           |
-|  Spring Cloud Hystrix	   |        熔断	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Hystrix	   |        服务熔断	         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Feign	   |        负载均衡	         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Ribbon	   |        负载均衡	         |           https://spring.io/projects/spring-cloud/           |
-|  Spring Cloud Zuul	   |        网关         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Zuul	   |        服务网关         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Admin	   |        服务监控	         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Config	   |        服务配置中心	         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Boot Actuator   |        应用监控	         |          https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html           |
@@ -49,7 +49,7 @@ GitHub 后端同步更新
 |     Hutool     |      Java工具包类库       |                  https://hutool.cn/docs/#/                   |
 |     Zipkin     |         链路追踪          |             https://github.com/openzipkin/zipkin             |
 |     AipFace     |         人脸识别          |             https://cloud.baidu.com/product/face?track=cp:nsem|pf:pc|pp:nsem-chanpin-renlianshibie-xiaoguo|pu:renlianshibie-pinpaici|ci:|kw:10027829&renqun_youhua=2850304             |
-|     Mail     |         邮箱          |             https://mail.163.com/            |
+|     Mail     |         网易邮箱          |             https://mail.163.com/            |
 
 
 
