@@ -221,6 +221,7 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 		newUser.setEmail(sysUser.getEmail());
 		newUser.setPassword(sysUser.getPwd());
 		newUser.setNickname(sysUser.getName());
+		newUser.setAvatar(sysUser.getAvatar());
 		add(newUser);
 		return newUser;
 	}

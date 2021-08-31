@@ -22,14 +22,15 @@ GitHub 后端同步更新
 | :------------: | :-----------------------: | :----------------------------------------------------------: |
 |   Spring Boot   |          MVC框架          | [ https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
 |  Spring Cloud   |        微服务框架         |           https://spring.io/projects/spring-cloud/           |
-|  Spring Cloud Consul	   |        注册中心	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Consul	   |        注册中心	         |           https://cloud.spring.io/spring-cloud-consul/reference/html/           |
 |  Spring Cloud Hystrix	   |        服务熔断	         |           https://spring.io/projects/spring-cloud/           |
-|  Spring Cloud Feign	   |        负载均衡	         |           https://spring.io/projects/spring-cloud/           |
-|  Spring Cloud Ribbon	   |        负载均衡	         |           https://spring.io/projects/spring-cloud/           |
+|  Spring Cloud Feign	   |        负载均衡	         |           https://spring.io/projects/spring-cloud-openfeign          |
+|  Spring Cloud Ribbon	   |        负载均衡	         |           https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-ribbon.html           |
 |  Spring Cloud Zuul	   |        服务网关         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Admin	   |        服务监控	         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Cloud Config	   |        服务配置中心	         |           https://spring.io/projects/spring-cloud/           |
 |  Spring Boot Actuator   |        应用监控	         |          https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html           |
+|  Spring Boot Bus   |        消息总线	         |          https://spring.io/projects/spring-cloud-bus           |
 | Spring Security |      认证和授权框架       |          https://spring.io/projects/spring-security          |
 |  MyBatis-Plus  |          ORM框架          |                   https://mp.baomidou.com/                   |
 |   Swagger-UI   |       文档生产工具        | [ https://github.com/swagger-api/swagger-ui](https://github.com/swagger-api/swagger-ui) |
