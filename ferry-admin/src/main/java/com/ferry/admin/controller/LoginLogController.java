@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 /**
  * 登录日志模块
+ *
  * @Author: 摆渡人
  * @Date: 2021/4/27
  */
@@ -30,15 +32,15 @@ public class LoginLogController {
 
     @ApiOperation(value = "分页查询")
     @PreAuthorize("hasAuthority('sys:loginlog:view')")
-    @PostMapping(value="/findPage")
+    @PostMapping(value = "/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest) {
         return Result.ok(sysLoginLogService.findPage(pageRequest));
     }
 
     @ApiOperation(value = "删除日志")
     @PreAuthorize("hasAuthority('sys:loginlog:delete')")
-    @PostMapping(value="/delete")
-    public Result delete(@RequestBody List <SysLoginLog> records) {
+    @PostMapping(value = "/delete")
+    public Result delete(@RequestBody List<SysLoginLog> records) {
         return Result.ok(sysLoginLogService.delete(records));
     }
 }
