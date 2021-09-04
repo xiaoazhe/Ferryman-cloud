@@ -137,6 +137,9 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 
 	@Override
 	public int delete(SysUser record) {
+		Map map = new HashMap();
+		map.put(SysUserRole.COL_USER_ID, record.getId());
+		sysUserRoleMapper.deleteByMap(map);
 		return sysUserMapper.deleteById(record.getId());
 	}
 
