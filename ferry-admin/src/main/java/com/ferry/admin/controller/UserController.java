@@ -146,7 +146,7 @@ public class UserController {
             Result.error("用户不存在!");
         }
         if (SysConstants.ADMIN.equalsIgnoreCase(user.getName())) {
-            return Result.error("超级管理员不允许修改 你!");
+            return Result.error("超级管理员不允许修改!");
         }
         if (!PasswordUtils.matches(user.getSalt(), password, user.getPassword())) {
             return Result.error("原密码不正确!");

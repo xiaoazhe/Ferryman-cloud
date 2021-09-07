@@ -125,6 +125,11 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.48</version>
         </dependency>
+        <!--spring-boot-starter-websocket-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
         <!--spring-boot-admin-client-->
         <dependency>
             <groupId>de.codecentric</groupId>

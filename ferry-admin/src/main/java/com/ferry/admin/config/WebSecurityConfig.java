@@ -64,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/qr**").permitAll()
             .antMatchers("/faceLogin/**").permitAll()
             .antMatchers("/check**/**").permitAll()
+            .antMatchers("/websocket/**").permitAll()
             // 服务监控
             .antMatchers("/actuator/**").permitAll()
             // 其他所有请求需要身份认证
