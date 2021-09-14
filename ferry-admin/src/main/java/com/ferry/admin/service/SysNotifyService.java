@@ -1,6 +1,7 @@
 package com.ferry.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ferry.admin.vo.NotifyVo;
 import com.ferry.server.admin.entity.SysNotify;
 
 /**
@@ -8,4 +9,6 @@ import com.ferry.server.admin.entity.SysNotify;
  * @Date: 2021/9/12
  */
 public interface SysNotifyService extends IService <SysNotify> {
+
+    String saveOrUpdateNotify(NotifyVo notify);
 }

@@ -38,7 +38,7 @@ public class SysNotifyRecord implements Serializable {
      * 阅读标记
      */
     @TableField(value = "is_read")
-    private Boolean isRead;
+    private int isRead;
 
     /**
      * 阅读时间

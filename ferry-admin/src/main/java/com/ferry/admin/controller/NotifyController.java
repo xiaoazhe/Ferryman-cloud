@@ -32,7 +32,7 @@ public class NotifyController {
     @PreAuthorize("hasAuthority('sys:notify:add') AND hasAuthority('sys:notify:edit')")
     @PostMapping(value = "/save")
     public Result save(@RequestBody NotifyVo notify) {
-        return null;
+        return Result.ok(notifyService.saveOrUpdateNotify(notify));
     }
 
     @ApiOperation(value = "删除菜单")
