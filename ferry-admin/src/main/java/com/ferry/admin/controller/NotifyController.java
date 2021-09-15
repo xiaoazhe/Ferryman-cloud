@@ -4,6 +4,7 @@ import com.ferry.admin.service.SysNotifyRecordService;
 import com.ferry.admin.service.SysNotifyService;
 import com.ferry.admin.vo.NotifyVo;
 import com.ferry.core.http.Result;
+import com.ferry.core.page.PageRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class NotifyController {
     @Autowired
     private SysNotifyRecordService notifyRecordService;
 
+    @ApiOperation(value = "分页查询")
+    @PreAuthorize("hasAuthority('sys:notify:view')")
+    @PostMapping(value="/findPage")
+    public Result findPage(@RequestBody PageRequest pageRequest) {
+        return Result.ok(notifyService.findPage(pageRequest));
+    }
+
     @ApiOperation(value = "添加通知")
     @PreAuthorize("hasAuthority('sys:notify:add') AND hasAuthority('sys:notify:edit')")
     @PostMapping(value = "/save")
@@ -37,10 +45,15 @@ public class NotifyController {
 
     @ApiOperation(value = "删除菜单")
     @PreAuthorize("hasAuthority('sys:notify:delete')")
-    @PostMapping(value = "/delete/{id}")
+    @GetMapping(value = "/delete/{id}")
     public Result delete(@RequestParam Integer id) {
         return Result.ok(notifyService.removeById(id));
     }
 
-
+    @ApiOperation(value = "已读")
+    @PreAuthorize("hasAuthority('sys:notify:edit')")
+    @GetMapping(value = "/readNotify/{id}")
+    public Result readNotify(@RequestParam Integer id) {
+        return Result.ok(notifyService.readNotify(id));
+    }
 }

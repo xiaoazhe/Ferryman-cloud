@@ -14,8 +14,8 @@ spring:
       server:
         git:
           uri: https://gitee.com/chongzhe/Ferry-config.git
-          username: 账号
-          password: 密码
+          username: 账
+          password: 密
   rabbitmq:
     addresses: 1.116.227.4
     username: guest
