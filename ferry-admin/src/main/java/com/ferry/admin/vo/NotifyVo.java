@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class NotifyVo {
@@ -82,6 +83,6 @@ public class NotifyVo {
      * 接受人
      */
     @TableField(value = "user_id")
-    private Long userId;
+    private List<String> userId;
 
 }

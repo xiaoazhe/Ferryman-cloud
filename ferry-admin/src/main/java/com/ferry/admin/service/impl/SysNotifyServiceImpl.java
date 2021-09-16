@@ -7,6 +7,7 @@ import com.ferry.admin.service.SysNotifyService;
 import com.ferry.admin.util.SecurityUtils;
 import com.ferry.admin.vo.NotifyVo;
 import com.ferry.common.enums.FieldStatusEnum;
+import com.ferry.common.enums.NotifyType;
 import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.page.PageRequest;
@@ -21,7 +22,9 @@ import com.ferry.server.blog.entity.BlProLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +44,8 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
 
     @Override
     public String saveOrUpdateNotify(NotifyVo notify) {
+        String userName = SecurityUtils.getUsername();
+        String userId = String.valueOf(sysUserMapper.findByName(userName).getId());
         SysNotify sysNotify = new SysNotify();
         sysNotify.setContent(notify.getContent());
         sysNotify.setDelFlag("0");
@@ -50,27 +55,41 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
         sysNotify.setTitle(notify.getTitle());
         sysNotify.setType(notify.getType());
         sysNotify.setStatus(notify.getStatus());
-        SysNotifyRecord sysNotifyRecord = new SysNotifyRecord();
-        sysNotifyRecord.setIsRead(0);
-        sysNotifyRecord.setUserId(notify.getUserId());
+        sysNotify.setIsRead(0);
+        sysNotify.setCreateUserId(userId);
         if (notify.getId() == null) {
             int notifyId = sysNotifyMapper.insert(sysNotify);
-            sysNotifyRecord.setNotifyId(Long.valueOf(notifyId));
+            for (String userIds : notify.getUserId()) {
+                SysNotifyRecord sysNotifyRecord = new SysNotifyRecord();
+                sysNotifyRecord.setIsRead(0);
+                sysNotifyRecord.setUserId(Long.valueOf(userIds));
+                sysNotifyRecord.setNotifyId(Long.valueOf(notifyId));
+                sysNotifyRecordMapper.insert(sysNotifyRecord);
+            }
             return StateEnums.SAVEBLOG_SUC.getMsg();
         } else {
-            sysNotifyRecord.setNotifyId(notify.getId());
             sysNotifyMapper.updateById(sysNotify);
-            sysNotifyRecordMapper.updateById(sysNotifyRecord);
+            for (String userIds : notify.getUserId()) {
+                HashMap map = new HashMap();
+                map.put(SysNotifyRecord.COL_USER_ID, userIds);
+                map.put(SysNotifyRecord.COL_NOTIFY_ID, notify.getId());
+                sysNotifyRecordMapper.deleteByMap(map);
+                SysNotifyRecord sysNotifyRecord = new SysNotifyRecord();
+                sysNotifyRecord.setIsRead(0);
+                sysNotifyRecord.setUserId(Long.valueOf(userIds));
+                sysNotifyRecord.setNotifyId(Long.valueOf(notify.getId()));
+                sysNotifyRecordMapper.insert(sysNotifyRecord);
+            }
             return StateEnums.SAVEBLOG_ERR.getMsg();
         }
     }
 
     @Override
     public String readNotify(Integer id) {
-        SysNotifyRecord sysNotifyRecord = sysNotifyRecordMapper.selectById(id);
-        sysNotifyRecord.setIsRead(1);
-        sysNotifyRecord.setLastUpdateTime(new Date());
-        Integer update = sysNotifyRecordMapper.updateById(sysNotifyRecord);
+        SysNotify sysNotify = sysNotifyMapper.selectById(id);
+        sysNotify.setIsRead(1);
+        sysNotify.setReadDate(new Date());
+        Integer update = sysNotifyMapper.updateById(sysNotify);
         if (update == null) {
             return StateEnums.SAVEBLOG_ERR.getMsg();
         }
@@ -97,6 +116,31 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
         queryWrapper.eq(!StringUtils.isBlank(title), SysNotify.COL_TITLE, title);
         queryWrapper.in(SysNotify.COL_ID, idList);
         Page<SysNotify> userIPage = sysNotifyMapper.selectPage(page, queryWrapper);
+        PageResult pageResult = new PageResult(userIPage);
+        return pageResult;
+    }
+
+    @Override
+    public List<SysNotify> getNoReadListByUserId() {
+        String userName = SecurityUtils.getUsername();
+        Long userId = sysUserMapper.findByName(userName).getId();
+        QueryWrapper<SysNotify> query = new QueryWrapper<SysNotify>();
+        query.eq(SysNotify.CRESARE_USER_ID, userId);
+        query.eq(SysNotify.IS_READ, 0l);
+        return sysNotifyMapper.selectList(query);
+    }
+
+    @Override
+    public PageResult getNotifyByType(PageRequest pageRequest) {
+        Page<SysNotify> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
+        String userName = SecurityUtils.getUsername();
+        String title = pageRequest.getParamValue(FieldStatusEnum.USERNAME);
+        Long userId = sysUserMapper.findByName(userName).getId();
+        QueryWrapper<SysNotify> query = new QueryWrapper<SysNotify>();
+        query.eq(SysNotify.CRESARE_USER_ID, userId);
+        query.eq(SysNotify.IS_READ, 0l);
+        query.eq(!StringUtils.isBlank(title), SysNotify.COL_TITLE, title);
+        Page<SysNotify> userIPage = sysNotifyMapper.selectPage(page, query);
         PageResult pageResult = new PageResult(userIPage);
         return pageResult;
     }

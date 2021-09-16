@@ -94,6 +94,30 @@ public class SysNotify implements Serializable {
     @TableField(value = "sms_remind")
     private String smsRemind;
 
+    /**
+     * 接受人
+     */
+    @TableField(value = "user_id")
+    private String userId;
+
+    /**
+     * 阅读标记
+     */
+    @TableField(value = "is_read")
+    private int isRead;
+
+    /**
+     * 阅读时间
+     */
+    @TableField(value = "read_date")
+    private Date readDate;
+
+    /**
+     * 通知人id
+     */
+    @TableField(value = "create_user_id")
+    private String createUserId;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_ID = "id";
@@ -121,4 +145,8 @@ public class SysNotify implements Serializable {
     public static final String COL_DEL_FLAG = "del_flag";
 
     public static final String COL_SMS_REMIND = "sms_remind";
+
+    public static final String IS_READ = "is_read";
+
+    public static final String CRESARE_USER_ID = "create_user_id";
 }

@@ -6,6 +6,8 @@ import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.admin.entity.SysNotify;
 
+import java.util.List;
+
 /**
  * @Author: 摆渡人
  * @Date: 2021/9/12
@@ -17,4 +19,8 @@ public interface SysNotifyService extends IService <SysNotify> {
     String readNotify(Integer id);
 
     PageResult findPage(PageRequest pageRequest);
+
+    List<SysNotify> getNoReadListByUserId();
+
+    PageResult getNotifyByType(PageRequest pageRequest);
 }
