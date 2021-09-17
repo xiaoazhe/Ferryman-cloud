@@ -22,5 +22,5 @@ public interface SysNotifyService extends IService <SysNotify> {
 
     List<SysNotify> getNoReadListByUserId();
 
-    PageResult getNotifyByType(PageRequest pageRequest);
+    PageResult getNotifyByType(int pageNum, int pageSize, String title, String type);
 }

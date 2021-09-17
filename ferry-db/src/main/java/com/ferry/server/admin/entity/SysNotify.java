@@ -148,5 +148,7 @@ public class SysNotify implements Serializable {
 
     public static final String IS_READ = "is_read";
 
+    public static final String USER_ID = "user_id";
+
     public static final String CRESARE_USER_ID = "create_user_id";
 }

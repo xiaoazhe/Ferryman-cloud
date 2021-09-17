@@ -3,16 +3,13 @@ package com.ferry.admin.controller;
 import com.ferry.admin.service.SysNotifyRecordService;
 import com.ferry.admin.service.SysNotifyService;
 import com.ferry.admin.vo.NotifyVo;
-import com.ferry.common.enums.NotifyType;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
-import java.util.Objects;
 
 
 /**
@@ -46,7 +43,14 @@ public class NotifyController {
         return Result.ok(notifyService.saveOrUpdateNotify(notify));
     }
 
-    @ApiOperation(value = "删除菜单")
+    @ApiOperation(value = "根据id获取通知")
+    @PreAuthorize("hasAuthority('sys:notify:view')")
+    @GetMapping(value = "/get/{id}")
+    public Result getById(@RequestParam Integer id) {
+        return Result.ok(notifyService.getById(id));
+    }
+
+    @ApiOperation(value = "删除通知")
     @PreAuthorize("hasAuthority('sys:notify:delete')")
     @GetMapping(value = "/delete/{id}")
     public Result delete(@RequestParam Integer id) {
@@ -70,10 +74,7 @@ public class NotifyController {
     @ApiOperation(value = "个人通知列表")
     @PreAuthorize("hasAuthority('sys:notify:view')")
     @PostMapping(value = "/getListByUserId/{type}")
-    public Result getNotifyByType(@RequestBody PageRequest pageRequest, @PathVariable String type) {
-        if (Objects.equals(type, NotifyType.SEND_NOTIFY.name())) {
-            return Result.ok(notifyService.getNotifyByType(pageRequest));
-        }
-        return Result.ok(notifyService.getNotifyByType(pageRequest));
+    public Result getNotifyByType(@RequestParam(value = "pageNum") int pageNum, @RequestParam(value = "pageSize") int pageSize, @RequestParam(value = "title") String title, @PathVariable String type) {
+        return Result.ok(notifyService.getNotifyByType(pageNum, pageSize, title, type));
     }
 }
