@@ -1,15 +1,14 @@
 package com.ferry.admin.vo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.ferry.server.admin.entity.SysNotify;
 import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class NotifyVo {
+public class NotifyVo extends SysNotify {
 
     private Long id;
 
@@ -41,7 +40,7 @@ public class NotifyVo {
     /**
      * 创建者
      */
-    private Long createBy;
+    private String createBy;
 
     /**
      * 创建时间
@@ -76,13 +75,11 @@ public class NotifyVo {
     /**
      * 通知通告ID
      */
-    @TableField(value = "notify_id")
     private Long notifyId;
 
     /**
      * 接受人
      */
-    @TableField(value = "user_id")
-    private List<String> userId;
+    private List<String> userIds;
 
 }

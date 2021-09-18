@@ -12,14 +12,13 @@ import com.ferry.common.enums.StateEnums;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
-import com.ferry.server.admin.entity.SysLog;
 import com.ferry.server.admin.entity.SysNotify;
 import com.ferry.server.admin.entity.SysNotifyRecord;
 import com.ferry.server.admin.mapper.SysNotifyMapper;
 import com.ferry.server.admin.mapper.SysNotifyRecordMapper;
 import com.ferry.server.admin.mapper.SysUserMapper;
-import com.ferry.server.blog.entity.BlProLabel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +30,7 @@ import java.util.stream.Collectors;
  * @Author: 摆渡人
  * @Date: 2021/9/12
  */
+@Service
 public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotify> implements SysNotifyService {
 
     @Autowired
@@ -59,7 +59,7 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
         sysNotify.setCreateUserId(userId);
         if (notify.getId() == null) {
             int notifyId = sysNotifyMapper.insert(sysNotify);
-            for (String userIds : notify.getUserId()) {
+            for (String userIds : notify.getUserIds()) {
                 SysNotifyRecord sysNotifyRecord = new SysNotifyRecord();
                 sysNotifyRecord.setIsRead(0);
                 sysNotifyRecord.setUserId(Long.valueOf(userIds));
@@ -69,7 +69,7 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
             return StateEnums.SAVEBLOG_SUC.getMsg();
         } else {
             sysNotifyMapper.updateById(sysNotify);
-            for (String userIds : notify.getUserId()) {
+            for (String userIds : notify.getUserIds()) {
                 HashMap map = new HashMap();
                 map.put(SysNotifyRecord.COL_USER_ID, userIds);
                 map.put(SysNotifyRecord.COL_NOTIFY_ID, notify.getId());
@@ -106,15 +106,10 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
         String title = pageRequest.getParamValue(FieldStatusEnum.USERNAME);
         String userName = SecurityUtils.getUsername();
         Long userId = sysUserMapper.findByName(userName).getId();
-        QueryWrapper<SysNotifyRecord> query = new QueryWrapper<SysNotifyRecord>();
-        query.eq(SysNotifyRecord.COL_CREATE_BY, userName)
-                .or()
-                .eq(SysNotifyRecord.COL_USER_ID, userId);
-        List<Long> idList = sysNotifyRecordMapper.selectList(query).stream().map(SysNotifyRecord::getNotifyId).collect(Collectors.toList());
         Page<SysNotify> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper<SysNotify> queryWrapper = new QueryWrapper<SysNotify>();
         queryWrapper.eq(!StringUtils.isBlank(title), SysNotify.COL_TITLE, title);
-        queryWrapper.in(SysNotify.COL_ID, idList);
+        queryWrapper.eq(SysNotify.CRESARE_USER_ID, userId).or().eq(SysNotify.USER_ID, userId);
         Page<SysNotify> userIPage = sysNotifyMapper.selectPage(page, queryWrapper);
         PageResult pageResult = new PageResult(userIPage);
         return pageResult;

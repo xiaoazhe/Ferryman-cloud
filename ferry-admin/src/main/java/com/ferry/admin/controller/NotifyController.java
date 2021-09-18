@@ -30,14 +30,12 @@ public class NotifyController {
     private SysNotifyRecordService notifyRecordService;
 
     @ApiOperation(value = "分页查询")
-    @PreAuthorize("hasAuthority('sys:notify:view')")
     @PostMapping(value="/findPage")
     public Result findPage(@RequestBody PageRequest pageRequest) {
         return Result.ok(notifyService.findPage(pageRequest));
     }
 
     @ApiOperation(value = "添加通知")
-    @PreAuthorize("hasAuthority('sys:notify:add') AND hasAuthority('sys:notify:edit')")
     @PostMapping(value = "/save")
     public Result save(@RequestBody NotifyVo notify) {
         return Result.ok(notifyService.saveOrUpdateNotify(notify));
@@ -46,33 +44,29 @@ public class NotifyController {
     @ApiOperation(value = "根据id获取通知")
     @PreAuthorize("hasAuthority('sys:notify:view')")
     @GetMapping(value = "/get/{id}")
-    public Result getById(@RequestParam Integer id) {
+    public Result getById(@PathVariable Integer id) {
         return Result.ok(notifyService.getById(id));
     }
 
     @ApiOperation(value = "删除通知")
-    @PreAuthorize("hasAuthority('sys:notify:delete')")
     @GetMapping(value = "/delete/{id}")
-    public Result delete(@RequestParam Integer id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.ok(notifyService.removeById(id));
     }
 
     @ApiOperation(value = "修改为已读")
-    @PreAuthorize("hasAuthority('sys:notify:edit')")
     @GetMapping(value = "/readNotify/{id}")
-    public Result readNotify(@RequestParam Integer id) {
+    public Result readNotify(@PathVariable Integer id) {
         return Result.ok(notifyService.readNotify(id));
     }
 
     @ApiOperation(value = "未读个人通知列表")
-    @PreAuthorize("hasAuthority('sys:notify:view')")
     @GetMapping(value = "/getListByUserId")
     public Result getNoReadListByUserId() {
         return Result.ok(notifyService.getNoReadListByUserId());
     }
 
     @ApiOperation(value = "个人通知列表")
-    @PreAuthorize("hasAuthority('sys:notify:view')")
     @PostMapping(value = "/getListByUserId/{type}")
     public Result getNotifyByType(@RequestParam(value = "pageNum") int pageNum, @RequestParam(value = "pageSize") int pageSize, @RequestParam(value = "title") String title, @PathVariable String type) {
         return Result.ok(notifyService.getNotifyByType(pageNum, pageSize, title, type));

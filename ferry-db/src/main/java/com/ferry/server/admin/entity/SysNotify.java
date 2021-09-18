@@ -56,7 +56,7 @@ public class SysNotify implements Serializable {
      * 创建者
      */
     @TableField(value = "create_by")
-    private Long createBy;
+    private String createBy;
 
     /**
      * 创建时间
