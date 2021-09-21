@@ -2,6 +2,7 @@ package com.ferry.admin.controller;
 
 import com.ferry.admin.service.SysNotifyRecordService;
 import com.ferry.admin.service.SysNotifyService;
+import com.ferry.admin.service.SysUserService;
 import com.ferry.admin.vo.NotifyVo;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
@@ -28,6 +29,9 @@ public class NotifyController {
 
     @Resource
     private SysNotifyRecordService notifyRecordService;
+
+    @Resource
+    private SysUserService userService;
 
     @ApiOperation(value = "分页查询")
     @PostMapping(value="/findPage")
@@ -70,5 +74,11 @@ public class NotifyController {
     @PostMapping(value = "/getListByUserId/{type}")
     public Result getNotifyByType(@RequestParam(value = "pageNum") int pageNum, @RequestParam(value = "pageSize") int pageSize, @RequestParam(value = "title") String title, @PathVariable String type) {
         return Result.ok(notifyService.getNotifyByType(pageNum, pageSize, title, type));
+    }
+
+    @ApiOperation(value = "通知人员列表")
+    @PostMapping(value = "/getUserList")
+    public Result getUserList() {
+        return Result.ok(userService.list());
     }
 }
