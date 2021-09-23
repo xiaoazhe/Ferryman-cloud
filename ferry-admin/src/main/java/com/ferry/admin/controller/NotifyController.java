@@ -46,10 +46,9 @@ public class NotifyController {
     }
 
     @ApiOperation(value = "根据id获取通知")
-    @PreAuthorize("hasAuthority('sys:notify:view')")
     @GetMapping(value = "/get/{id}")
     public Result getById(@PathVariable Integer id) {
-        return Result.ok(notifyService.getById(id));
+        return Result.ok(notifyService.getNotifyById(id));
     }
 
     @ApiOperation(value = "删除通知")
@@ -77,7 +76,7 @@ public class NotifyController {
     }
 
     @ApiOperation(value = "通知人员列表")
-    @PostMapping(value = "/getUserList")
+    @GetMapping(value = "/getUserList")
     public Result getUserList() {
         return Result.ok(userService.list());
     }

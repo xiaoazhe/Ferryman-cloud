@@ -9,21 +9,21 @@ import com.ferry.admin.vo.NotifyVo;
 import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.enums.NotifyType;
 import com.ferry.common.enums.StateEnums;
+import com.ferry.common.utils.IdWorker;
 import com.ferry.common.utils.StringUtils;
 import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.admin.entity.SysNotify;
 import com.ferry.server.admin.entity.SysNotifyRecord;
+import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.mapper.SysNotifyMapper;
 import com.ferry.server.admin.mapper.SysNotifyRecordMapper;
 import com.ferry.server.admin.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import javax.annotation.Resource;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -33,14 +33,17 @@ import java.util.stream.Collectors;
 @Service
 public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotify> implements SysNotifyService {
 
-    @Autowired
+    @Resource
     private SysNotifyMapper sysNotifyMapper;
 
-    @Autowired
+    @Resource
     private SysNotifyRecordMapper sysNotifyRecordMapper;
 
-    @Autowired
+    @Resource
     private SysUserMapper sysUserMapper;
+
+    @Resource
+    private IdWorker idWorker;
 
     @Override
     public String saveOrUpdateNotify(NotifyVo notify) {
@@ -57,13 +60,15 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
         sysNotify.setStatus(notify.getStatus());
         sysNotify.setIsRead(0);
         sysNotify.setCreateUserId(userId);
-        if (notify.getId() == null) {
-            int notifyId = sysNotifyMapper.insert(sysNotify);
+        if (StringUtils.isBlank(notify.getId())) {
+            String id = idWorker.nextId() + "";
+            sysNotify.setId(id);
+            sysNotifyMapper.insert(sysNotify);
             for (String userIds : notify.getUserIds()) {
                 SysNotifyRecord sysNotifyRecord = new SysNotifyRecord();
                 sysNotifyRecord.setIsRead(0);
                 sysNotifyRecord.setUserId(Long.valueOf(userIds));
-                sysNotifyRecord.setNotifyId(Long.valueOf(notifyId));
+                sysNotifyRecord.setNotifyId(id);
                 sysNotifyRecordMapper.insert(sysNotifyRecord);
             }
             return StateEnums.SAVEBLOG_SUC.getMsg();
@@ -77,10 +82,10 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
                 SysNotifyRecord sysNotifyRecord = new SysNotifyRecord();
                 sysNotifyRecord.setIsRead(0);
                 sysNotifyRecord.setUserId(Long.valueOf(userIds));
-                sysNotifyRecord.setNotifyId(Long.valueOf(notify.getId()));
+                sysNotifyRecord.setNotifyId(sysNotify.getId());
                 sysNotifyRecordMapper.insert(sysNotifyRecord);
             }
-            return StateEnums.SAVEBLOG_ERR.getMsg();
+            return StateEnums.SAVEBLOG_SUC.getMsg();
         }
     }
 
@@ -142,5 +147,25 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
         Page<SysNotify> userIPage = sysNotifyMapper.selectPage(page, query);
         PageResult pageResult = new PageResult(userIPage);
         return pageResult;
+    }
+
+    @Override
+    public Map getNotifyById(Integer id) {
+        HashMap map = new HashMap(16);
+        SysNotify notify = sysNotifyMapper.selectById(id);
+        List<Long> list = new LinkedList();
+        QueryWrapper<SysNotifyRecord> queryWrapper = new QueryWrapper();
+        queryWrapper.eq(SysNotifyRecord.COL_NOTIFY_ID, notify.getId());
+        list = sysNotifyRecordMapper.selectList(queryWrapper).stream().map(SysNotifyRecord::getUserId)
+                .collect(Collectors.toList());
+        if (list.isEmpty()) {
+            throw new RuntimeException("没有通知人");
+        }
+        QueryWrapper<SysUser> userQuery = new QueryWrapper();
+        userQuery.in(SysUser.COL_ID, list);
+        List<SysUser> userList = sysUserMapper.selectList(userQuery);
+        map.put("notify", notify);
+        map.put("users", userList);
+        return map;
     }
 }

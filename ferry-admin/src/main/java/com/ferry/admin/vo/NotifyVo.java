@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class NotifyVo extends SysNotify {
 
-    private Long id;
+    private String id;
 
     /**
      * 类型

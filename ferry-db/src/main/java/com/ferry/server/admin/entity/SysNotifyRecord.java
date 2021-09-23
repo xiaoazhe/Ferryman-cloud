@@ -26,7 +26,7 @@ public class SysNotifyRecord implements Serializable {
      * 通知通告ID
      */
     @TableField(value = "notify_id")
-    private Long notifyId;
+    private String notifyId;
 
     /**
      * 接受人

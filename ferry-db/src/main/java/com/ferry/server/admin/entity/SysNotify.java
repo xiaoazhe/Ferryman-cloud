@@ -20,7 +20,7 @@ public class SysNotify implements Serializable {
      * 编号
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private String id;
 
     /**
      * 类型
