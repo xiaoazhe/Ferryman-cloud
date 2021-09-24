@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ferry.server.admin.entity.SysNotify">
     <!--@mbg.generated-->
     <!--@Table sys_notify-->
-    <id column="id" jdbcType="BIGINT" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="type" jdbcType="CHAR" property="type" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />

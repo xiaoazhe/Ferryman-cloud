@@ -5,7 +5,7 @@
     <!--@mbg.generated-->
     <!--@Table sys_notify_record-->
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="notify_id" jdbcType="BIGINT" property="notifyId" />
+    <result column="notify_id" jdbcType="VARCHAR" property="notifyId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="is_read" jdbcType="BOOLEAN" property="isRead" />
     <result column="read_date" jdbcType="DATE" property="readDate" />
