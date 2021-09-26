@@ -47,19 +47,19 @@ public class NotifyController {
 
     @ApiOperation(value = "根据id获取通知")
     @GetMapping(value = "/get/{id}")
-    public Result getById(@PathVariable Integer id) {
+    public Result getById(@PathVariable String id) {
         return Result.ok(notifyService.getNotifyById(id));
     }
 
     @ApiOperation(value = "删除通知")
     @GetMapping(value = "/delete/{id}")
-    public Result delete(@PathVariable Integer id) {
+    public Result delete(@PathVariable String id) {
         return Result.ok(notifyService.removeById(id));
     }
 
     @ApiOperation(value = "修改为已读")
     @GetMapping(value = "/readNotify/{id}")
-    public Result readNotify(@PathVariable Integer id) {
+    public Result readNotify(@PathVariable String id) {
         return Result.ok(notifyService.readNotify(id));
     }
 

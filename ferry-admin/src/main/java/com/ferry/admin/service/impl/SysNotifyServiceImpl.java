@@ -90,7 +90,7 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
     }
 
     @Override
-    public String readNotify(Integer id) {
+    public String readNotify(String id) {
         SysNotify sysNotify = sysNotifyMapper.selectById(id);
         sysNotify.setIsRead(1);
         sysNotify.setReadDate(new Date());
@@ -150,7 +150,7 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
     }
 
     @Override
-    public Map getNotifyById(Integer id) {
+    public Map getNotifyById(String id) {
         HashMap map = new HashMap(16);
         SysNotify notify = sysNotifyMapper.selectById(id);
         List<Long> list = new LinkedList();

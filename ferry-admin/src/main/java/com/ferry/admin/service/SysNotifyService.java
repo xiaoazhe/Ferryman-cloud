@@ -17,7 +17,7 @@ public interface SysNotifyService extends IService <SysNotify> {
 
     String saveOrUpdateNotify(NotifyVo notify);
 
-    String readNotify(Integer id);
+    String readNotify(String id);
 
     PageResult findPage(PageRequest pageRequest);
 
@@ -25,5 +25,5 @@ public interface SysNotifyService extends IService <SysNotify> {
 
     PageResult getNotifyByType(int pageNum, int pageSize, String title, String type);
 
-    Map getNotifyById(Integer id);
+    Map getNotifyById(String id);
 }
