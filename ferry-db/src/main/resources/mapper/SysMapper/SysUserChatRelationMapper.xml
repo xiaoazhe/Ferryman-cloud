@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ferry.server.admin.mapper.SysUserChatRelationMapper">
+  <resultMap id="BaseResultMap" type="com.ferry.server.admin.entity.SysUserChatRelation">
+    <!--@mbg.generated-->
+    <!--@Table sys_user_chat_relation-->
+    <result column="sender_id" jdbcType="VARCHAR" property="senderId" />
+    <result column="receiver_id" jdbcType="VARCHAR" property="receiverId" />
+    <result column="chat_id" jdbcType="VARCHAR" property="chatId" />
+    <result column="is_read" jdbcType="BOOLEAN" property="isRead" />
+    <result column="is_deleted" jdbcType="BOOLEAN" property="isDeleted" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_update_by" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+  </resultMap>
+  <insert id="batchInsert" parameterType="map">
+    <!--@mbg.generated-->
+    insert into sys_user_chat_relation
+    (sender_id, receiver_id, chat_id, is_read, is_deleted, create_by, create_time, last_update_by, 
+      last_update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.senderId,jdbcType=VARCHAR}, #{item.receiverId,jdbcType=VARCHAR}, #{item.chatId,jdbcType=VARCHAR}, 
+        #{item.isRead,jdbcType=BOOLEAN}, #{item.isDeleted,jdbcType=BOOLEAN}, #{item.createBy,jdbcType=VARCHAR}, 
+        #{item.createTime,jdbcType=TIMESTAMP}, #{item.lastUpdateBy,jdbcType=VARCHAR}, #{item.lastUpdateTime,jdbcType=TIMESTAMP}
+        )
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" parameterType="com.ferry.server.admin.entity.SysUserChatRelation">
+    <!--@mbg.generated-->
+    insert into sys_user_chat_relation
+    (sender_id, receiver_id, chat_id, is_read, is_deleted, create_by, create_time, last_update_by, 
+      last_update_time)
+    values
+    (#{senderId,jdbcType=VARCHAR}, #{receiverId,jdbcType=VARCHAR}, #{chatId,jdbcType=VARCHAR}, 
+      #{isRead,jdbcType=BOOLEAN}, #{isDeleted,jdbcType=BOOLEAN}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateBy,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}
+      )
+    on duplicate key update 
+    sender_id = #{senderId,jdbcType=VARCHAR}, 
+    receiver_id = #{receiverId,jdbcType=VARCHAR}, 
+    chat_id = #{chatId,jdbcType=VARCHAR}, 
+    is_read = #{isRead,jdbcType=BOOLEAN}, 
+    is_deleted = #{isDeleted,jdbcType=BOOLEAN}, 
+    create_by = #{createBy,jdbcType=VARCHAR}, 
+    create_time = #{createTime,jdbcType=TIMESTAMP}, 
+    last_update_by = #{lastUpdateBy,jdbcType=VARCHAR}, 
+    last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+  </insert>
+  <insert id="insertOrUpdateSelective" parameterType="com.ferry.server.admin.entity.SysUserChatRelation">
+    <!--@mbg.generated-->
+    insert into sys_user_chat_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="senderId != null">
+        sender_id,
+      </if>
+      <if test="receiverId != null">
+        receiver_id,
+      </if>
+      <if test="chatId != null">
+        chat_id,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="senderId != null">
+        #{senderId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null">
+        #{receiverId,jdbcType=VARCHAR},
+      </if>
+      <if test="chatId != null">
+        #{chatId,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=BOOLEAN},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="senderId != null">
+        sender_id = #{senderId,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverId != null">
+        receiver_id = #{receiverId,jdbcType=VARCHAR},
+      </if>
+      <if test="chatId != null">
+        chat_id = #{chatId,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=BOOLEAN},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=BOOLEAN},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateBy != null">
+        last_update_by = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
