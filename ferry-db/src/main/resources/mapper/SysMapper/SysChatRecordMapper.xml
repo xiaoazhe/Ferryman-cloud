@@ -178,4 +178,101 @@
       </if>
     </trim>
   </insert>
+
+
+  <select id="selectRecordList" resultType="com.ferry.server.admin.vo.ImChatRecordVo">
+    SELECT
+    icr.id AS chatId,
+    iucr.is_read,
+    icr.msg_content,
+    u.id,
+    u.avatar,
+    u.`name`,
+    u.email,
+    icr.send_time,
+    (
+    SELECT
+    count(ir.id)
+    FROM
+    sys_chat_record ir
+    WHERE
+    ir.id = iucr.chat_id
+    AND iucr.is_read = 0
+    ) AS unReadCount
+    FROM
+    `sys_chat_record` icr
+    LEFT JOIN sys_user_chat_relation iucr ON iucr.chat_id = icr.id and iucr.is_deleted =0
+    LEFT JOIN sys_user u ON u.id = iucr.sender_id
+    <where>
+      <if test="vo.senderId != null and vo.senderId !=''">
+        and iucr.sender_id = #{vo.senderId}
+      </if>
+      <if test="vo.receiverId != null and vo.receiverId !=''">
+        and iucr.receiver_id = #{vo.receiverId}
+      </if>
+    </where>
+    GROUP BY u.id
+    ORDER BY
+    icr.send_time DESC
+  </select>
+
+  <select id="selectRecordInfoList" resultType="com.ferry.server.admin.vo.ImChatRecordVo">
+    SELECT
+    icr.id AS chatId,
+    iucr.is_read,
+    icr.msg_content,
+    u.id,
+    u.avatar,
+    u.`name`,
+    u.email,
+    icr.send_time
+    FROM
+    `sys_chat_record` icr
+    LEFT JOIN sys_user_chat_relation iucr ON iucr.chat_id = icr.id
+    LEFT JOIN sys_user u ON u.id = icr.sender_id
+    <where>1=1
+      <if test="vo.senderId != null and vo.senderId !=''">
+        and iucr.sender_id = #{vo.senderId}
+      </if>
+      <if test="vo.receiverId != null and vo.receiverId !=''">
+        and iucr.receiver_id = #{vo.receiverId}
+      </if>
+    </where>
+    order by icr.send_time asc
+  </select>
+
+  <insert id="saveUserImRelation">
+    insert into sys_user_chat_relation(sender_id,receiver_id,chat_id,is_read)
+    values (#{vo.senderId,jdbcType=VARCHAR},#{vo.receiverId,jdbcType=VARCHAR},#{vo.chatId,jdbcType=VARCHAR},#{vo.isRead})
+  </insert>
+
+  <select id="getUnReadImChatRecordCount" resultType="java.util.Map">
+    SELECT
+    count(icr.id) as msgCount
+    FROM
+    `Sys_chat_record` icr
+    LEFT JOIN sys_user_chat_relation iucr ON iucr.chat_id = icr.id and iucr.is_read = 0
+    <where>
+      <if test="vo.senderId != null and vo.senderId !=''">
+        and iucr.sender_id = #{vo.senderId}
+      </if>
+      <if test="vo.receiverId != null and vo.receiverId !=''">
+        and iucr.receiver_id = #{vo.receiverId}
+      </if>
+    </where>
+  </select>
+
+  <update id="updateRecord">
+    update sys_user_chat_relation
+    <set>
+      <if test="vo.isRead != null">
+        is_read = #{vo.isRead},
+      </if>
+      <if test="vo.isDeleted != null">
+        is_deleted = #{vo.isDeleted},
+      </if>
+    </set>
+    where sender_id = #{vo.senderId,jdbcType=VARCHAR} and receiver_id = #{param1.receiverId,jdbcType=VARCHAR}
+  </update>
+
 </mapper>

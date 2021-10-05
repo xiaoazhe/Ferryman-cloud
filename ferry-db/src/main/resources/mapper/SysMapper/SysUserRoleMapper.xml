@@ -16,4 +16,6 @@
     <!--@mbg.generated-->
     id, user_id, role_id, create_by, create_time, last_update_by, last_update_time
   </sql>
+
+
 </mapper>

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ferry.admin.exception.ServeException;
 import com.ferry.admin.util.FaceAiUtil;
 import com.ferry.admin.util.SecurityUtils;
+import com.ferry.admin.vo.UserInfoVo;
 import com.ferry.common.enums.CommonStatusEnum;
 import com.ferry.common.enums.FieldStatusEnum;
 import com.ferry.common.enums.StateEnums;
@@ -23,6 +24,7 @@ import com.ferry.core.page.PageRequest;
 import com.ferry.core.page.PageResult;
 import com.ferry.server.blog.entity.BlBlog;
 import com.ferry.server.blog.mapper.BlBlogMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -238,6 +240,15 @@ public class SysUserServiceImpl extends ServiceImpl <SysUserMapper, SysUser> imp
 	public File createUserExcelFile(PageRequest pageRequest) {
 		PageResult pageResult = findPage(pageRequest);
 		return createUserExcelFile(pageResult.getContent());
+	}
+
+	@Override
+	public List<UserInfoVo> list(UserInfoVo userInfoVo) {
+		QueryWrapper<UserInfoVo> queryWrapper = new QueryWrapper<>(userInfoVo);
+		if (StringUtils.isNoneBlank(userInfoVo.getGroupId())) {
+			queryWrapper.eq("ugi.id", userInfoVo.getGroupId());
+		}
+		return null;
 	}
 
 	@Override

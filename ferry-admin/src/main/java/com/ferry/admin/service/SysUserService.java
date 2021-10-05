@@ -1,6 +1,7 @@
 package com.ferry.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ferry.admin.vo.UserInfoVo;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.entity.SysUserRole;
 import com.ferry.core.page.PageRequest;
@@ -52,6 +53,8 @@ public interface SysUserService extends IService <SysUser> {
 	 * @return
 	 */
 	File createUserExcelFile(PageRequest pageRequest);
+
+	List<UserInfoVo> list(UserInfoVo userInfo);
 
 	String deleteAvatarById(Integer id);
 }
