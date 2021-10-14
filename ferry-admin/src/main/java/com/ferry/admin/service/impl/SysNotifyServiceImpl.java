@@ -19,7 +19,6 @@ import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.mapper.SysNotifyMapper;
 import com.ferry.server.admin.mapper.SysNotifyRecordMapper;
 import com.ferry.server.admin.mapper.SysUserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

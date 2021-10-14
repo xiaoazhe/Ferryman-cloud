@@ -1,5 +1,6 @@
 package com.ferry.admin.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ferry.admin.constant.SysConstants;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.service.SysUserService;
@@ -7,6 +8,8 @@ import com.ferry.admin.util.PasswordUtils;
 import com.ferry.admin.util.SecurityUtils;
 import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
+import com.ferry.server.admin.entity.SysUserGroupInfo;
+import com.ferry.server.admin.mapper.SysUserGroupInfoMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,11 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    SysUserService userService;
+    private SysUserService userService;
+
+    @Autowired
+    private SysUserGroupInfoMapper sysUserGroupInfoMapper;
+
 
     @ApiOperation(value = "首页查询")
     @PreAuthorize("hasAuthority('sys:user:view')")
@@ -167,5 +174,17 @@ public class UserController {
     @GetMapping(value = "/deleteFace/{id}")
     public Result deleteFace(@PathVariable Integer id) {
         return Result.ok(userService.deleteAvatarById(id));
+    }
+
+    @ApiOperation(value = "获取用户集合")
+    @GetMapping(value = "/getUserList")
+    public Result getUserList() {
+        return Result.ok(userService.getOne(new QueryWrapper<>()));
+    }
+
+    @ApiOperation(value = "获取分组集合")
+    @GetMapping(value = "/getUserGroupInfo")
+    public Result getUserGroupInfo() {
+        return Result.ok(sysUserGroupInfoMapper.selectList(new QueryWrapper<>()));
     }
 }

@@ -104,7 +104,7 @@ public class ChatRecordController {
     }
 
     @ApiOperation("删除聊天记录")
-    @DeleteMapping(value = "/del")
+    @GetMapping(value = "/del")
     public Result imChatRecordDelete(ImChatRecordVo imChatRecordVo) {
         try {
             int count = chatRecordService.imChatRecordDelete(imChatRecordVo) ? 1 : 0;

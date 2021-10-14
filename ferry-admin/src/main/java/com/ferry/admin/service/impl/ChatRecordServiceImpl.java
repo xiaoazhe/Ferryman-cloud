@@ -6,6 +6,7 @@ import com.ferry.server.admin.entity.SysChatRecord;
 import com.ferry.server.admin.mapper.SysChatRecordMapper;
 import com.ferry.server.admin.vo.ImChatRecordVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.Map;
  * @Author: 摆渡人
  * @Date: 2021/10/5
  */
+@Service
 public class ChatRecordServiceImpl extends ServiceImpl <SysChatRecordMapper, SysChatRecord> implements ChatRecordService {
 
     @Autowired
