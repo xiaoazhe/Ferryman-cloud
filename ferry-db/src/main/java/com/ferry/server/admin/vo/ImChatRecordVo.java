@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
  * @Date: 2021/10/5
  */
 @Data
-@ApiModel(value = "ImChatRecord对象Vo", description = "聊天记录Vo")
 public class ImChatRecordVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
