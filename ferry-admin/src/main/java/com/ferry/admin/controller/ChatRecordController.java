@@ -57,8 +57,8 @@ public class ChatRecordController {
     }
 
     @ApiOperation("无分页查询聊天列表数据")
-    @GetMapping(value = "/list")
-    public Result getImChatRecordList(ImChatRecordVo imChatRecordVo) {
+    @PostMapping(value = "/list")
+    public Result getImChatRecordList(@RequestBody ImChatRecordVo imChatRecordVo) {
         try {
             List <ImChatRecordVo> result = chatRecordService.selectRecordList(imChatRecordVo);
             return Result.ok(result);
