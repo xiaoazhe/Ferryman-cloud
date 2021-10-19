@@ -122,6 +122,9 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
     @Override
     public List<SysNotify> getNoReadListByUserId() {
         String userName = SecurityUtils.getUsername();
+        if (StringUtils.isBlank(userName)) {
+            return null;
+        }
         Long userId = sysUserMapper.findByName(userName).getId();
         QueryWrapper<SysNotify> query = new QueryWrapper<SysNotify>();
         query.eq(SysNotify.CRESARE_USER_ID, userId);
