@@ -179,7 +179,7 @@ public class UserController {
     @ApiOperation(value = "获取用户集合")
     @GetMapping(value = "/getUserList")
     public Result getUserList() {
-        return Result.ok(userService.getOne(new QueryWrapper<>()));
+        return Result.ok(userService.list());
     }
 
     @ApiOperation(value = "获取分组集合")
