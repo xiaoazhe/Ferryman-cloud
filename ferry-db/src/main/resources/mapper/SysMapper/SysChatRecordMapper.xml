@@ -200,7 +200,7 @@
     AND iucr.is_read = 0
     ) AS unReadCount
     FROM
-    sys_chat_record AS icr
+    `sys_chat_record` icr
     LEFT JOIN sys_user_chat_relation iucr ON iucr.chat_id = icr.id and iucr.is_deleted =0
     LEFT JOIN sys_user u ON u.id = iucr.sender_id
     <where>
