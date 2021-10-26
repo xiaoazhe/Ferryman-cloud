@@ -35,8 +35,8 @@ public class ChatRecordController {
     private IdWorker idWorker;
 
     @ApiOperation("更新消息为已读")
-    @PutMapping(value = "/updRead")
-    public Result imChatRecordUpdate(ImChatRecordVo imChatRecordVo) {
+    @PostMapping(value = "/updRead")
+    public Result imChatRecordUpdate(@RequestBody ImChatRecordVo imChatRecordVo) {
         try {
             chatRecordService.imChatRecordUpdate(imChatRecordVo);
             return Result.ok();

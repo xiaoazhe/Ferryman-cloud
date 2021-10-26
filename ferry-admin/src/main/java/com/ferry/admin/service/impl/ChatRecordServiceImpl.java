@@ -63,7 +63,7 @@ public class ChatRecordServiceImpl extends ServiceImpl <SysChatRecordMapper, Sys
             chatRecordVo.setName(user.getName());
             chatRecordVos.add(chatRecordVo);
         }
-        return imChatRecordMapper.selectRecordList(imChatRecordVo);
+        return chatRecordVos;
     }
 
     @Override
