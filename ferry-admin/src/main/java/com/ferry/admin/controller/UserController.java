@@ -178,10 +178,12 @@ public class UserController {
 
     @ApiOperation(value = "获取用户集合")
     @GetMapping(value = "/getUserList")
+    @PreAuthorize("hasAuthority('sys:user:view')")
     public Result getUserList() {
         return Result.ok(userService.list());
     }
 
+    @PreAuthorize("hasAuthority('sys:user:view')")
     @ApiOperation(value = "获取分组集合")
     @GetMapping(value = "/getUserGroupInfo")
     public Result getUserGroupInfo() {
