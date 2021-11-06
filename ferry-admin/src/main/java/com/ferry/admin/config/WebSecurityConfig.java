@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // 禁用 csrf, 由于使用的是JWT，我们这里不需要csrf
-        http.cors().and().csrf().disable()
+        http.cors().and()
     		.authorizeRequests()
     		// 跨域预检请求
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             // 服务监控
             .antMatchers("/actuator/**").permitAll()
             // 其他所有请求需要身份认证
-            .anyRequest().authenticated();
+            .anyRequest().authenticated().and().csrf().disable();
         // 不禁用 swagger和数据源监考不展示
 //        http.authorizeRequests()
 //                .and().headers().frameOptions().sameOrigin();//更改X-Frame-Options为SAMEORIGIN，会导致iframe框架不能显示内容

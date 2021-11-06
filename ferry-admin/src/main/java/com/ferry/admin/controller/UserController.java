@@ -2,6 +2,7 @@ package com.ferry.admin.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ferry.admin.constant.SysConstants;
+import com.ferry.admin.service.ChatRecordService;
 import com.ferry.server.admin.entity.SysUser;
 import com.ferry.admin.service.SysUserService;
 import com.ferry.admin.util.PasswordUtils;
@@ -10,6 +11,7 @@ import com.ferry.core.http.Result;
 import com.ferry.core.page.PageRequest;
 import com.ferry.server.admin.entity.SysUserGroupInfo;
 import com.ferry.server.admin.mapper.SysUserGroupInfoMapper;
+import com.ferry.server.admin.vo.ImChatRecordVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ public class UserController {
     @Autowired
     private SysUserGroupInfoMapper sysUserGroupInfoMapper;
 
+    @Autowired
+    public ChatRecordService chatRecordService;
 
     @ApiOperation(value = "首页查询")
     @PreAuthorize("hasAuthority('sys:user:view')")
@@ -183,7 +187,7 @@ public class UserController {
         return Result.ok(userService.list());
     }
 
-    @PreAuthorize("hasAuthority('sys:user:view')")
+//    @PreAuthorize("hasAuthority('sys:user:view')")
     @ApiOperation(value = "获取分组集合")
     @GetMapping(value = "/getUserGroupInfo")
     public Result getUserGroupInfo() {

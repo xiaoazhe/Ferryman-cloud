@@ -2,6 +2,7 @@ package com.ferry.server.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ferry.server.admin.entity.SysUser;
+import com.ferry.server.admin.vo.ImChatRecordVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
