@@ -187,7 +187,6 @@ public class UserController {
         return Result.ok(userService.list());
     }
 
-//    @PreAuthorize("hasAuthority('sys:user:view')")
     @ApiOperation(value = "获取分组集合")
     @GetMapping(value = "/getUserGroupInfo")
     public Result getUserGroupInfo() {
