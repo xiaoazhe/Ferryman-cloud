@@ -4,11 +4,17 @@
 白嫖！！！
 
 哦不 是开源！！
-#### DEMO版本
+
 渡船夫 摆渡人
 
 #### Spring Boot + Spring Cloud + Vue
-待开发聊天功能，在考虑是在管理端的加通知还是在博客（论坛）加
+docker 环境 docker search ferryboatman
+
+ferryboatman/rabbitmq                                    
+ferryboatman/mysql                                        
+ferryboatman/zipkin                                       
+ferryboatman/fastdfs                                      
+ferryboatman/mongo                        
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
