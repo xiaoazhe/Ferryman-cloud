@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
  */
 @Data
 @TableName(value = "bl_type")
+@EqualsAndHashCode(callSuper = false)
 public class BlType implements Serializable {
     public static final String COL_TYPE_ID = "type_id";
     public static final String COL_TYPE_NAME = "type_name";

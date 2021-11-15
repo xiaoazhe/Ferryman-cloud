@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -18,6 +19,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "bl_collect")
+@EqualsAndHashCode(callSuper = false)
 public class BlCollect implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

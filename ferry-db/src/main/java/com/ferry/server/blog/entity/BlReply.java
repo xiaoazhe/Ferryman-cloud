@@ -9,6 +9,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -17,6 +18,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "bl_reply")
+@EqualsAndHashCode(callSuper = false)
 public class BlReply implements Serializable {
     /**
      * 编号

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -15,6 +16,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "sys_notify")
+@EqualsAndHashCode(callSuper = false)
 public class SysNotify implements Serializable {
     /**
      * 编号

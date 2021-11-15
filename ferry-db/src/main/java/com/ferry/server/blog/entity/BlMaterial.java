@@ -9,6 +9,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -17,6 +18,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "bl_material")
+@EqualsAndHashCode(callSuper = false)
 public class BlMaterial implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

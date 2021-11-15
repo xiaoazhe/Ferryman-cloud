@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Date;
  */
 @Data
 @TableName(value = "bl_file")
+@EqualsAndHashCode(callSuper = false)
 public class BlFile implements Serializable {
     @TableId(value = "id")
     private String id;

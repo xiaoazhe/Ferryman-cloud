@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 
@@ -14,6 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "bl_user_label")
+@EqualsAndHashCode(callSuper = false)
 public class BlUserLabel implements Serializable {
     /**
      * 用户ID

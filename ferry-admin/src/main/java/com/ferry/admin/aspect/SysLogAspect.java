@@ -1,20 +1,23 @@
 package com.ferry.admin.aspect;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ferry.admin.util.*;
+import com.ferry.core.http.Result;
 import com.ferry.server.admin.entity.SysLog;
 import com.ferry.admin.service.SysLogService;
-import com.ferry.admin.util.HttpUtils;
-import com.ferry.admin.util.IPUtils;
-import com.ferry.admin.util.SecurityUtils;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 /**
  * 系统日志，切面处理类，记录日志
@@ -27,11 +30,90 @@ public class SysLogAspect {
 	
 	@Autowired
 	private SysLogService sysLogService;
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(SysLogAspect.class);
+
 	@Pointcut("execution(* com.ferry.*.*.service.*.*(..))")
 	public void logPointCut() { 
 		
 	}
+
+	/**
+	 * 切入点
+	 */
+	@Pointcut("execution(public * com.ferry.*.*.*(..))")
+	private void commonPointcut() {
+	}
+
+
+	/**
+	 * 全局的异常打印切面
+	 *
+	 * @param joinPoint
+	 * @return
+	 * @throws Throwable
+	 */
+	@Around("commonPointcut()")
+	public Object cutAllAround(ProceedingJoinPoint joinPoint) throws Throwable {
+		Object result = null;
+
+		try {
+			result = joinPoint.proceed();
+		} catch (Exception ex) {
+			result = handleException(ex);
+			logger.error("服务调用全局异常", ex);
+		}
+		return result;
+	}
+
+	public <T> Result handleException(Exception ex){
+		if (ex instanceof RuntimeException){
+			return Result.error();
+		}
+		return Result.error();
+	}
+
+	@Pointcut("execution( * com.ferry.*.controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
+	public void log() {
+	}
+
+	@Before("log()")
+	public void doBefore(JoinPoint joinPoint) {
+		// 接收到请求，记录请求内容
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		if (null != attributes) {
+			HttpServletRequest request = attributes.getRequest();
+			// 记录下请求内容
+			logger.info("请求地址 :{} ", request.getRequestURL().toString());
+			logger.info("HTTP METHOD : {}", request.getMethod());
+			// 获取真实的ip地址
+			logger.info("IP : {}", IPUtils.getIpAddr(request));
+			logger.info("CLASS_METHOD : {}", joinPoint.getSignature().getDeclaringTypeName() + "."
+					+ joinPoint.getSignature().getName());
+			logger.info("参数 : {}", Arrays.toString(joinPoint.getArgs()));
+		}
+
+	}
+
+	@AfterReturning(returning = "ret", pointcut = "log()")// returning的值和doAfterReturning的参数名一致
+	public void doAfterReturning(Object ret) {
+		// 处理完请求，返回内容(返回值太复杂时，打印的是物理存储空间的地址)
+		logger.info("返回值 :{} ", ret);
+	}
+
+	@Around("log()")
+	public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
+		long startTime = System.currentTimeMillis();
+		Object ob = pjp.proceed();// ob 为方法的返回值
+		logger.info("耗时 : {}", (System.currentTimeMillis() - startTime));
+		return ob;
+	}
+
+
+
+
+
+
 
 	@Around("logPointCut()")
 	public Object around(ProceedingJoinPoint point) throws Throwable {

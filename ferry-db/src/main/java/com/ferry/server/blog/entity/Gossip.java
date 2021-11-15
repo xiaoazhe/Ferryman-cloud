@@ -2,6 +2,7 @@ package com.ferry.server.blog.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Gossip implements Serializable {
 
     /**

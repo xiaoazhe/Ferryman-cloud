@@ -1,9 +1,13 @@
 package com.ferry.core.http;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 /**
  * @Author: 摆渡人
  * @Date: 2021/4/26
  */
+@Data
 public class Result {
 
 	private int code = 200;
