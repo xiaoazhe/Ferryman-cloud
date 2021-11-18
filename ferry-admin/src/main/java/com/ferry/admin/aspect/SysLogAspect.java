@@ -27,16 +27,11 @@ import java.util.Arrays;
 @Aspect
 @Component
 public class SysLogAspect {
-	
-	@Autowired
-	private SysLogService sysLogService;
 
 	private static final Logger logger = LoggerFactory.getLogger(SysLogAspect.class);
 
-	@Pointcut("execution(* com.ferry.*.*.service.*.*(..))")
-	public void logPointCut() { 
-		
-	}
+	@Autowired
+	private SysLogService sysLogService;
 
 	/**
 	 * 切入点
@@ -45,6 +40,14 @@ public class SysLogAspect {
 	private void commonPointcut() {
 	}
 
+	@Pointcut("execution( * com.ferry.*.controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
+	public void log() {
+	}
+
+	@Pointcut("execution(* com.ferry.*.*.service.*.*(..))")
+	public void logPointCut() {
+
+	}
 
 	/**
 	 * 全局的异常打印切面
@@ -71,10 +74,6 @@ public class SysLogAspect {
 			return Result.error();
 		}
 		return Result.error();
-	}
-
-	@Pointcut("execution( * com.ferry.*.controller.*.*(..))")//两个..代表所有子目录，最后括号里的两个..代表所有参数
-	public void log() {
 	}
 
 	@Before("log()")
@@ -109,12 +108,6 @@ public class SysLogAspect {
 		return ob;
 	}
 
-
-
-
-
-
-
 	@Around("logPointCut()")
 	public Object around(ProceedingJoinPoint point) throws Throwable {
 		long beginTime = System.currentTimeMillis();
@@ -134,14 +127,6 @@ public class SysLogAspect {
 		}
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		SysLog sysLog = new SysLog();
-		
-//		Method method = signature.getMethod();
-//		com.louis.merak.admin.annotation.SysLog syslogAnno = method.getAnnotation(com.louis.merak.admin.annotation.SysLog.class);
-//		if(syslogAnno != null){
-//			//注解上的描述
-//			sysLog.setOperation(syslogAnno.value());
-//		}
-
 		// 请求的方法名
 		String className = joinPoint.getTarget().getClass().getName();
 		String methodName = signature.getName();
@@ -157,20 +142,15 @@ public class SysLogAspect {
 			sysLog.setParams(params);
 		} catch (Exception e){
 		}
-
 		// 获取request
 		HttpServletRequest request = HttpUtils.getHttpServletRequest();
 		// 设置IP地址
 		sysLog.setIp(IPUtils.getIpAddr(request));
-
 		// 用户名
 		sysLog.setUserName(userName);
-		
 		// 执行时长(毫秒)
 		sysLog.setTime(time);
-		
 		// 保存系统日志
 		sysLogService.save(sysLog);
 	}
-
 }
