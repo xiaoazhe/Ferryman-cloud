@@ -145,7 +145,7 @@ fdfs_test /etc/fdfs/client.conf upload index.html
 加入 user root;
 修改
 	listen       80;
-        server_name  1.116.227.4;
+        server_name  ip;
 
 	        #charset koi8-r;
 
