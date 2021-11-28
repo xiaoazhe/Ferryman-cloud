@@ -121,7 +121,7 @@ GitHub 后端同步更新
 
 
 #### 提醒
-后台音乐模块音乐上传需要搭建FDFS系统
+后台音乐模块音乐上传需要搭建容器FDFS文件管理
 1，拉取镜像并启动
  
 docker run -d --restart=always --privileged=true --net=host --name=fastdfs -e IP=1.116.227.4 -e WEB_PORT=80 -v ${HOME}/fastdfs:/var/local/fdfs registry.cn-beijing.aliyuncs.com/tianzuo/fastdfs
