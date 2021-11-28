@@ -15,13 +15,11 @@ import com.ferry.core.file.FileUploader;
 import com.ferry.core.file.GlobalFileUploader;
 import com.ferry.core.file.emums.FileUploadType;
 import com.ferry.core.file.entity.VirtualFile;
-import com.ferry.core.http.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

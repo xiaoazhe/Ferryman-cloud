@@ -50,6 +50,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>Ferry-consul</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
