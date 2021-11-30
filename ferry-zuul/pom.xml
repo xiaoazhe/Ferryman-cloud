@@ -43,6 +43,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>Ferry-zuul</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

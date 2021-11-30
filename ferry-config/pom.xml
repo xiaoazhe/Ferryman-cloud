@@ -44,6 +44,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>Ferry-config</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
