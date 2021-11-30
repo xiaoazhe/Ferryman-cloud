@@ -86,7 +86,7 @@ GitHub 后端同步更新
 |        Mavon-Editor         |             Markdown编辑器              |             https://github.com/hinesboy/mavonEditor            |
 |        Aplayer        |             音乐播放器            |             https://aplayer.js.org/#/            |
 |        Vue-i18n        |             国际化            |             https://kazupon.github.io/vue-i18n/zh/introduction.html           |
-|        Cookie        |             认证cookie            |             https://www.runoob.com/js/js-cookies.html           |
+|        Cookie        |             认证cookie&&缓存            |             https://www.runoob.com/js/js-cookies.html           |
 
 
 
