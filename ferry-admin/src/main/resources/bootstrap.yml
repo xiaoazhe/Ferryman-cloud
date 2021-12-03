@@ -31,3 +31,5 @@ management:
     web:
       exposure:
         include: "*"
+qr:
+  url: http://localhost:8080/#/facelogin
