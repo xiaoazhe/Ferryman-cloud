@@ -12,8 +12,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "ferry.recover.datasource")
-@EnableConfigurationProperties()
-@RefreshScope
 public class BackupDataSourceProperties {
 	
 	private String host;

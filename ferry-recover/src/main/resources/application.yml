@@ -1,19 +1,44 @@
+#spring:
+#  cloud:
+#    consul:
+#      host: localhost
+#      port: 8500
+#      discovery:
+#        serviceName: Ferry-recover    # 注册到consul的服务名称
+#    config:
+#      discovery:
+#        enablead: true
+#        serviceId: Ferry-recover
+#      name: recover
+#      profile: dev
+#      label: master
+#      uri: http://127.0.0.1:8020
+#
 # tomcat
 server:
   port: 8002
 spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        serviceName: Ferry-recover    # 注册到consul的服务名称
+    config:
+      discovery:
+        enablead: true
+        serviceId: Ferry-config
+      name: recover
+      profile: dev
+      label: master
+      uri: http://127.0.0.1:8020
   application:
     name: Ferry-recover
   boot:
     admin:
       client:
         url: "http://localhost:8000"
-  cloud:
-    consul:
-      host: localhost
-      port: 8500
-      discovery:
-        serviceName: Ferry-recover	# 注册到consul的服务名称
+
 # 开放健康检查接口
 management:
   endpoints:
@@ -26,7 +51,7 @@ management:
 ferry:
   recover:
     datasource:
-      host: localhost
+      host: ip
       userName: root
       password: root
       database: ferryman
