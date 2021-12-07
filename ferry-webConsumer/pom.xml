@@ -141,6 +141,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>Ferry-consumer</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
