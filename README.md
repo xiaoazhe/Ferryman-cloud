@@ -8,19 +8,9 @@
 
 
 #### Spring Boot + Spring Cloud + Vue
-docker 环境 docker search ferryboatman
 
-ferryboatman/rabbitmq:2.0.0    
-
-ferryboatman/mysql:2.0.0
-
-ferryboatman/zipkin:2.0.0
-
-ferryboatman/fastdfs:2.0.0
-
-ferryboatman/mongo:2.0.0
-
-ferryboatman/redis:2.0.0
+环境部署操作
+https://blog.csdn.net/weixin_44045059/article/details/121723799
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
@@ -35,7 +25,6 @@ GitHub 后端同步更新
 [https://github.com/xiaoazhe/Ferryman-cloud](http://)
 #### 软件架构
 
-ES待接入
 
 
 |      后端技术      |           说明            |                             官网                             |
