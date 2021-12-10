@@ -59,7 +59,6 @@ GitHub 后端同步更新
 |     Zipkin     |         链路追踪          |             https://github.com/openzipkin/zipkin             |
 |     AipFace     |         人脸识别          |             https://cloud.baidu.com/product/face?track=cp:nsem|pf:pc|pp:nsem-chanpin-renlianshibie-xiaoguo|pu:renlianshibie-pinpaici|ci:|kw:10027829&renqun_youhua=2850304             |
 |     Mail     |         网易邮箱          |             https://mail.163.com/            |
-|     Socket     |         即时通信          |             https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket            |
 
 
 
