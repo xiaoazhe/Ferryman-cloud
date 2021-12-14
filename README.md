@@ -3,6 +3,8 @@
 
 http://266a730z83.zicp.vip
 
+http://266a730z83.zicp.vip:32121
+
 ####  Spring Cloud + Spring Boot + Vue
 
 环境部署操作
