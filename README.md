@@ -1,11 +1,6 @@
 # Ferryman-cloud(摆渡人)
 
 
-http://266a730z83.zicp.vip
-
-http://266a730z83.zicp.vip:32121
-
-springboot版（ing）
 
 ####  Spring Cloud + Spring Boot + Vue
 
