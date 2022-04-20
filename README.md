@@ -13,10 +13,7 @@ https://blog.csdn.net/weixin_44045059/article/details/121723799
 后台前端
 [https://gitee.com/chongzhe/Ferryman-admin](http://)
 
-Gitee 后端同步更新
-[https://gitee.com/chongzhe/Ferryman-cloud](http://)
-
-GitHub 后端同步更新
+GitHub
 [https://github.com/xiaoazhe/Ferryman-cloud](http://)
 #### 软件架构
 
