@@ -19,6 +19,7 @@ import com.ferry.server.admin.entity.SysUser;
 import com.ferry.server.admin.mapper.SysNotifyMapper;
 import com.ferry.server.admin.mapper.SysNotifyRecordMapper;
 import com.ferry.server.admin.mapper.SysUserMapper;
+import org.apache.commons.collections.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -123,6 +124,9 @@ public class SysNotifyServiceImpl extends ServiceImpl <SysNotifyMapper, SysNotif
     @Override
     public List<SysNotify> getNoReadListByUserId() {
         String userName = SecurityUtils.getUsername();
+        if (Objects.isNull(userName)) {
+            return null;
+        }
         Long userId = sysUserMapper.findByName(userName).getId();
         QueryWrapper<SysNotify> query = new QueryWrapper<SysNotify>();
         query.eq(SysNotify.CRESARE_USER_ID, userId);

@@ -51,7 +51,7 @@ public class FileController {
      */
     @PostMapping(value = "/images")
     public Result addFile(MultipartFile file) throws Exception {
-        return Result.ok(fileService.uploadFile(file));
+        return Result.ok(fileService.uploadFile(file), "成功");
     }
 
     /**

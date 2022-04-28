@@ -40,6 +40,13 @@ public class Result {
 		r.setData(data);
 		return r;
 	}
+
+	public static Result ok(Object data, String msg) {
+		Result r = new Result();
+		r.setData(data);
+		r.setMsg(msg);
+		return r;
+	}
 	
 	public static Result ok() {
 		return new Result();
