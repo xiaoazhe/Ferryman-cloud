@@ -16,7 +16,7 @@ spring:
       label: master
       uri: http://127.0.0.1:8020
   rabbitmq:
-    addresses: 1.116.227.4
+    addresses: 121.5.129.126
     username: guest
     password: guest
     cache:
