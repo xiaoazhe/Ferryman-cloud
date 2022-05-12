@@ -7,7 +7,10 @@
 环境部署操作
 https://blog.csdn.net/weixin_44045059/article/details/121723799
 
-Spring Boot版 ing
+使用阿里云效Devops自动化部署前后端
+http://121.5.129.126:8880/#/login
+
+Spring Boot版 https://gitee.com/chongzhe/Ferryboatman-boot
 
 前台前端
 [https://gitee.com/chongzhe/Ferryman-blog](http://)
